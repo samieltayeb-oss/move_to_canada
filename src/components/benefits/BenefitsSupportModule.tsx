@@ -354,6 +354,110 @@ export function BenefitsSupportModule() {
               </div>
             </div>
           </div>
+
+          {/* DEDICATED ALBERTA CHILD AND FAMILY BENEFIT (ACFB) BREAKDOWN */}
+          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-purple-500/30 bg-purple-950/10 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+              <div>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Award className="w-5 h-5 text-purple-400" />
+                  <span>Alberta Child and Family Benefit (ACFB) — Provincial Benefit</span>
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Funded by the Government of Alberta &amp; Administered by CRA • Quarterly Payout Schedule
+                </p>
+              </div>
+              <div className="text-right font-mono text-xs">
+                <span className="text-slate-400">Max Potential for 3 Children: </span>
+                <strong className="text-purple-300">$4,977.00 CAD / yr</strong>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
+              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="flex justify-between items-center">
+                  <strong className="text-white text-sm">1. Base Component</strong>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300">No work required</span>
+                </div>
+                <div className="space-y-1 text-[11px]">
+                  <div className="flex justify-between text-slate-400">
+                    <span>3-Child Max Base:</span>
+                    <span className="text-white">$3,057.00 / yr</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <span>Phaseout Starts:</span>
+                    <span>$27,024 AFNI (7.5%)</span>
+                  </div>
+                  <div className="flex justify-between text-purple-300 font-bold pt-1 border-t border-slate-800">
+                    <span>Calculated Base:</span>
+                    <span>${acfbResult.baseComponentCAD.toLocaleString()} CAD</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="flex justify-between items-center">
+                  <strong className="text-white text-sm">2. Working Component</strong>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300">Labour incentive</span>
+                </div>
+                <div className="space-y-1 text-[11px]">
+                  <div className="flex justify-between text-slate-400">
+                    <span>3-Child Max Working:</span>
+                    <span className="text-white">$1,920.00 / yr</span>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <span>Phase-in / Out:</span>
+                    <span>$2,760 / $45,285</span>
+                  </div>
+                  <div className="flex justify-between text-purple-300 font-bold pt-1 border-t border-slate-800">
+                    <span>Calculated Working:</span>
+                    <span>${acfbResult.workingComponentCAD.toLocaleString()} CAD</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-950 border border-purple-500/40 space-y-2">
+                <div className="flex justify-between items-center">
+                  <strong className="text-white text-sm">Your ACFB Total</strong>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-purple-900 text-purple-300">Quarterly Payout</span>
+                </div>
+                <div className="space-y-1 text-[11px]">
+                  <div className="flex justify-between text-slate-400">
+                    <span>Annual Entitlement:</span>
+                    <strong className="text-purple-300 text-sm">${acfbResult.totalAnnualCAD.toLocaleString()} CAD</strong>
+                  </div>
+                  <div className="flex justify-between text-emerald-400 font-bold">
+                    <span>Each Quarter:</span>
+                    <span>${acfbResult.quarterlyPaymentCAD.toLocaleString()} CAD</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-800">
+                    Dates: Aug 27, Nov 27, Feb 27, May 27
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cross-link to Alberta Child Health Benefit (ACHB) */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="space-y-0.5">
+                <strong className="text-white flex items-center gap-1.5">
+                  <span>Looking for Alberta Child Health Benefit (ACHB)?</span>
+                </strong>
+                <p className="text-slate-400 text-[11px] font-light">
+                  Free dental, optical, and prescription drug coverage for Alberta children under net family income of $41,594.
+                </p>
+              </div>
+              <a
+                href="https://www.alberta.ca/alberta-child-and-family-benefit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 font-semibold shrink-0"
+              >
+                <span>Official Alberta.ca ACFB Rules</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
         </div>
       )}
 
