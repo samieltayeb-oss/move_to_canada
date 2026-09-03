@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useApp } from '@/context/AppContext';
-import { ShieldCheck, Printer } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 export function Footer() {
   const { isRtl } = useApp();
@@ -117,20 +117,28 @@ export function Footer() {
               </a>
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <Link href="/sources" className="hover:text-slate-300">
-              {isRtl ? 'سجل المصادر' : 'Data Governance'}
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/pricing" className="text-emerald-400 hover:text-emerald-300 font-semibold">
+              {isRtl ? 'الأسعار والباقات' : 'Pricing'}
             </Link>
-            <Link href="/plan" className="hover:text-slate-300">
-              {isRtl ? 'الملف التنفيذي' : 'Executive Dossier'}
+            <Link href="/terms" className="hover:text-slate-300">
+              {isRtl ? 'الشروط' : 'Terms'}
             </Link>
-            <button
-              onClick={() => window.print()}
-              className="hover:text-slate-300 inline-flex items-center gap-1"
-            >
-              <Printer className="w-3 h-3" />
-              <span>Print / PDF</span>
-            </button>
+            <Link href="/privacy" className="hover:text-slate-300">
+              {isRtl ? 'الخصوصية' : 'Privacy'}
+            </Link>
+            <Link href="/refund-policy" className="hover:text-slate-300">
+              {isRtl ? 'الاسترجاع' : 'Refunds'}
+            </Link>
+            <Link href="/disclaimer" className="hover:text-slate-300">
+              {isRtl ? 'إخلاء المسؤولية' : 'Disclaimer'}
+            </Link>
+            <Link href="/support" className="hover:text-slate-300">
+              {isRtl ? 'الدعم' : 'Support'}
+            </Link>
+            <Link href="/trust" className="hover:text-slate-300">
+              {isRtl ? 'مركز الثقة' : 'Trust'}
+            </Link>
           </div>
         </div>
       </div>

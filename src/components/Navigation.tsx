@@ -26,7 +26,8 @@ import {
   Award,
   Compass,
   LogIn,
-  LogOut
+  LogOut,
+  Sparkles
 } from 'lucide-react';
 
 export function Navigation() {
@@ -203,6 +204,15 @@ export function Navigation() {
               <Printer className="w-3.5 h-3.5 text-slate-400" />
               <span>{t.common.printExport}</span>
             </button>
+
+            {/* Pricing Button */}
+            <Link
+              href="/pricing"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 transition-all shadow-sm"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{isRtl ? 'الأسعار والباقات' : 'Pricing'}</span>
+            </Link>
 
             {/* Desktop Auth Controls — High Visibility */}
             <div className="hidden lg:flex items-center gap-2">
