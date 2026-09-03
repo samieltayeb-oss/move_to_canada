@@ -155,3 +155,28 @@ ALTER TABLE public.concierge_requests ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view and manage own concierge requests"
     ON public.concierge_requests FOR ALL
     USING (auth.uid() = user_id);
+
+-- ------------------------------------------------------------------------------
+-- 6. TRUSTED SERVER-SIDE ROLE AUTHORIZATION (ADMIN HARDENING)
+-- ------------------------------------------------------------------------------
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS role TEXT NOT NULL DEFAULT 'USER';
+
+-- Ensure clients cannot self-assign or elevate role
+CREATE OR REPLACE FUNCTION public.protect_user_role()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.role IS DISTINCT FROM OLD.role THEN
+        IF current_setting('request.jwt.claim.role', true) != 'service_role' THEN
+            RAISE EXCEPTION 'Unauthorized: Clients cannot modify account role.';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+DROP TRIGGER IF EXISTS tr_protect_user_role ON public.profiles;
+CREATE TRIGGER tr_protect_user_role
+    BEFORE UPDATE ON public.profiles
+    FOR EACH ROW
+    EXECUTE FUNCTION public.protect_user_role();
+

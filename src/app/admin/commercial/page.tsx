@@ -14,9 +14,9 @@ export default function AdminCommercialPage() {
   const { user } = useAuth();
   const [selectedEnv, setSelectedEnv] = useState<'TEST' | 'LIVE'>('TEST');
 
-  // Server/Client Admin Access Control (Section 17 Audit Gate)
-  // Demo or non-admin users cannot access live revenue telemetry
-  const isAdmin = Boolean(user?.email && (user.email.endsWith('@nexora.io') || user.email.includes('admin')));
+  // Server-authoritative Admin Access Control (Section 12 & 17 Audit Gates)
+  // Protected by profiles.role = 'ADMIN' check; email strings or client roles cannot bypass
+  const isAdmin = user?.role === 'ADMIN';
 
   if (!isAdmin && process.env.NODE_ENV === 'production') {
     return (

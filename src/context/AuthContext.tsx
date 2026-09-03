@@ -24,6 +24,7 @@ export interface AuthUser {
   lastName: string;
   displayName: string;
   isDemo: boolean;
+  role?: 'ADMIN' | 'USER';
 }
 
 export interface RelocationScenario {
@@ -361,13 +362,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) return { error: error.message };
         if (data.user) {
+          // Query server-authoritative role from profiles table
+          let role: 'ADMIN' | 'USER' = 'USER';
+          try {
+            const { data: profileRow } = await supabase
+              .from('profiles')
+              .select('role')
+              .eq('user_id', data.user.id)
+              .maybeSingle();
+            if (profileRow?.role === 'ADMIN') role = 'ADMIN';
+          } catch {}
+
           const authUser: AuthUser = {
             id: data.user.id,
             email: data.user.email || email,
             firstName: data.user.user_metadata?.first_name || 'User',
             lastName: data.user.user_metadata?.last_name || '',
             displayName: data.user.user_metadata?.first_name || email,
-            isDemo: false
+            isDemo: false,
+            role
           };
           setUser(authUser);
           setIsDemoMode(false);

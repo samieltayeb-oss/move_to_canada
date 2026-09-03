@@ -105,8 +105,8 @@ export const COMMERCIAL_PLANS: Record<PlanId, CommercialPlan> = {
     priceCAD: COMMERCIAL_CONFIG.FOUNDING_PRICE_ENABLED ? 49 : 79,
     regularPriceCAD: 79,
     priceSAR: Math.round((COMMERCIAL_CONFIG.FOUNDING_PRICE_ENABLED ? 49 : 79) * COMMERCIAL_CONFIG.CAD_SAR_EXCHANGE_RATE),
-    stripePriceIdTest: 'price_test_move_pass_49',
-    stripePriceIdLive: 'price_live_move_pass_79',
+    stripePriceIdTest: 'price_test_move_pass_49', // Application alias mapped to dynamic price_data
+    stripePriceIdLive: 'PENDING_LIVE_PRICE_BINDING',
     isActive: true,
     isFeatured: true,
     badge: 'MOST POPULAR • FOUNDING OFFER',
@@ -157,8 +157,8 @@ export const COMMERCIAL_PLANS: Record<PlanId, CommercialPlan> = {
     priceCAD: 19.99,
     regularPriceCAD: 19.99,
     priceSAR: Math.round(19.99 * COMMERCIAL_CONFIG.CAD_SAR_EXCHANGE_RATE),
-    stripePriceIdTest: 'price_test_pro_monthly_1999',
-    stripePriceIdLive: 'price_live_pro_monthly_1999',
+    stripePriceIdTest: 'price_test_pro_monthly_1999', // Application alias mapped to dynamic price_data
+    stripePriceIdLive: 'PENDING_LIVE_PRICE_BINDING',
     isActive: COMMERCIAL_CONFIG.PRO_ENABLED,
     isFeatured: false,
     badge: 'FOR ACTIVE JOB SEEKERS',
@@ -209,8 +209,8 @@ export const COMMERCIAL_PLANS: Record<PlanId, CommercialPlan> = {
     priceCAD: 149,
     regularPriceCAD: 239.88,
     priceSAR: Math.round(149 * COMMERCIAL_CONFIG.CAD_SAR_EXCHANGE_RATE),
-    stripePriceIdTest: 'price_test_pro_annual_149',
-    stripePriceIdLive: 'price_live_pro_annual_149',
+    stripePriceIdTest: 'price_test_pro_annual_149', // Application alias mapped to dynamic price_data
+    stripePriceIdLive: 'PENDING_LIVE_PRICE_BINDING',
     isActive: COMMERCIAL_CONFIG.PRO_ANNUAL_ENABLED,
     isFeatured: false,
     limits: {
@@ -241,8 +241,8 @@ export const COMMERCIAL_PLANS: Record<PlanId, CommercialPlan> = {
     priceCAD: 249,
     regularPriceCAD: 249,
     priceSAR: Math.round(249 * COMMERCIAL_CONFIG.CAD_SAR_EXCHANGE_RATE),
-    stripePriceIdTest: 'price_test_concierge_249',
-    stripePriceIdLive: 'price_live_concierge_249',
+    stripePriceIdTest: 'price_test_concierge_249', // Application alias mapped to dynamic price_data
+    stripePriceIdLive: 'PENDING_LIVE_PRICE_BINDING',
     isActive: COMMERCIAL_CONFIG.CONCIERGE_ENABLED,
     isFeatured: false,
     badge: '1-ON-1 RELOCATION ADVISORY',
