@@ -16,9 +16,9 @@ export const defaultFamilyProfile: FamilyProfile = {
   propertyTypePreference: 'Detached House',
   vehicleCount: 1,
   preferredCommuteMins: 30,
-  islamicSchoolPreference: true,
-  publicSchoolPreference: false,
-  communityPriorities: ['Islamic Community', 'Large House', 'Good Schools', 'Safety', 'Parks']
+  islamicSchoolPreference: false,
+  publicSchoolPreference: true,
+  communityPriorities: ['Public CBE Schools', 'Islamic Community', 'Large House', 'Safety', 'Parks']
 };
 
 export const IMMIGRATION_STATUS_OPTIONS = [

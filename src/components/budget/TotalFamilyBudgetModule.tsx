@@ -24,8 +24,8 @@ export function TotalFamilyBudgetModule() {
   const [offerSalary, setOfferSalary] = useState<number>(125000);
   const [offerBonus, setOfferBonus] = useState<number>(10000);
   const [offerOfficeDays, setOfferOfficeDays] = useState<number>(3);
-  const [offerRent, setOfferRent] = useState<number>(2950);
-  const [offerSchooling, setOfferSchooling] = useState<number>(410);
+  const [offerRent, setOfferRent] = useState<number>(2550);
+  const [offerSchooling, setOfferSchooling] = useState<number>(0);
   const [offerCarPayment, setOfferCarPayment] = useState<number>(450);
 
   const currentScenario = familyBudgetScenarios[selectedScenarioId];
@@ -374,8 +374,10 @@ export function TotalFamilyBudgetModule() {
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">Target Monthly Rent (CAD)</span>
-                  <span className="font-bold text-white">{formatCurrency(offerRent)}/mo</span>
+                  <span className="text-slate-300">
+                    Target Monthly Rent <span className="text-[10px] text-emerald-400 font-mono">(Calgary Price Drop: $2,450–$2,650)</span>
+                  </span>
+                  <span className="font-bold text-white font-mono">{formatCurrency(offerRent)}/mo</span>
                 </div>
                 <input
                   type="range"
@@ -390,8 +392,12 @@ export function TotalFamilyBudgetModule() {
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-slate-300">Monthly Islamic School Fees (CIS)</span>
-                  <span className="font-bold text-white">{formatCurrency(offerSchooling)}/mo</span>
+                  <span className="text-slate-300">
+                    Schooling Tuition <span className="text-[10px] text-sky-400 font-mono">(Public CBE: $0 | Optional CIS: ~$410)</span>
+                  </span>
+                  <span className="font-bold text-white font-mono">
+                    {offerSchooling === 0 ? '$0 (Public CBE Default)' : `${formatCurrency(offerSchooling)}/mo (Islamic)`}
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -402,6 +408,11 @@ export function TotalFamilyBudgetModule() {
                   onChange={(e) => setOfferSchooling(parseInt(e.target.value))}
                   className="w-full accent-amber-500 cursor-pointer"
                 />
+                <div className="flex justify-between text-[10px] font-mono text-slate-400 mt-1">
+                  <span>$0 (Public Schools)</span>
+                  <span>$410/mo (CIS 2 Kids)</span>
+                  <span>$1,000/mo (Private)</span>
+                </div>
               </div>
 
               <div>

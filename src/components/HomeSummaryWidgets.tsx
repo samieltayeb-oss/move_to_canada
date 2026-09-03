@@ -156,16 +156,16 @@ export function HomeSummaryWidgets() {
                 {isRtl ? 'إجمالي الميزانية الشهرية' : 'Total Monthly Budget'}
               </h4>
               <p className="text-xs text-slate-400 mb-3">
-                {isRtl ? 'منزل 4 غرف + سيارة SUV + مدرسة إسلامية' : '4-Bed house + AWD SUV + CIS Schooling + Halal Food'}
+                {isRtl ? 'منزل 4 غرف (سعر مخفض) + سيارة SUV + مدارس حكومية' : '4-Bed house (dropped rent) + SUV + Public Schools + Halal Food'}
               </p>
               <div className="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-slate-800">
                 <div className="flex justify-between">
                   <span className="text-slate-400">{isRtl ? 'المصروف الشهري' : 'Total Outlay'}:</span>
-                  <span className="font-semibold text-white">{formatCurrency(7540)}/mo</span>
+                  <span className="font-semibold text-white">{formatCurrency(6870)}/mo</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">{isRtl ? 'الراتب السنوي المطلوب' : 'Target Gross Salary'}:</span>
-                  <span className="font-semibold text-purple-400">{formatCurrency(125000)}/yr</span>
+                  <span className="font-semibold text-purple-400">{formatCurrency(118000)}/yr</span>
                 </div>
               </div>
             </div>

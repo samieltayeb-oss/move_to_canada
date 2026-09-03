@@ -18,13 +18,14 @@ import {
 
 export function NeighbourhoodExplorer() {
   const { t, formatCurrency, isRtl, bookmarks, toggleBookmark } = useApp();
-  const [filterType, setFilterType] = useState<'ALL' | 'MUSLIM' | 'BUDGET' | 'SCHOOLS' | 'TRANSIT' | 'EXECUTIVE'>('ALL');
+  const [filterType, setFilterType] = useState<'ALL' | 'MUSLIM' | 'BUDGET' | 'SCHOOLS' | 'TRANSIT' | 'EXECUTIVE' | 'NE_COMMUNITIES'>('ALL');
 
   const filteredNeighbourhoods = calgaryNeighbourhoods.filter(n => {
-    if (filterType === 'MUSLIM') return n.keyTags.includes('Best for Muslim Family') || n.muslimFamilyScore >= 85;
-    if (filterType === 'BUDGET') return n.fourBedDetachedRentCAD <= 2800;
-    if (filterType === 'SCHOOLS') return n.keyTags.includes('Best for Public Schools') || n.keyTags.includes('Top Academies');
-    if (filterType === 'TRANSIT') return n.keyTags.includes('Transit Access') || n.keyTags.includes('Transit Walkable') || n.nearestCTrainStation.includes('Line');
+    if (filterType === 'NE_COMMUNITIES') return n.quadrant.includes('NE');
+    if (filterType === 'MUSLIM') return n.keyTags.includes('Best for Muslim Family') || n.keyTags.includes('Top Pick for Muslim Families') || n.muslimFamilyScore >= 85;
+    if (filterType === 'BUDGET') return n.fourBedDetachedRentCAD <= 2600;
+    if (filterType === 'SCHOOLS') return n.keyTags.includes('Best for Public Schools') || n.keyTags.includes('Great Public Schools') || n.keyTags.includes('Top Rated Schools');
+    if (filterType === 'TRANSIT') return n.keyTags.includes('Transit Access') || n.keyTags.includes('CTrain Walkable') || n.nearestCTrainStation.includes('Line') || n.nearestCTrainStation.includes('BRT');
     if (filterType === 'EXECUTIVE') return n.quadrant.includes('SW') || n.fourBedDetachedRentCAD > 3500;
     return true;
   });
@@ -56,6 +57,14 @@ export function NeighbourhoodExplorer() {
               }`}
             >
               {t.neighbourhoods.filterAll}
+            </button>
+            <button
+              onClick={() => setFilterType('NE_COMMUNITIES')}
+              className={`px-3 py-1.5 rounded-xl font-medium transition-all ${
+                filterType === 'NE_COMMUNITIES' ? 'bg-sky-500 text-white font-bold shadow-md shadow-sky-950/40' : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-sky-500/50'
+              }`}
+            >
+              {isRtl ? 'أحياء الشمال الشرقي (Cornerstone / Thorncliffe / NE)' : 'Northeast Hubs (Cornerstone, Thorncliffe & NE)'}
             </button>
             <button
               onClick={() => setFilterType('MUSLIM')}

@@ -2,7 +2,7 @@ export interface Neighbourhood {
   id: string;
   name: string;
   arabicName: string;
-  quadrant: 'Northeast (NE)' | 'Northwest (NW)' | 'Southwest (SW)' | 'Southeast (SE)';
+  quadrant: 'Northeast (NE)' | 'Northwest (NW)' | 'Southwest (SW)' | 'Southeast (SE)' | 'Inner NE / Centre St';
   vintage: 'Newer Suburb (2015+)' | 'Established Modern (2000-2015)' | 'Mature Enclave';
   threeBedRentCAD: number;
   fourBedDetachedRentCAD: number;
@@ -28,13 +28,60 @@ export interface Neighbourhood {
 
 export const calgaryNeighbourhoods: Neighbourhood[] = [
   {
+    id: 'cornerstone',
+    name: 'Cornerstone (NE Calgary)',
+    arabicName: 'حي كورنرستون (شمال شرق كالغاري)',
+    quadrant: 'Northeast (NE)',
+    vintage: 'Newer Suburb (2015+)',
+    threeBedRentCAD: 2150,
+    fourBedDetachedRentCAD: 2490,
+    commuteDowntownMinutes: 26,
+    commuteTransitMinutes: 42,
+    nearestCTrainStation: 'Saddletowne Station (via feeder bus / future LRT route)',
+    distanceToAirportMins: 9,
+    safetyRating: 'Very High',
+    muslimFamilyScore: 97,
+    nearestMosqueName: 'Akram Jomaa & Savanna Musalla / Cornerstone Musalla',
+    distanceToMosqueMins: 6,
+    nearestIslamicSchool: 'Calgary Islamic School (Akram Jomaa)',
+    distanceToIslamicSchoolMins: 8,
+    halalGroceryAccess: 'Immediate (<5 mins)',
+    keyTags: ['Top Pick for Muslim Families', 'Modern Master-Planned', 'Spice Kitchens', 'Recent Price Drop', 'Parks & Wetlands'],
+    pros: [
+      'Calgary’s premier modern master-planned NE community with brand-new 2020+ houses',
+      'Recent rental price drop: 4-bed detached homes now rent for $2,450–$2,550 (down from $2,850+)',
+      'Most homes feature double garages, high 9ft ceilings, and builder-installed spice/prep kitchens',
+      'Large protected wetland park system, walking paths, and new commercial plazas (Chalo FreshCo)',
+      'Strong, growing Muslim and South Asian family community with exceptional neighbor support'
+    ],
+    cons: [
+      'Ongoing construction in newer sectors as community completes',
+      'Public schools currently require student busing to neighbouring established schools while community schools are built',
+      'Requires vehicle for fastest commuting until planned LRT extension operates'
+    ],
+    arabicPros: [
+      'أحدث وأرقى المخططات العائلية الحديثة في الشمال الشرقي (بني بعد 2018)',
+      'انخفاض ملحوظ في الإيجار: البيوت المستقلة 4 غرف أصبحت تؤجر بـ 2,450 إلى 2,550 دولار',
+      'معظم المنازل مجهزة بكراج مزدوج ومطبخ توابل (Spice Kitchen) إضافي معزول',
+      'شبكة حدائق ومحميات طبيعية وملاعب أطفال حديثة وسوبرماركت شالو فريشكو',
+      'بيئة عائلية محافظة ومريحة جداً للجالية المسلمة'
+    ],
+    arabicCons: [
+      'ما زالت بعض المراحل قيد البناء والتطوير',
+      'المدارس الابتدائية داخل الحي قيد الإنشاء ويتم نقل الطلاب مؤقتاً بالحافلات لأحياء مجاورة',
+      'الاعتماد على السيارة حالياً أفضل من الحافلات'
+    ],
+    designatedPublicElementary: 'Designated CBE Area School (Busing provided by CBE)',
+    schoolCatchmentWarning: 'New master-planned community. Verify with CBE Welcome Centre for current year catchment designated school and busing route.'
+  },
+  {
     id: 'saddleridge',
     name: 'Saddleridge & Savanna',
     arabicName: 'سادلريدج وسافانا',
     quadrant: 'Northeast (NE)',
     vintage: 'Established Modern (2000-2015)',
-    threeBedRentCAD: 2250,
-    fourBedDetachedRentCAD: 2650,
+    threeBedRentCAD: 2050,
+    fourBedDetachedRentCAD: 2450,
     commuteDowntownMinutes: 28,
     commuteTransitMinutes: 38,
     nearestCTrainStation: 'Saddletowne Station (Blue Line)',
@@ -42,26 +89,26 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     safetyRating: 'High',
     muslimFamilyScore: 98,
     nearestMosqueName: 'Akram Jomaa Islamic Centre & Saddletowne Musalla',
-    distanceToMosqueMins: 6,
+    distanceToMosqueMins: 5,
     nearestIslamicSchool: 'Calgary Islamic School (Akram Jomaa Campus)',
-    distanceToIslamicSchoolMins: 8,
+    distanceToIslamicSchoolMins: 7,
     halalGroceryAccess: 'Immediate (<5 mins)',
-    keyTags: ['Best for Muslim Family', 'Budget Value', 'Transit Access', 'Halal Food Hub'],
+    keyTags: ['Heart of Muslim Amenities', 'Saddletowne CTrain', 'Genesis Centre', 'Affordable 4-Bed'],
     pros: [
       'Unmatched Islamic community infrastructure and visible normalization of Muslim family life',
-      'Walking distance to Saddletowne CTrain and Genesis Centre YMCA/Library complex',
-      'Most affordable 4-bedroom detached family homes with attached double garages',
-      'Dozens of halal meat shops, bakeries, and grocery markets within 5 minutes'
+      'Walking distance to Saddletowne CTrain station and Genesis Centre YMCA recreation complex',
+      'Softened 2026 rent: 4-bedroom detached homes with double garages available from $2,450/mo',
+      'Dozens of halal meat shops, bakeries, and international grocery markets within 5 minutes'
     ],
     cons: [
-      'High suburban density and street parking congestion',
-      'Overcrowding in local elementary schools with lottery/overflow potential',
-      'Airplane flight path overflight noise during southern approaches'
+      'High suburban density and street parking volume',
+      'Overcrowding in local elementary schools with lottery/overflow potential in high-peak years',
+      'Airplane flight path overflight noise during south-facing runway approaches'
     ],
     arabicPros: [
       'بيئة إسلامية متكاملة ومراكز ونشاطات تناسب العائلات المسلمة تماماً',
       'قريب جداً من محطة قطار سادلتاون ومجمع جينيسيس الرياضي والمكتبة العامة',
-      'أفضل أسعار إيجار للمنازل المستقلة من 4 غرف مع كراج مزدوج',
+      'انخفاض أسعار الإيجار للمنازل المستقلة من 4 غرف لتبدأ من 2,450 دولار مع كراج مزدوج',
       'عشرات الملاحم والمخابز والمطاعم الحلال على بعد دقائق'
     ],
     arabicCons: [
@@ -73,13 +120,60 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     schoolCatchmentWarning: 'High demand area. Always verify with CBE Welcome Centre whether your exact address is subject to lottery or assigned overflow.'
   },
   {
+    id: 'thorncliffe',
+    name: 'Thorncliffe & Greenview (Inner NE)',
+    arabicName: 'ثورنكليف وغرين فيو (شمال شرق داخلي / شارع سنتر)',
+    quadrant: 'Inner NE / Centre St',
+    vintage: 'Mature Enclave',
+    threeBedRentCAD: 2100,
+    fourBedDetachedRentCAD: 2390,
+    commuteDowntownMinutes: 14,
+    commuteTransitMinutes: 22,
+    nearestCTrainStation: 'Centre Street Express BRT (Future Green Line)',
+    distanceToAirportMins: 14,
+    safetyRating: 'Very High',
+    muslimFamilyScore: 82,
+    nearestMosqueName: 'Downtown Mosque / Calgary Islamic Centre SW',
+    distanceToMosqueMins: 10,
+    nearestIslamicSchool: 'Calgary Islamic School (Omar Bin Al-Khattab / AKJ)',
+    distanceToIslamicSchoolMins: 14,
+    halalGroceryAccess: 'Close (5-10 mins)',
+    keyTags: ['Fast Downtown Commute', 'Mature Trees', 'Great Public Schools', 'Large Lots', 'Budget Value'],
+    pros: [
+      'Rapid 12–15 minute commute to Downtown Calgary corporate offices via Centre Street or Deerfoot Trail',
+      'Excellent established CBE public schools (Thorncliffe School, Colonel Macleod, Diefenbaker High)',
+      'Large private lots with mature spruce trees and quiet residential cul-de-sacs',
+      'Very affordable detached home rents ($2,390–$2,500/mo) with massive private yards for children',
+      'Immediate access to Nose Hill Park natural reserve and Thornhill Aquatic & Recreation Centre'
+    ],
+    cons: [
+      'Older 1960s–1980s bungalow architecture with retro basement layouts',
+      'Further away from Northeast halal supercentres (requires 10-12 min drive to Castleridge/Savanna)',
+      'Fewer visible Muslim newcomer families compared to Saddleridge/Cornerstone'
+    ],
+    arabicPros: [
+      'مشوار دوام سريع جداً (12-15 دقيقة فقط) إلى داون تاون كالغاري',
+      'مدارس حكومية عامة ممتازة ومستقرة وغير مزدحمة (مدرسة ثورنكليف CBE)',
+      'أراضي واسعة بحدائق خاصة وأشجار صنوبر كبيرة وشوارع هادئة جداً',
+      'إيجارات اقتصادية ممتازة للبيوت المستقلة من 4 غرف (حوالي 2,390 دولار)',
+      'قريب جداً من منتزه نوز هيل بارك الطبيعي الضخم ومسبح ثورنهيل'
+    ],
+    arabicCons: [
+      'طراز المنازل أقدم (بناء السبعينات والثمانينات) مقارنة بالأحياء الجديدة',
+      'أبعد قليلاً عن تجمعات الملاحم والمساجد الكبرى (تحتاج 10 دقائق بالسيارة)',
+      'نسبة العائلات المسلمة أقل كثافة من سادلريدج وكورنرستون'
+    ],
+    designatedPublicElementary: 'Thorncliffe School (CBE Public K-6) / Colonel Macleod School (7-9)',
+    schoolCatchmentWarning: 'Established schools with stable enrollment; high placement certainty for newcomer children.'
+  },
+  {
     id: 'taradale_martindale',
     name: 'Taradale & Martindale',
     arabicName: 'تاراديل ومارتينديل',
     quadrant: 'Northeast (NE)',
     vintage: 'Established Modern (2000-2015)',
-    threeBedRentCAD: 2150,
-    fourBedDetachedRentCAD: 2550,
+    threeBedRentCAD: 1950,
+    fourBedDetachedRentCAD: 2350,
     commuteDowntownMinutes: 26,
     commuteTransitMinutes: 35,
     nearestCTrainStation: 'Saddletowne & Martindale Stations (Blue Line)',
@@ -87,26 +181,26 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     safetyRating: 'High',
     muslimFamilyScore: 96,
     nearestMosqueName: 'Akram Jomaa & Jamia Abu Bakr',
-    distanceToMosqueMins: 7,
+    distanceToMosqueMins: 6,
     nearestIslamicSchool: 'Calgary Islamic School (Akram Jomaa)',
     distanceToIslamicSchoolMins: 8,
     halalGroceryAccess: 'Immediate (<5 mins)',
-    keyTags: ['Best Value', 'Budget', 'Transit Walkable', 'Muslim Family'],
+    keyTags: ['Best Budget Value', 'CTrain Walkable', 'Halal Shopping Plazas', 'Affordable Family Rent'],
     pros: [
+      'Lowest family rental rates in Calgary: 3-bed for $1,950 and 4-bed detached for $2,350/mo',
       'Direct walking access to Martindale or Saddletowne CTrain stations',
-      'Established parks, mature playgrounds, and family recreation',
-      'Very competitive rental pricing for spacious split-level and 2-storey houses',
+      'Established parks, mature playgrounds, and family recreation centres',
       'Adjacent to Castleridge and Falconridge halal ethnic retail plazas'
     ],
     cons: [
-      'Older 1990s housing finishes compared to newer western or northern subdivisions',
+      'Older 1990s housing finishes compared to Cornerstone or Savanna',
       'High vehicle street parking volume',
       'Narrower residential street profiles'
     ],
     arabicPros: [
+      'أفضل ميزانية إيجار في كالغاري: 3 غرف بـ 1,950 و4 غرف بـ 2,350 دولار',
       'إمكانية المشي مباشرة إلى محطات قطار سادلتاون ومارتينديل',
       'حدائق عائلية وملاعب أطفال قائمة ومكتملة',
-      'إيجارات اقتصادية جداً لمنازل عائلية فسيحة',
       'قريب جداً من أسواق ومطاعم فالكونريدج وكاسلريدج الحلال'
     ],
     arabicCons: [
@@ -123,8 +217,8 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     arabicName: 'سكاي فيو رانش وريدستون وسيتي سكيب',
     quadrant: 'Northeast (NE)',
     vintage: 'Newer Suburb (2015+)',
-    threeBedRentCAD: 2350,
-    fourBedDetachedRentCAD: 2800,
+    threeBedRentCAD: 2150,
+    fourBedDetachedRentCAD: 2500,
     commuteDowntownMinutes: 28,
     commuteTransitMinutes: 45,
     nearestCTrainStation: 'Saddletowne Station (via feeder bus 159/160)',
@@ -132,13 +226,14 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     safetyRating: 'Very High',
     muslimFamilyScore: 94,
     nearestMosqueName: 'Akram Jomaa & Savanna Musalla',
-    distanceToMosqueMins: 9,
+    distanceToMosqueMins: 8,
     nearestIslamicSchool: 'Calgary Islamic School (Akram Jomaa)',
     distanceToIslamicSchoolMins: 10,
     halalGroceryAccess: 'Close (5-10 mins)',
-    keyTags: ['Newer Community', 'Modern Houses', 'Airport Access', 'Muslim Family'],
+    keyTags: ['Newer Community', 'Modern Houses', 'Airport Access', 'Price Dropped'],
     pros: [
       'Modern open-concept floor plans, stone countertops, and high ceilings (built post-2015)',
+      'Price dropped to $2,500/mo for 4-bed detached homes on Facebook Marketplace',
       'Quick 10-minute drive to Calgary International Airport (YYC)',
       'Direct highway access to Stoney Trail ring road and Metis Trail',
       'Safe, modern planned streets with newly constructed children playgrounds'
@@ -150,6 +245,7 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     ],
     arabicPros: [
       'منازل حديثة بتصاميم عصرية وتشطيبات فاخرة (بنيت بعد 2015)',
+      'انخفضت الأسعار إلى 2,500 دولار للبيوت المستقلة على فيسبوك ماركت بليس',
       '10 دقائق فقط بالسيارة إلى مطار كالغاري الدولي',
       'وصول سريع لطريق ستوني ترايل الدائري وطريق ميتيس',
       'شوارع وملاعب أطفال حديثة وآمنة جداً'
@@ -159,141 +255,98 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
       'الأشجار في الحي ما زالت في طور النمو',
       'قريب من مسارات الطيران للمطار'
     ],
-    designatedPublicElementary: 'Apostle of Jesus / Prairie Sky School (CBE)',
-    schoolCatchmentWarning: 'Prairie Sky School regularly faces space pressures. Check current capacity with CBE Welcome Centre.'
+    designatedPublicElementary: 'Prairie Sky School / Apostles of Jesus Catholic School',
+    schoolCatchmentWarning: 'Newer community schools experience high demand. Verify busing zones with CBE Welcome Centre.'
   },
   {
-    id: 'evanston_nolan',
-    name: 'Evanston & Nolan Hill',
-    arabicName: 'إيفانستون ونولان هيل',
+    id: 'evanston',
+    name: 'Evanston & Sage Hill',
+    arabicName: 'إيفانستون وسيج هيل',
     quadrant: 'Northwest (NW)',
     vintage: 'Newer Suburb (2015+)',
-    threeBedRentCAD: 2550,
-    fourBedDetachedRentCAD: 3050,
-    commuteDowntownMinutes: 28,
-    commuteTransitMinutes: 48,
-    nearestCTrainStation: 'Tuscany Station or Route 301 BRT Express',
+    threeBedRentCAD: 2250,
+    fourBedDetachedRentCAD: 2750,
+    commuteDowntownMinutes: 30,
+    commuteTransitMinutes: 52,
+    nearestCTrainStation: 'Crowfoot or Dalhousie Stations (via Express bus)',
     distanceToAirportMins: 16,
     safetyRating: 'Very High',
     muslimFamilyScore: 84,
-    nearestMosqueName: 'ICNC Ranchlands Mosque & MAC Al-Salam',
+    nearestMosqueName: 'MAC Islamic Centre (Al-Salam Centre NW)',
     distanceToMosqueMins: 14,
-    nearestIslamicSchool: 'Al-Amal Academy (Royal Vista NW)',
-    distanceToIslamicSchoolMins: 12,
+    nearestIslamicSchool: 'CIS Omar Bin Al-Khattab Campus (NW)',
+    distanceToIslamicSchoolMins: 18,
     halalGroceryAccess: 'Close (5-10 mins)',
-    keyTags: ['Best for Public Schools', 'Safe Modern Family', 'Rockies Gateway', 'Al-Amal School'],
+    keyTags: ['Family Suburb', 'High Safety', 'Top Schools', 'Beacon Hill Shopping'],
     pros: [
-      'Outstanding modern suburban family atmosphere with extensive ravines and bike trails',
-      'Proximity to Al-Amal Academy Islamic school in NW (12 mins) and Country Hills Superstore halal counter (8 mins)',
-      'Direct access to Stoney Trail, enabling 15-min drive to Akram Jomaa in NE and 55-min drive to Banff',
-      'Top-rated public and Catholic elementary schools and very low crime rate'
+      'Consistently ranked among Calgary\'s safest and cleanest master-planned family suburban areas',
+      'Proximity to Beacon Hill shopping complex (Costco Wholesale, Home Depot, Canadian Tire)',
+      'Strong public schools with modern STEM facilities and expansive soccer fields',
+      'Quiet, pristine residential streets populated heavily by professional young families'
     ],
     cons: [
-      'No CTrain station in community; requires Route 301 BRT bus or driving to Tuscany/Brentwood',
-      'Slightly higher rent than Northeast (+~$350/month)',
-      'Hilly roads require disciplined winter tire use during freezing snowstorms'
+      'Longer transit commute to Downtown Calgary (often requires bus + Red Line CTrain)',
+      'Higher rental rates than Northeast Calgary',
+      'Further away from major halal butchery hubs'
     ],
     arabicPros: [
-      'بيئة عائلية راقية جداً ومساحات خضراء ومسارات دراجات ووديان طبيعية',
-      'قريب من مدرسة الأمل الإسلامية في الشمال الغربي (12 دقيقة) وسوبرستور كانتري هيلز',
-      'اتصال مباشر بالطريق الدائري للوصول إلى مسجد أكرم جمعة (15 دقيقة) وإلى بانف (55 دقيقة)',
-      'مدارس متميزة ومعدلات أمان مرتفعة للغاية'
+      'من أكثر أحياء كالغاري أماناً ونظافة ومثالي جداً للأطفال',
+      'قريب جداً من مجمع بيكون هيل التجاري (كوستكو وهوم ديبوت)',
+      'مدارس حكومية ممتازة وملاعب كرة قدم واسعة',
+      'شوارع هادئة وراقية تسكنها عائلات مهندسين وأطباء'
     ],
     arabicCons: [
-      'لا يوجد محطة قطار داخل الحي؛ الاعتماد على الحافلات السريعة أو السيارة',
-      'الإيجار أعلى قليلاً من الشمال الشرقي (بفارق 350 دولار تقريباً)',
-      'الشوارع المائلة تتطلب إطارات شتوية ممتازة أثناء تساقط الثلوج'
+      'المواصلات العامة إلى وسط المدينة تستغرق وقتاً أطول',
+      'الإيجارات أعلى بحوالي 250-300 دولار من أحياء الشمال الشرقي',
+      'أبعد قليلاً عن الملاحم والمراكز الإسلامية الرئيسية'
     ],
-    designatedPublicElementary: 'Kenneth D. Taylor School (CBE)',
-    schoolCatchmentWarning: 'Kenneth D. Taylor has historically used lottery protocols. Verify admission status with CBE.'
-  },
-  {
-    id: 'panorama_hills',
-    name: 'Panorama Hills & Carrington',
-    arabicName: 'بانوراما هيلز وكارينغتون',
-    quadrant: 'Northwest (NW)',
-    vintage: 'Established Modern (2000-2015)',
-    threeBedRentCAD: 2450,
-    fourBedDetachedRentCAD: 2950,
-    commuteDowntownMinutes: 25,
-    commuteTransitMinutes: 40,
-    nearestCTrainStation: 'North Pointe Transit Terminal (Route 301 BRT Express)',
-    distanceToAirportMins: 14,
-    safetyRating: 'Very High',
-    muslimFamilyScore: 86,
-    nearestMosqueName: 'ICNC Ranchlands & Akram Jomaa via Stoney Trail',
-    distanceToMosqueMins: 12,
-    nearestIslamicSchool: 'Calgary Islamic School (busing available) / Al-Amal',
-    distanceToIslamicSchoolMins: 14,
-    halalGroceryAccess: 'Close (5-10 mins)',
-    keyTags: ['Public Schools', 'Superstore Halal', 'Express Bus', 'Family Amenities'],
-    pros: [
-      'Country Hills Town Centre offers Real Canadian Superstore with massive certified halal counter',
-      'North Pointe Transit Terminal offers direct Route 301 BRT express into Downtown core',
-      'Private Panorama Hills Community Centre with splash park, tennis, and skating rinks',
-      'Excellent balance between housing cost, public school ratings, and commercial convenience'
-    ],
-    cons: [
-      'Deerfoot Trail traffic during morning rush hour if commuting downtown by car',
-      'Rapidly growing student population across northern catchment zones'
-    ],
-    arabicPros: [
-      'مركز كانتري هيلز يضم سوبرستور مع قسم ضخم للحوم والأغذية الحلال المعتمدة',
-      'محطة حافلات نورث بوينت السريعة توفر نقلاً مباشراً إلى قلب وسط المدينة',
-      'مركز مجتمعي خاص بسكان الحي يضم ملاعب مائية وتنس ومساحات تزلج',
-      'توازن رائع بين تكلفة السكن وجودة المدارس والخدمات التجارية'
-    ],
-    arabicCons: [
-      'ازدحام طريق ديرفوت أثناء ساعات الذروة الصباحية عند القيادة لوسط المدينة',
-      'نمو سريع في أعداد الطلاب في المدارس المحيطة'
-    ],
-    designatedPublicElementary: 'Panorama Hills School / Buffalo Rubbing Stone School',
-    schoolCatchmentWarning: 'Check boundary lines carefully between Panorama Hills and Carrington.'
+    designatedPublicElementary: 'Kenneth D. Taylor School (K-4) / Simons Valley School',
+    schoolCatchmentWarning: 'Evanston public schools have historically capped enrolment. Confirm whether your child will attend the in-community school or overflow bus.'
   },
   {
     id: 'west_springs_aspen',
     name: 'West Springs & Aspen Woods',
-    arabicName: 'وست سبرينغز وآسبن وودز',
+    arabicName: 'ويست سبرينغز وأسبن وودز',
     quadrant: 'Southwest (SW)',
-    vintage: 'Established Modern (2000-2015)',
-    threeBedRentCAD: 3100,
-    fourBedDetachedRentCAD: 3950,
-    commuteDowntownMinutes: 18,
-    commuteTransitMinutes: 22,
-    nearestCTrainStation: '69th Street Station (Blue Line)',
+    vintage: 'Newer Suburb (2015+)',
+    threeBedRentCAD: 2850,
+    fourBedDetachedRentCAD: 3600,
+    commuteDowntownMinutes: 20,
+    commuteTransitMinutes: 32,
+    nearestCTrainStation: '69th Street Station (Blue Line West)',
     distanceToAirportMins: 32,
     safetyRating: 'Very High',
     muslimFamilyScore: 78,
-    nearestMosqueName: 'Calgary Islamic Centre (SW Masjid - 5615 14 Ave SW)',
-    distanceToMosqueMins: 9,
-    nearestIslamicSchool: 'Calgary Islamic School (busing available)',
-    distanceToIslamicSchoolMins: 24,
+    nearestMosqueName: 'Southwest Masjid & MAC Islamic Centre SW',
+    distanceToMosqueMins: 12,
+    nearestIslamicSchool: 'Calgary Islamic School (SW Bus Route)',
+    distanceToIslamicSchoolMins: 22,
     halalGroceryAccess: 'Moderate (10-15 mins)',
-    keyTags: ['Executive Luxury', 'Fastest Downtown Commute', 'Top Academies', 'Mountain Gateway'],
+    keyTags: ['Executive Luxury', 'Top Rated Schools', '69th St CTrain', 'Rockies Gateway'],
     pros: [
-      'Executive lifestyle, stunning architectural prestige, and quiet upscale cul-de-sacs',
-      'Fastest downtown commute: 18 mins by car via Bow Trail or 22 mins direct via 69th St CTrain',
-      'Home to top-ranked academic institutions: Weber Academy, Rundle College, and Ernest Manning High',
-      'Closest community to the Rocky Mountains (45 mins to Canmore & Kananaskis)'
+      'Calgary\'s most prestigious family neighborhood with highest median household incomes ($180k+)',
+      'Direct gateway to Highway 1 West for fastest 45-minute weekend trips to Banff and Canmore',
+      'Top-tier public and private school catchments (Webber Academy, Calgary Academy, Ernest Manning High)',
+      '69th Street CTrain terminal provides direct 18-minute train connection into Downtown Calgary core'
     ],
     cons: [
-      'Highest rental rates in Calgary ($3,500–$4,500/mo for 4-bed detached homes)',
-      'Further away from main Northeast Islamic school campuses and ethnic grocery hubs',
-      'Lower Muslim population concentration compared to NE/NW'
+      'Significantly higher rental threshold ($3,600+ for executive 4-bed detached homes)',
+      'Limited local ethnic retail; halal groceries require travel to Northeast hubs or specialty co-ops',
+      'Substantially higher initial security deposit requirements'
     ],
     arabicPros: [
-      'حي راقٍ جداً بتشطيبات تنفيذية فاخرة وشوارع هادئة ومميزة',
-      'أسرع وصول إلى وسط المدينة: 18 دقيقة بالسيارة أو 22 دقيقة بقطار محطة شارع 69',
-      'أعلى المدارس تصنيفاً في المقاطعة (أكاديمية ويبر، كلية راندل، مدرسة إرنست مانينغ)',
-      'الأقرب إلى جبال روكي (45 دقيقة فقط إلى كانمور وكاناناسكيس)'
+      'أرقى أحياء كالغاري السكنية بمستوى دخل عائلي مرتفع وبيئة هادئة جداً',
+      'أقرب نقطة للانطلاق إلى جبال الروكي وبانف في عطلة نهاية الأسبوع (45 دقيقة)',
+      'أقوى مدارس حكومية وخاصة ذات تصنيف أكاديمي مرتفع',
+      'محطة قطار 69th Street توفر وصولاً سريعاً خلال 18 دقيقة إلى داون تاون'
     ],
     arabicCons: [
-      'أعلى تكلفة إيجار في كالغاري (3500 - 4500 دولار شهرياً لمنازل 4 غرف)',
-      'أبعد عن مدارس الجالية الإسلامية الرئيسية ومتاجر الأغذية الشرقية في الشمال الشرقي',
-      'نسبة عائلات الجالية المسلمة أقل مقارنة بالشمال'
+      'الإيجارات مرتفعة بشكل ملحوظ (أكثر من 3,600 دولار للمنازل الفاخرة)',
+      'المحلات والملاحم الحلال محدودة محلياً وتتطلب القيادة لمسافة 15-20 دقيقة',
+      'مبلغ التأمين الأولي يكون مرتفعاً'
     ],
-    designatedPublicElementary: 'West Springs School / West Ridge School',
-    schoolCatchmentWarning: 'Very popular schools. Verify space availability with CBE.'
+    designatedPublicElementary: 'West Springs School (CBE Public K-4) / West Ridge School (5-9)',
+    schoolCatchmentWarning: 'Stable schools with established boundaries; high ranking on Fraser Institute academic index.'
   },
   {
     id: 'mahogany_auburn',
@@ -301,41 +354,43 @@ export const calgaryNeighbourhoods: Neighbourhood[] = [
     arabicName: 'ماهوغاني وأوبرن باي',
     quadrant: 'Southeast (SE)',
     vintage: 'Newer Suburb (2015+)',
-    threeBedRentCAD: 2650,
-    fourBedDetachedRentCAD: 3200,
-    commuteDowntownMinutes: 35,
-    commuteTransitMinutes: 65,
-    nearestCTrainStation: 'Somerset-Bridlewood Station (via feeder) or MAX 302 BRT',
-    distanceToAirportMins: 30,
+    threeBedRentCAD: 2350,
+    fourBedDetachedRentCAD: 2850,
+    commuteDowntownMinutes: 32,
+    commuteTransitMinutes: 55,
+    nearestCTrainStation: 'Somerset-Bridlewood (via bus) / Max Teal BRT',
+    distanceToAirportMins: 28,
     safetyRating: 'Very High',
-    muslimFamilyScore: 70,
-    nearestMosqueName: 'South Calgary Musalla (Legacy & Queensland) / Future SE Masjid',
-    distanceToMosqueMins: 12,
-    nearestIslamicSchool: 'Calgary Islamic School OBK Campus (SE Mayland Heights)',
+    muslimFamilyScore: 68,
+    nearestMosqueName: 'South Calgary Islamic Centre (Southland)',
+    distanceToMosqueMins: 18,
+    nearestIslamicSchool: 'Calgary Islamic School (Busing available)',
     distanceToIslamicSchoolMins: 26,
     halalGroceryAccess: 'Moderate (10-15 mins)',
-    keyTags: ['Private Lake Community', 'World-Class YMCA', 'Hospital Access', 'Family Recreation'],
+    keyTags: ['Lake Community', 'Resort Lifestyle', 'South Health Campus', 'Family Amenities'],
     pros: [
-      'Private 63-acre freshwater lake access: private sandy beaches, paddleboarding, swimming, winter skating',
-      'Directly adjacent to Seton Urban District: South Health Campus hospital and world’s largest YMCA (330,000 sq ft)',
-      'Modern, safe, pedestrian-friendly master-planned streets filled with young children and parks'
+      'Access to Calgary\'s largest freshwater resort lake, sandy beaches, kayak rentals, and tennis club',
+      'Immediate proximity to South Health Campus (Calgary’s newest full-scale hospital facility)',
+      'Modern suburban estate architecture and vibrant Mahogany Village shopping centre',
+      'High sense of neighborhood safety and organized community family events'
     ],
     cons: [
-      'Longest commute to Downtown Calgary and Calgary International Airport',
-      'Significant distance from Akram Jomaa and Northeast Islamic infrastructure (30+ mins drive)',
-      'Lake association dues are sometimes passed through to tenants by landlords'
+      'Furthest quadrant from major mosques and Northeast Calgary halal grocery epicenters',
+      'Longer highway commute to downtown Calgary along Deerfoot Trail during morning peaks',
+      'LRT Green Line extension to Mahogany is in future development phase'
     ],
     arabicPros: [
-      'دخول حصري لبحيرة ماهوغاني الخاصة (63 فداناً): شواطئ رملية وقوارب وتزلج شتوي',
-      'ملاصق لمنطقة سيتون الحيوية: مستشفى ساوث هيلث كامبوس وأكبر فرع واي إم سي إيه في العالم',
-      'شوارع حديثة وآمنة تماماً ومصممة للمشاة ومليئة بالأطفال والحدائق'
+      'حي البحيرات الشهير: شواطئ رملية وقوارب تجديف وأنشطة صيفية وشتوية للعائلة',
+      'ملاصق لمستشفى ساوث هيلث كامبس الحديث والمتكامل',
+      'تصاميم حديثة ومراكز تجارية ومطاعم عصرية',
+      'أعلى معدلات الأمان ونظافة الشوارع والحدائق'
     ],
     arabicCons: [
-      'أطول مسافة تنقل إلى وسط المدينة ومطار كالغاري الدولي',
-      'بعيد نسبياً عن مجمع أكرم جمعة والمدارس الإسلامية الرئيسية في الشمال (30+ دقيقة)',
-      'بعض الملاك يضيفون رسوم جمعية البحيرة السنوية على المستأجر'
+      'الأبعد عن المساجد الرئيسية والملاحم والأسواق العربية (يحتاج 20-25 دقيقة)',
+      'مشوار الداون تاون أطول في ساعات الذروة الصباحية',
+      'خط قطار المترو لم يصل بعد إلى الحي ويعتمد على الحافلات السريعة'
     ],
-    designatedPublicElementary: 'Mahogany School / Auburn Bay School',
-    schoolCatchmentWarning: 'South suburban elementary schools face heavy enrollment. Confirm designated school before signing lease.'
+    designatedPublicElementary: 'Mahogany School (CBE K-5) / Lakeshore School (6-9)',
+    schoolCatchmentWarning: 'Lake community schools experience fast population growth. Verify address eligibility with CBE.'
   }
 ];
