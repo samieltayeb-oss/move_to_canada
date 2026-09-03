@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Cairo } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 import { AppProvider } from "@/context/AppContext";
+import { DemoModeBanner } from "@/components/navigation/DemoModeBanner";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 
@@ -20,9 +22,11 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Yassir's Calgary Move Command Center | Riyadh to Alberta",
-  description: "Comprehensive relocation intelligence and decision system for Yassir A. E. Abdulrhman and family (2 adults, 3 children: ages 16, 11, 5) moving from Riyadh, Saudi Arabia to Calgary, Alberta, Canada.",
+  title: "NEXORA MOVE — Canada Relocation Intelligence | Alberta V1",
+  description: "Enterprise Canadian relocation intelligence platform for international newcomers. Featuring verified golden baseline demo scenario for Yassir A. E. Abdulrhman (Calgary, AB) with multi-user authentication, statutory benefits modeling, and multi-province architecture.",
   keywords: [
+    "Nexora Move",
+    "Canada relocation intelligence",
     "Calgary relocation",
     "Riyadh to Canada",
     "Yassir Abdulrhman",
@@ -63,13 +67,16 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-sky-500 selection:text-white font-sans">
-        <AppProvider>
-          <Navigation />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </AppProvider>
+        <AuthProvider>
+          <AppProvider>
+            <DemoModeBanner />
+            <Navigation />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </AppProvider>
+        </AuthProvider>
       </body>
     </html>
   );

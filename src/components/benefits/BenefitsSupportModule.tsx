@@ -38,14 +38,20 @@ import {
 } from 'lucide-react';
 
 export function BenefitsSupportModule() {
-  const { isRtl } = useApp();
+  const { isRtl, familyProfile } = useApp();
 
   // Profile Inputs State
-  const [canadianIncome, setCanadianIncome] = useState<number>(defaultFamilyBenefitsProfile.expectedCanadianIncomeCAD);
+  const initialCanadian = familyProfile?.expectedAnnualHouseholdIncomeCAD || defaultFamilyBenefitsProfile.expectedCanadianIncomeCAD;
+  const childrenAges = familyProfile?.childrenAges || defaultFamilyBenefitsProfile.childrenAges;
+
+  const [canadianIncome, setCanadianIncome] = useState<number>(initialCanadian);
   const [spouseIncome, setSpouseIncome] = useState<number>(defaultFamilyBenefitsProfile.expectedSpouseIncomeCAD);
   const [worldwideIncomeSAR, setWorldwideIncomeSAR] = useState<number>(defaultFamilyBenefitsProfile.worldwidePreArrivalIncomeSAR);
   const [employerDental, setEmployerDental] = useState<boolean>(defaultFamilyBenefitsProfile.employerHealthInsuranceAvailable);
   const [activeTab, setActiveTab] = useState<'PROFILE' | 'CASH_BENEFITS' | 'HEALTH_DENTAL' | 'EDUCATION' | 'SIMULATOR'>('CASH_BENEFITS');
+
+  // Benefit Income Basis Selector (Form RC66SCH Newcomer vs Future Canadian Employment)
+  const [benefitIncomeBasis, setBenefitIncomeBasis] = useState<'WORLDWIDE_YEAR1' | 'FUTURE_CANADIAN'>('WORLDWIDE_YEAR1');
 
   // Timeline action status tracking
   const [timelineItems, setTimelineItems] = useState<FirstYearActionItem[]>(firstYearBenefitsTimeline);
@@ -67,15 +73,22 @@ export function BenefitsSupportModule() {
   const totalFamilyIncomeCAD = canadianIncome + spouseIncome;
   const convertedWorldIncomeCAD = Math.round(worldwideIncomeSAR * SAR_TO_CAD_RATE);
 
-  // CCB calculation for kids ages 16, 11, 5
-  const childrenAges = defaultFamilyBenefitsProfile.childrenAges;
-  const ccbResult = calculateCCBForFamily(childrenAges, totalFamilyIncomeCAD);
+  // Determine active calculation income based on user selection
+  const activeCalculationIncomeCAD = benefitIncomeBasis === 'WORLDWIDE_YEAR1' 
+    ? convertedWorldIncomeCAD 
+    : totalFamilyIncomeCAD;
+
+  // CCB calculation for active children
+  const ccbResult = calculateCCBForFamily(childrenAges, activeCalculationIncomeCAD);
 
   // CGEB (formerly GST/HST credit)
-  const cgebResult = calculateCGEBForFamily(childrenAges.length, totalFamilyIncomeCAD);
+  const cgebResult = calculateCGEBForFamily(childrenAges.length, activeCalculationIncomeCAD);
 
-  // ACFB
-  const acfbResult = calculateACFBForFamily(totalFamilyIncomeCAD, canadianIncome);
+  // ACFB (Alberta Child and Family Benefit)
+  const acfbResult = calculateACFBForFamily(
+    activeCalculationIncomeCAD, 
+    benefitIncomeBasis === 'FUTURE_CANADIAN' ? canadianIncome : 0
+  );
 
   // Consolidated Totals
   const totalAnnualCashBenefitsCAD = ccbResult.estimatedNetAnnualCAD + cgebResult.estimatedNetAnnualCAD + acfbResult.totalAnnualCAD;
@@ -193,6 +206,56 @@ export function BenefitsSupportModule() {
       {/* TAB 1: CASH BENEFITS CALCULATORS */}
       {activeTab === 'CASH_BENEFITS' && (
         <div className="space-y-8">
+          {/* BENEFIT INCOME BASIS SELECTOR (Form RC66SCH Newcomer vs Future Canadian Employment) */}
+          <div className="glass-panel p-5 rounded-2xl border border-sky-500/30 bg-slate-900/90 space-y-3">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <span className="text-[11px] font-mono text-sky-400 uppercase tracking-wider font-semibold block">
+                  {isRtl ? 'أساس احتساب الدخل للمزايا الحكومية (CRA)' : 'BENEFIT INCOME BASIS — STATUTORY ASSESSMENT'}
+                </span>
+                <h3 className="text-sm sm:text-base font-bold text-white mt-0.5">
+                  {benefitIncomeBasis === 'WORLDWIDE_YEAR1'
+                    ? (isRtl ? `سنة الهبوط الأولى: بناءً على الدخل العالمي لعام 2025 ($${convertedWorldIncomeCAD.toLocaleString()} CAD / ${worldwideIncomeSAR.toLocaleString()} ريال)` : `Year 1 Landing Estimate: Form RC66SCH 2025 World Income ($${convertedWorldIncomeCAD.toLocaleString()} CAD / ${worldwideIncomeSAR.toLocaleString()} SAR)`)
+                    : (isRtl ? `المستقبل الوظيفي: بناءً على إجمالي دخل الأسرة الكندي ($${totalFamilyIncomeCAD.toLocaleString()} CAD)` : `Future Canadian Employment: Target Household Salary ($${totalFamilyIncomeCAD.toLocaleString()} CAD)`)}
+                </h3>
+              </div>
+
+              {/* Explicit Option Buttons */}
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 shrink-0">
+                <button
+                  onClick={() => setBenefitIncomeBasis('WORLDWIDE_YEAR1')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    benefitIncomeBasis === 'WORLDWIDE_YEAR1'
+                      ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {isRtl ? 'الدخل العالمي (السنة الأولى)' : 'Newcomer / Worldwide Income'}
+                </button>
+                <button
+                  onClick={() => setBenefitIncomeBasis('FUTURE_CANADIAN')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    benefitIncomeBasis === 'FUTURE_CANADIAN'
+                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {isRtl ? 'الراتب الكندي المستقبلي' : 'Future Canadian Household Income'}
+                </button>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 font-light leading-relaxed">
+              {benefitIncomeBasis === 'WORLDWIDE_YEAR1'
+                ? (isRtl 
+                    ? `قانون مصلحة الضرائب الكندية (CRA): من تاريخ هبوطك في كندا وحتى 30 يونيو 2027، يتم احتساب إعانة الطفل (CCB) بناءً على دخلك خارج كندا لعام 2025 المعلن في نموذج RC66SCH ($${convertedWorldIncomeCAD.toLocaleString()} CAD). ستحصل أسرتك على دعم شهري أعلى (~$${ccbResult.estimatedNetMonthlyCAD.toLocaleString()} CAD/شهر) خلال فترة الاستقرار الأولى.`
+                    : `CRA Statutory Rule: From your arrival date until June 30, 2027, your CCB and provincial benefits are calculated using your 2025 pre-arrival income declared on Form RC66SCH ($${convertedWorldIncomeCAD.toLocaleString()} CAD). Your family receives higher monthly liquidity (~$${ccbResult.estimatedNetMonthlyCAD.toLocaleString()} CAD / mo) to assist during settlement.`)
+                : (isRtl
+                    ? `المرحلة الوظيفية المستقرة: بمجرد تحقيق الراتب الكندي المستهدف ($${totalFamilyIncomeCAD.toLocaleString()} CAD) وتقديم إقرارك الضريبي الكندي الأول، تعاد جدولة المزايا تدريجياً لتبلغ ~$${ccbResult.estimatedNetMonthlyCAD.toLocaleString()} CAD/شهر.`
+                    : `Post-Employment Phase: Once you establish your Canadian career at your target salary ($${totalFamilyIncomeCAD.toLocaleString()} CAD) and file your first Canadian tax return, benefits adjust according to standard clawback brackets (~$${ccbResult.estimatedNetMonthlyCAD.toLocaleString()} CAD / mo).`)}
+            </p>
+          </div>
+
           {/* Executive Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div className="glass-panel p-6 rounded-2xl border border-sky-500/30 bg-sky-950/20">

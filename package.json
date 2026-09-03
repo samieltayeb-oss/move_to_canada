@@ -7,11 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --test scripts/test/*.test.mjs",
+    "test:calc": "node --test scripts/test/calculations.test.mjs",
+    "test:rls": "node --test scripts/test/rlsIsolation.test.mjs",
     "data:audit": "node scripts/dataAudit.mjs",
     "data:validate": "node scripts/dataAudit.mjs",
     "data:stale": "node scripts/dataAudit.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.115.0",
     "clsx": "^2.1.1",
     "framer-motion": "^13.2.0",
     "lucide-react": "^1.40.0",

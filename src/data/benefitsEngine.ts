@@ -51,18 +51,20 @@ export const defaultFamilyBenefitsProfile: FamilyBenefitsProfileState = {
   childcareRequired: true // For the 5-year-old child
 };
 
+import { FEDERAL_BENEFITS_2026_2027 } from './canada/federal/benefits/2026-2027';
+
 // 1. CANADA CHILD BENEFIT (CCB) CALCULATION ENGINE
 // July 2026 - June 2027 Benefit Year Benchmarks
 export const CCB_2026_BENCHMARKS = {
-  paymentPeriod: 'July 2026 – June 2027',
-  maxPerChildUnder6AnnualCAD: 8157, // ~$679.75/month
-  maxPerChild6to17AnnualCAD: 6883,  // ~$573.58/month
-  baseThresholdCAD: 38237,
-  secondThresholdCAD: 79349,
-  // 3-children reduction rate
-  reductionRateTier1ThreeKids: 0.190, // 19.0% between $38,237 and $79,349
-  reductionRateTier2ThreeKids: 0.080, // 8.0% of income above $79,349
-  dataSource: 'Canada Revenue Agency (CRA) T4114 & Canada.ca CCB Guidelines'
+  paymentPeriod: `${FEDERAL_BENEFITS_2026_2027.effectiveFrom} to ${FEDERAL_BENEFITS_2026_2027.effectiveTo}`,
+  maxPerChildUnder6AnnualCAD: FEDERAL_BENEFITS_2026_2027.ccb.maxUnder6CAD, // $8,157/yr (~$679.75/mo)
+  maxPerChild6to17AnnualCAD: FEDERAL_BENEFITS_2026_2027.ccb.maxAge6to17CAD, // $6,883/yr (~$573.58/mo)
+  baseThresholdCAD: FEDERAL_BENEFITS_2026_2027.ccb.firstThresholdCAD, // $38,237
+  secondThresholdCAD: FEDERAL_BENEFITS_2026_2027.ccb.secondThresholdCAD, // $82,847 (Statutory Indexed from $81,222 base)
+  reductionRateTier1ThreeKids: FEDERAL_BENEFITS_2026_2027.ccb.reductionRates.threeChildren.tier1, // 19.0%
+  reductionRateTier2ThreeKids: FEDERAL_BENEFITS_2026_2027.ccb.reductionRates.threeChildren.tier2, // 8.0%
+  dataSource: FEDERAL_BENEFITS_2026_2027.source,
+  lastVerifiedAt: FEDERAL_BENEFITS_2026_2027.lastVerifiedAt
 };
 
 export function calculateCCBForFamily(
@@ -92,18 +94,28 @@ export function calculateCCBForFamily(
   const totalMaxGrossAnnualCAD = childBreakdown.reduce((sum, c) => sum + c.maxAnnualCAD, 0);
   const totalMaxGrossMonthlyCAD = Math.round((totalMaxGrossAnnualCAD / 12) * 100) / 100;
 
-  // Calculate reduction based on CRA 3-child phaseout formula
+  // Dynamically select CRA reduction rates based on child count
+  const numKids = childrenAges.length;
+  const rates = numKids === 1
+    ? FEDERAL_BENEFITS_2026_2027.ccb.reductionRates.oneChild
+    : numKids === 2
+    ? FEDERAL_BENEFITS_2026_2027.ccb.reductionRates.twoChildren
+    : numKids === 3
+    ? FEDERAL_BENEFITS_2026_2027.ccb.reductionRates.threeChildren
+    : FEDERAL_BENEFITS_2026_2027.ccb.reductionRates.fourOrMoreChildren;
+
+  // Calculate reduction based on CRA phaseout formula
   let totalReductionAnnualCAD = 0;
   if (familyNetIncomeCAD > CCB_2026_BENCHMARKS.baseThresholdCAD) {
     const incomeInTier1 = Math.min(
       familyNetIncomeCAD - CCB_2026_BENCHMARKS.baseThresholdCAD,
       CCB_2026_BENCHMARKS.secondThresholdCAD - CCB_2026_BENCHMARKS.baseThresholdCAD
     );
-    totalReductionAnnualCAD += incomeInTier1 * CCB_2026_BENCHMARKS.reductionRateTier1ThreeKids;
+    totalReductionAnnualCAD += incomeInTier1 * rates.tier1;
 
     if (familyNetIncomeCAD > CCB_2026_BENCHMARKS.secondThresholdCAD) {
       const incomeInTier2 = familyNetIncomeCAD - CCB_2026_BENCHMARKS.secondThresholdCAD;
-      totalReductionAnnualCAD += incomeInTier2 * CCB_2026_BENCHMARKS.reductionRateTier2ThreeKids;
+      totalReductionAnnualCAD += incomeInTier2 * rates.tier2;
     }
   }
 

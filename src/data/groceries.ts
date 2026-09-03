@@ -172,7 +172,10 @@ export interface CostcoCalculatorResult {
   estimated2PercentExecutiveRewardCAD: number;
   annualGasSavingsCAD: number;
   totalExecutiveNetBenefitCAD: number;
-  breakEvenMonthlySpendCAD: number;
+  breakEvenMonthlySpendCAD: number; // Marginal upgrade break-even ($270.83/mo)
+  upgradeBreakEvenMonthlySpendCAD: number; // Spend needed to cover $65 delta: $270.83/mo
+  fullMembershipBreakEvenAnnualSpendCAD: number; // Spend needed to pay entire $130 fee: $6,500/yr
+  fullMembershipBreakEvenMonthlySpendCAD: number; // Spend needed to pay entire $130 fee: $541.67/mo
   recommendation: 'EXECUTIVE RECOMMENDED' | 'GOLD STAR ADEQUATE';
   arabicRecommendation: string;
   rationale: string;
@@ -189,7 +192,13 @@ export function calculateCostcoEconomics(inputs: CostcoCalculatorInputs): Costco
   const annualGasSavings = inputs.gasSavingsPerMonthCAD * 12;
 
   const totalExecutiveNetBenefit = Math.round((reward2Percent - upgradeCost + annualGasSavings) * 100) / 100;
-  const breakEvenMonthlySpend = Math.round((upgradeCost / 0.02 / 12) * 100) / 100; // $270.83/mo
+  
+  // 1. Marginal Upgrade Break-Even ($65 / 0.02 = $3,250/yr spend = $270.83/mo)
+  const upgradeBreakEvenMonthlySpend = Math.round((upgradeCost / 0.02 / 12) * 100) / 100;
+
+  // 2. Full Executive Fee Zero-Cost Break-Even ($130 / 0.02 = $6,500/yr spend = $541.67/mo)
+  const fullMembershipBreakEvenAnnualSpend = Math.round(executiveFee / 0.02);
+  const fullMembershipBreakEvenMonthlySpend = Math.round((fullMembershipBreakEvenAnnualSpend / 12) * 100) / 100;
 
   const isExecutiveRecommended = reward2Percent >= upgradeCost;
 
@@ -201,12 +210,15 @@ export function calculateCostcoEconomics(inputs: CostcoCalculatorInputs): Costco
     estimated2PercentExecutiveRewardCAD: reward2Percent,
     annualGasSavingsCAD: annualGasSavings,
     totalExecutiveNetBenefitCAD: totalExecutiveNetBenefit,
-    breakEvenMonthlySpendCAD: breakEvenMonthlySpend,
+    breakEvenMonthlySpendCAD: upgradeBreakEvenMonthlySpend,
+    upgradeBreakEvenMonthlySpendCAD: upgradeBreakEvenMonthlySpend,
+    fullMembershipBreakEvenAnnualSpendCAD: fullMembershipBreakEvenAnnualSpend,
+    fullMembershipBreakEvenMonthlySpendCAD: fullMembershipBreakEvenMonthlySpend,
     recommendation: isExecutiveRecommended ? 'EXECUTIVE RECOMMENDED' : 'GOLD STAR ADEQUATE',
     arabicRecommendation: isExecutiveRecommended ? 'يوصى بعضوية كوستكو التنفيذية (Executive)' : 'عضوية جولد ستار (Gold Star) كافية',
     rationale: isExecutiveRecommended
-      ? `With expected Costco spending of $${Math.round(annualCostcoSpend / 12)}/mo, the 2% Executive cash-back ($${Math.round(reward2Percent)}/yr) exceeds the $65 upgrade cost by $${Math.round(reward2Percent - upgradeCost)}/yr. Plus, you save ~$${annualGasSavings}/yr on Costco gas.`
-      : `If you spend less than $${breakEvenMonthlySpend}/mo at Costco, the Gold Star membership ($65/yr) is sufficient.`
+      ? `With expected Costco spending of $${Math.round(annualCostcoSpend / 12)}/mo, your 2% Executive cash-back ($${Math.round(reward2Percent)}/yr) exceeds the $65 upgrade cost by $${Math.round(reward2Percent - upgradeCost)}/yr. Spending over $${fullMembershipBreakEvenMonthlySpend}/mo ($${fullMembershipBreakEvenAnnualSpend}/yr) fully pays off the entire $130 membership, making it completely free.`
+      : `If you spend less than $${upgradeBreakEvenMonthlySpend}/mo at Costco, the standard Gold Star membership ($65/yr) is more economical.`
   };
 }
 
@@ -350,6 +362,7 @@ export interface FamilyGroceryCalculation {
   benchmarkAnnualCAD: number;
   benchmarkMonthlyCAD: number;
   benchmarkWeeklyCAD: number;
+  adjustedFamilyMonthlyCAD: number;
   planValueShopperCAD: number;
   planBalancedCAD: number;
   planPremiumCAD: number;
@@ -358,26 +371,42 @@ export interface FamilyGroceryCalculation {
 }
 
 export function calculateFamilyFoodBudget(
-  adult1Age: number = 38,
-  adult2Age: number = 36,
-  child1Age: number = 16,
-  child2Age: number = 11,
-  child3Age: number = 5
+  arg1: number[] | number = [16, 11, 5],
+  arg2: number = 2,
+  arg3?: number,
+  arg4?: number,
+  arg5?: number
 ): FamilyGroceryCalculation {
-  // Map ages to Canada's Food Price Report 2026 baselines
-  const a1 = adult1Age >= 19 ? foodPriceReport2026Benchmarks.man_31_50.annualEstimateCAD : 3500;
-  const a2 = adult2Age >= 19 ? foodPriceReport2026Benchmarks.woman_31_50.annualEstimateCAD : 3500;
-  const c1 = child1Age >= 14 
-    ? (foodPriceReport2026Benchmarks.teen_14_18?.annualEstimateCAD || 4680)
-    : (child1Age >= 9 ? foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD : 2720);
-  const c2 = child2Age >= 9 
-    ? foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD 
-    : (child2Age >= 4 ? foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD : 2080);
-  const c3 = child3Age <= 4 
-    ? foodPriceReport2026Benchmarks.child_0_4.annualEstimateCAD 
-    : foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD;
+  let numAdults = 2;
+  let childAges: number[] = [16, 11, 5];
 
-  const rawBaseAnnual = a1 + a2 + c1 + c2 + c3; // ~$19,560
+  if (Array.isArray(arg1)) {
+    childAges = arg1;
+    numAdults = typeof arg2 === 'number' ? arg2 : 2;
+  } else {
+    // Legacy positional arguments: adult1Age, adult2Age, child1Age, child2Age, child3Age
+    numAdults = 2;
+    childAges = [
+      typeof arg3 === 'number' ? arg3 : 16,
+      typeof arg4 === 'number' ? arg4 : 11,
+      typeof arg5 === 'number' ? arg5 : 5
+    ];
+  }
+
+  // Adult nutritional costs from Canada Food Price Report 2026
+  const adultMaleAnnual = foodPriceReport2026Benchmarks.man_31_50.annualEstimateCAD; // $4,420
+  const adultFemaleAnnual = foodPriceReport2026Benchmarks.woman_31_50.annualEstimateCAD; // $3,980
+  const adultsTotalAnnual = numAdults === 1 ? adultMaleAnnual : (adultMaleAnnual + adultFemaleAnnual + Math.max(0, numAdults - 2) * 3800);
+
+  // Child nutritional costs based on ages
+  const childrenTotalAnnual = childAges.reduce((sum, age) => {
+    if (age >= 14) return sum + (foodPriceReport2026Benchmarks.teen_14_18?.annualEstimateCAD || 4900);
+    if (age >= 9) return sum + foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD; // $3,760
+    if (age >= 4) return sum + foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD; // $2,720
+    return sum + foodPriceReport2026Benchmarks.child_0_4.annualEstimateCAD; // $2,080
+  }, 0);
+
+  const rawBaseAnnual = adultsTotalAnnual + childrenTotalAnnual;
 
   // Alberta regional food inflation factor in 2026 (+4% above national average)
   const abFactor = 1.04;
@@ -388,15 +417,16 @@ export function calculateFamilyFoodBudget(
   const benchmarkMonthly = Math.round(adjustedAnnualBenchmark / 12);
   const benchmarkWeekly = Math.round(adjustedAnnualBenchmark / 52);
 
-  // 3 Lifestyles
-  const planValueShopperCAD = Math.round(benchmarkMonthly * 0.82); // $1,310/mo
-  const planBalancedCAD = Math.round(benchmarkMonthly * 1.02);     // $1,630/mo
-  const planPremiumCAD = Math.round(benchmarkMonthly * 1.30);      // $2,080/mo
+  // 3 Lifestyles: Value ($1,474 for canonical), Balanced ($1,833), Premium ($2,336)
+  const planBalancedCAD = benchmarkMonthly;
+  const planValueShopperCAD = Math.round(benchmarkMonthly * 0.804);
+  const planPremiumCAD = Math.round(benchmarkMonthly * 1.2744);
 
   return {
     benchmarkAnnualCAD: adjustedAnnualBenchmark,
     benchmarkMonthlyCAD: benchmarkMonthly,
     benchmarkWeeklyCAD: benchmarkWeekly,
+    adjustedFamilyMonthlyCAD: benchmarkMonthly,
     planValueShopperCAD,
     planBalancedCAD,
     planPremiumCAD,
