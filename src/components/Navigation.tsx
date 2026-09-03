@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { 
-  Compass, 
   Printer, 
   Bookmark, 
   Menu, 
@@ -88,8 +88,15 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16 border-b border-slate-800/50">
           {/* Brand Crest */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500/20 via-slate-900 to-amber-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:border-sky-400/60 transition-all shadow-md shadow-sky-950/50">
-              <Compass className="w-5 h-5 animate-pulse" />
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-900 border border-sky-500/30 group-hover:border-sky-400/60 transition-all shadow-md shadow-sky-950/50 flex items-center justify-center p-1">
+              <Image
+                src="/images/logo.png"
+                alt="Move to Canada Logo"
+                width={36}
+                height={36}
+                className="object-contain"
+                priority
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useApp } from '@/context/AppContext';
 export function PrintableMoveDossier() {
   const { familyProfile } = useApp();
@@ -9,13 +10,24 @@ export function PrintableMoveDossier() {
     <div className="hidden print:block p-8 bg-white text-black max-w-4xl mx-auto space-y-8">
       {/* Print Header */}
       <div className="border-b-2 border-slate-900 pb-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-black uppercase tracking-tight">
-            Yassir&apos;s Calgary Relocation Command Dossier
-          </h1>
-          <p className="text-xs text-slate-600 font-serif mt-1">
-            Personalized Settlement Intelligence • Riyadh (Saudi Arabia) → Calgary, Alberta (Canada)
-          </p>
+        <div className="flex items-center gap-3.5">
+          <div className="relative w-12 h-12 shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Move to Canada Logo"
+              width={48}
+              height={48}
+              className="object-contain"
+            />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black uppercase tracking-tight">
+              Yassir&apos;s Calgary Relocation Command Dossier
+            </h1>
+            <p className="text-xs text-slate-600 font-serif mt-1">
+              Personalized Settlement Intelligence • Riyadh (Saudi Arabia) → Calgary, Alberta (Canada)
+            </p>
+          </div>
         </div>
         <div className="text-right text-xs font-mono text-slate-600">
           <div>CONFIDENTIAL &amp; PERSONAL</div>

@@ -31,6 +31,14 @@ export const metadata: Metadata = {
     "Costco Calgary food budget",
     "Calgary gas prices"
   ],
+  icons: {
+    icon: [
+      { url: '/images/logo.png', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: '/images/logo.png',
+    apple: '/images/logo.png',
+  },
   authors: [{ name: "Antigravity Executive Intelligence" }]
 };
 
