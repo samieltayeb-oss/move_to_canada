@@ -36,17 +36,22 @@ const PLAN_LIMITS = {
 };
 
 function hasFeatureAccess(entitlement, feature) {
-  if (entitlement.isProSubscribed) {
-    if (!entitlement.proExpiresAt || new Date(entitlement.proExpiresAt) > new Date()) {
-      return true;
-    }
-  }
-
-  if (entitlement.isConciergeCustomer || entitlement.grantedByAdmin) {
+  if (entitlement.grantedByAdmin) {
     return true;
   }
 
-  if (entitlement.isMovePassPurchased || entitlement.planId === 'MOVE_PASS') {
+  if (feature === 'concierge_session') {
+    return Boolean(entitlement.isConciergeCustomer);
+  }
+
+  const isProActive = (entitlement.isProSubscribed || entitlement.isConciergeCustomer) &&
+    (!entitlement.proExpiresAt || new Date(entitlement.proExpiresAt) > new Date());
+
+  if (isProActive) {
+    return true;
+  }
+
+  if (entitlement.isMovePassPurchased || entitlement.isConciergeCustomer || entitlement.planId === 'MOVE_PASS') {
     switch (feature) {
       case 'advanced_city_comparison':
       case 'benefits_personalization':
@@ -59,7 +64,6 @@ function hasFeatureAccess(entitlement, feature) {
       case 'application_tracker':
       case 'interview_prep':
       case 'advanced_job_match':
-      case 'concierge_session':
         return false;
       default:
         return false;
@@ -144,3 +148,49 @@ test('Entitlements: Expired Pro subscription gracefully falls back without data 
   assert.strictEqual(hasFeatureAccess(proExpired, 'cover_letters'), false);
   assert.strictEqual(hasFeatureAccess(proExpired, 'interview_prep'), false);
 });
+
+test('Entitlements: Concierge client has Move Pass + active 3 months Pro access before expiry', () => {
+  const purchaseDate = new Date();
+  const proExpiresAt = new Date(purchaseDate.getTime() + 90 * 24 * 3600 * 1000).toISOString(); // +90 days
+  const conciergeActive = {
+    userId: 'user_concierge_1',
+    planId: 'CONCIERGE',
+    isMovePassPurchased: true,
+    isProSubscribed: true,
+    proExpiresAt,
+    isConciergeCustomer: true,
+    grantedByAdmin: false
+  };
+
+  assert.strictEqual(hasFeatureAccess(conciergeActive, 'concierge_session'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeActive, 'cover_letters'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeActive, 'interview_prep'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeActive, 'advanced_city_comparison'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeActive, 'pdf_blueprint'), true);
+});
+
+test('Entitlements: Concierge client after 90 days reverts Pro features but retains permanent Move Pass', () => {
+  const expiredProDate = new Date(Date.now() - 5 * 24 * 3600 * 1000).toISOString(); // Expired 5 days ago
+  const conciergeExpiredPro = {
+    userId: 'user_concierge_2',
+    planId: 'CONCIERGE',
+    isMovePassPurchased: true,
+    isProSubscribed: false,
+    proExpiresAt: expiredProDate,
+    isConciergeCustomer: true,
+    grantedByAdmin: false
+  };
+
+  // Concierge session remains accessible
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'concierge_session'), true);
+  // Pro-only features are now locked
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'cover_letters'), false);
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'interview_prep'), false);
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'unlimited_scenarios'), false);
+  // Permanent Move Pass features REMAIN UNLOCKED
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'advanced_city_comparison'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'pdf_blueprint'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'benefits_personalization'), true);
+  assert.strictEqual(hasFeatureAccess(conciergeExpiredPro, 'ats_resume'), true);
+});
+

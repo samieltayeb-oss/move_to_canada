@@ -56,20 +56,26 @@ export function hasFeatureAccess(
   entitlement: UserEntitlementRecord,
   feature: FeatureKey
 ): boolean {
-  // Pro subscribers and Concierge clients have access to all features while active
-  if (entitlement.isProSubscribed) {
-    // Check if subscription has not expired
-    if (!entitlement.proExpiresAt || new Date(entitlement.proExpiresAt) > new Date()) {
-      return true;
-    }
-  }
-
-  if (entitlement.isConciergeCustomer || entitlement.grantedByAdmin) {
+  // Admin bypass
+  if (entitlement.grantedByAdmin) {
     return true;
   }
 
-  // Move Pass features
-  if (entitlement.isMovePassPurchased || entitlement.planId === 'MOVE_PASS') {
+  // Concierge advisory session
+  if (feature === 'concierge_session') {
+    return entitlement.isConciergeCustomer;
+  }
+
+  // Active Pro evaluation: applies to Pro subscribers and Concierge clients within their 3-month window
+  const isProActive = (entitlement.isProSubscribed || entitlement.isConciergeCustomer) &&
+    (!entitlement.proExpiresAt || new Date(entitlement.proExpiresAt) > new Date());
+
+  if (isProActive) {
+    return true;
+  }
+
+  // Move Pass features: Permanent for Move Pass purchasers and Concierge customers even after Pro expires
+  if (entitlement.isMovePassPurchased || entitlement.isConciergeCustomer || entitlement.planId === 'MOVE_PASS') {
     switch (feature) {
       case 'advanced_city_comparison':
       case 'benefits_personalization':
@@ -82,7 +88,6 @@ export function hasFeatureAccess(
       case 'application_tracker':
       case 'interview_prep':
       case 'advanced_job_match':
-      case 'concierge_session':
         return false;
       default:
         return false;

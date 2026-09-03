@@ -32,3 +32,14 @@ export const isSupabaseConfigured = (): boolean => {
     process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://placeholder.supabase.co'
   );
 };
+
+export function getServiceRoleSupabaseClient(): SupabaseClient {
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseAnonKey;
+  return createClient(supabaseUrl, serviceKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false
+    }
+  });
+}
+

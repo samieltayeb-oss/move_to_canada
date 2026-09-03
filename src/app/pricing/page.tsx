@@ -96,6 +96,13 @@ export default function PricingPage() {
             </button>
           </div>
         </div>
+
+        {/* Currency Benchmark Disclosure (Section 11 Audit Gate) */}
+        <p className="text-[11px] text-slate-400 font-mono pt-1">
+          {isAr
+            ? 'سعر صرف إرشادي تقديري (1 دولار كندي ≈ 2.7204 ريال سعودي - محدث في 2026-09-01). الفوترة الفعلية على Stripe تتم بالدولار الكندي (CAD).'
+            : 'Approximate conversion benchmark (1 CAD ≈ 2.7204 SAR, rate updated 2026-09-01). Authoritative checkout is billed in CAD by Stripe.'}
+        </p>
       </div>
 
       {/* 2. Founding Member Banner */}
