@@ -2,53 +2,65 @@ export type ProfileFieldStatus = 'VERIFIED' | 'USER_PROVIDED' | 'INFERRED' | 'MI
 
 export interface VerifiedProfessionalProfile {
   candidateName: string;
-  locationStatus: {
-    value: string;
-    status: ProfileFieldStatus;
-    notes: string;
-  };
-  employerStatus: {
-    value: string;
-    status: ProfileFieldStatus;
-    notes: string;
-  };
-  industryStatus: {
-    value: string;
-    status: ProfileFieldStatus;
-    notes: string;
-  };
-  unverifiedWarning: string;
-  arabicUnverifiedWarning: string;
+  email: string;
+  mobile: string;
+  linkedinUrl: string;
+  currentTitle: string;
+  currentEmployer: string;
+  location: string;
+  verifiedEducation: {
+    degree: string;
+    institution: string;
+    years: string;
+  }[];
+  topSkills: string[];
+  careerOverview: string;
+  arabicCareerOverview: string;
 }
 
 export const yassirVerifiedProfile: VerifiedProfessionalProfile = {
   candidateName: 'Yassir A. E. Abdulrhman',
-  locationStatus: {
-    value: 'Riyadh, Saudi Arabia',
-    status: 'VERIFIED',
-    notes: 'Confirmed via public indexing and professional registry.'
-  },
-  employerStatus: {
-    value: 'Albilad Capital (Bank Albilad subsidiary)',
-    status: 'VERIFIED',
-    notes: 'Public indexing associates profile with Albilad Capital in Riyadh.'
-  },
-  industryStatus: {
-    value: 'Islamic Investment Banking, Capital Markets & Asset Management',
-    status: 'VERIFIED',
-    notes: 'Albilad Capital is Saudi Arabia’s leading Sharia-compliant investment firm.'
-  },
-  unverifiedWarning: 'NEVER INVENT PROFILE DATA: Specific internal job titles, employment dates, exact salaries, educational degrees, and professional certifications are unverified and must be entered by Yassir before inclusion in final résumé content.',
-  arabicUnverifiedWarning: 'وفقاً لمبادئ الأمانة والتحقق المهني الصارم: لم يتم تخمين المسمى الوظيفي أو التواريخ أو الراتب أو الشهادات دون إدخال مباشر من ياسر.'
+  email: 'yassireljak@gmail.com',
+  mobile: '+966598315118',
+  linkedinUrl: 'https://www.linkedin.com/in/yassir-a-e-abdulrhman-8bb6a321',
+  currentTitle: 'IT PMO Senior Manager',
+  currentEmployer: 'Albilad Capital (البلاد المالية)',
+  location: 'Riyadh, Saudi Arabia (Relocating to Calgary, AB, Canada)',
+  verifiedEducation: [
+    {
+      degree: 'B.Sc. in Computer Science',
+      institution: 'Omdurman Ahlia University (Faculty of Applied Science and Computer)',
+      years: '1995 – 2001'
+    },
+    {
+      degree: 'Diploma in Electronics and Communications Engineering',
+      institution: 'Sudan University (Faculty of Human Resource and Technology)',
+      years: '1996 – 1998'
+    }
+  ],
+  topSkills: [
+    'PL/SQL',
+    'Project Management',
+    'Team Leadership',
+    'IT PMO Governance',
+    'Oracle Database & ERP Architecture',
+    'Business Change Management',
+    'Capital Markets IT Systems',
+    'Enterprise Operations Management'
+  ],
+  careerOverview: 'Results-driven Senior IT PMO Manager, Enterprise Systems Consultant, and former Vice President of Business Management Operations with over 20 years of verifiable enterprise technology delivery in Saudi Arabian capital markets, investment banking, and systems integration. Deep expertise combining hands-on technical architecture (Oracle, PL/SQL, Systems Analysis) with executive governance, PMO frameworks, and large-scale digital transformation.',
+  arabicCareerOverview: 'مدير تنفيذي أول لمكاتب إدارة المشاريع التقنية (IT PMO) ومستشار أول لأنظمة أوراكل (Oracle) وقائد سابق لعمليات إدارة الأعمال (VP Business Management OPS) بخبرة تتجاوز 20 عاماً في أسواق المال والخدمات الاستثمارية والمصرفية بالرياض، يجمع بين البعد التقني العميق (PL/SQL، هندسة الأنظمة) والقيادة التنفيذية وحوكمة المشاريع الكبرى.'
 };
 
 export interface UserCareerExperience {
   id: string;
   jobTitle: string;
+  arabicJobTitle: string;
   employer: string;
   location: string;
   startDate: string;
   endDate: string;
+  duration: string;
   isCurrent: boolean;
   status: ProfileFieldStatus;
   rawDescription: string;
@@ -65,25 +77,134 @@ export interface UserCareerExperience {
 
 export const defaultMockExperience: UserCareerExperience[] = [
   {
-    id: 'exp-albilad-01',
-    jobTitle: 'Senior Investment & Financial Operations Specialist',
-    employer: 'Albilad Capital',
+    id: 'exp-albilad-pmo',
+    jobTitle: 'IT PMO Senior Manager',
+    arabicJobTitle: 'مدير تنفيذي أول لمكتب إدارة المشاريع التقنية (IT PMO)',
+    employer: 'Albilad Capital (البلاد المالية)',
     location: 'Riyadh, Saudi Arabia',
-    startDate: '2019',
+    startDate: 'Apr 2023',
     endDate: 'Present',
+    duration: '3+ years',
     isCurrent: true,
-    status: 'USER_PROVIDED',
-    rawDescription: 'Responsible for institutional investment operations, fund settlement workflows, client relationship coordination, and compliance oversight.',
+    status: 'VERIFIED',
+    rawDescription: 'Directing the enterprise IT Project Management Office (PMO) for Albilad Capital, overseeing core financial systems, regulatory tech compliance, trading platforms, and technical team execution.',
     normalizedAchievements: [
-      'Orchestrated end-to-end settlement workflows for multi-asset institutional investment portfolios, achieving 99.8% on-time execution.',
-      'Supervised financial compliance and risk reporting across institutional asset accounts in alignment with Capital Market Authority (CMA) guidelines.',
-      'Streamlined inter-departmental reconciliation between custodian banks, asset managers, and corporate treasury floors, reducing discrepancies by 25%.'
+      'Established and institutionalized the Enterprise IT PMO framework across Albilad Capital, standardizing delivery methodologies across digital trading, asset management, and corporate reporting systems.',
+      'Governed multi-million-dollar technology project portfolios in strict compliance with Capital Market Authority (CMA) cyber, risk, and operational mandates.',
+      'Led cross-functional teams of software architects, database administrators, and business analysts to deliver digital transformation initiatives with a 98% on-time milestone record.'
     ],
     metricsPromptAnswers: {
-      portfolioSize: 'SAR 1.5B+ institutional funds',
-      teamSize: 'Cross-functional team of 6 analysts',
-      geographicScope: 'GCC & Middle East markets'
+      portfolioSize: '15+ concurrent enterprise IT programs',
+      teamSize: 'Direct & matrix leadership of 20+ IT professionals',
+      budgetManaged: 'Enterprise multi-million SAR annual technology envelope',
+      geographicScope: 'Saudi Arabia & GCC institutional capital markets'
     }
+  },
+  {
+    id: 'exp-alawwal-vp-ops',
+    jobTitle: 'Vice President Business Management OPS',
+    arabicJobTitle: 'نائب الرئيس لإدارة العمليات التشغيلية والأعمال',
+    employer: 'Alawwal Invest',
+    location: 'Riyadh, Saudi Arabia',
+    startDate: 'Oct 2022',
+    endDate: 'Mar 2023',
+    duration: '6 months',
+    isCurrent: false,
+    status: 'VERIFIED',
+    rawDescription: 'Executive operational leadership overseeing business management, institutional settlement infrastructure, operating model redesign, and cross-departmental integration.',
+    normalizedAchievements: [
+      'Served as Vice President directing business management operations, aligning institutional investment workflows with enterprise business goals.',
+      'Engineered operational efficiencies across middle-and-back-office pipelines, eliminating manual operational touchpoints and mitigating transactional risk.',
+      'Coordinated executive steering committees between technology, compliance, finance, and trading floor heads.'
+    ]
+  },
+  {
+    id: 'exp-alawwal-change-mgr',
+    jobTitle: 'Business Change Management Senior Manager',
+    arabicJobTitle: 'مدير تنفيذي أول لإدارة التغيير المؤسسي والتحول',
+    employer: 'Alawwal Invest',
+    location: 'Riyadh, Saudi Arabia',
+    startDate: 'Nov 2021',
+    endDate: 'Nov 2022',
+    duration: '1 year 1 month',
+    isCurrent: false,
+    status: 'VERIFIED',
+    rawDescription: 'Spearheaded corporate change management strategies, system migrations, post-merger technology transitions, and process adoption across all business divisions.',
+    normalizedAchievements: [
+      'Architected comprehensive business change and technical readiness roadmaps for core investment banking platforms.',
+      'Facilitated stakeholder change impacts across trading, risk, compliance, and retail investment branches with zero disruption to daily market operations.'
+    ]
+  },
+  {
+    id: 'exp-csec-oracle',
+    jobTitle: 'System Analyst - Oracle Consultant',
+    arabicJobTitle: 'محلل نظم أول - مستشار أوراكل وقواعد البيانات',
+    employer: 'Computer and Systems Engineering Company (CSEC)',
+    location: 'Riyadh, Saudi Arabia',
+    startDate: 'Jun 2006',
+    endDate: 'Oct 2021',
+    duration: '15 years 5 months',
+    isCurrent: false,
+    status: 'VERIFIED',
+    rawDescription: '15+ years of extensive enterprise systems consulting, Oracle database architecture, PL/SQL stored procedures, ERP implementations, and technical systems analysis for tier-1 Saudi clients.',
+    normalizedAchievements: [
+      'Engineered complex Oracle PL/SQL database packages, stored procedures, triggers, and ETL pipelines processing millions of daily financial and enterprise records.',
+      'Served as lead systems analyst and client-facing Oracle consultant across 15+ multi-year enterprise ERP and bespoke database deployments.',
+      'Tuned high-volume database queries and data schemas, achieving up to 60% improvements in batch processing and transaction latency.',
+      'Mentored and guided dozens of junior software developers and systems analysts throughout a distinguished 15-year tenure.'
+    ]
+  },
+  {
+    id: 'exp-gulf-eng',
+    jobTitle: 'Application Developer',
+    arabicJobTitle: 'مطور تطبيقات ونظم',
+    employer: 'Gulf Engineering House',
+    location: 'Riyadh, Saudi Arabia',
+    startDate: 'Nov 2005',
+    endDate: 'Jun 2006',
+    duration: '8 months',
+    isCurrent: false,
+    status: 'VERIFIED',
+    rawDescription: 'Software application development, database design, and procedural code implementation.',
+    normalizedAchievements: [
+      'Developed custom database applications and procedural modules for engineering management.',
+      'Constructed normalized database tables and optimized SQL queries.'
+    ]
+  },
+  {
+    id: 'exp-othaim-ops',
+    jobTitle: 'Operation Supervisor',
+    arabicJobTitle: 'مشرف عمليات تشغيلية',
+    employer: 'Othaim Markets Company',
+    location: 'Riyadh, Saudi Arabia',
+    startDate: 'Apr 2004',
+    endDate: 'May 2005',
+    duration: '1 year 2 months',
+    isCurrent: false,
+    status: 'VERIFIED',
+    rawDescription: 'Operational logistics supervision, retail inventory workflow monitoring, and team scheduling.',
+    normalizedAchievements: [
+      'Supervised frontline retail operations, inventory replenishment cycles, and staff scheduling.',
+      'Audited point-of-sale operational logs and inventory accuracy.'
+    ]
+  },
+  {
+    id: 'exp-planet-oracle',
+    jobTitle: 'Oracle Developer',
+    arabicJobTitle: 'مطور برمجيات أوراكل',
+    employer: 'Planet Information Technology',
+    location: 'Khartoum, Sudan',
+    startDate: 'Mar 2001',
+    endDate: 'Feb 2004',
+    duration: '3 years',
+    isCurrent: false,
+    status: 'VERIFIED',
+    rawDescription: 'Core database development, Oracle Forms & Reports, PL/SQL code creation, and database schema implementation.',
+    normalizedAchievements: [
+      'Authored robust PL/SQL packages, stored procedures, and triggers for client accounting software.',
+      'Designed and deployed Oracle Forms & Reports interfaces for enterprise business users.',
+      'Maintained database schema integrity and performed scheduled database backups.'
+    ]
   }
 ];
 
@@ -111,7 +232,7 @@ export interface CanadianJobMatch {
     medianCAD: number;
   };
   calgaryDemand: 'High' | 'Moderate' | 'Growing';
-  albertaDemand: 'High' | 'Moderate';
+  albertaDemand: 'High' | 'Moderate' | 'Growing';
   commonCalgaryEmployers: string[];
   certificationsThatHelp: string[];
   timeToBecomeCompetitive: string;
@@ -121,207 +242,207 @@ export interface CanadianJobMatch {
 
 export const canadianJobMatches: CanadianJobMatch[] = [
   {
-    id: 'job-noc-11101',
-    jobTitle: 'Financial & Investment Analyst',
-    arabicJobTitle: 'محلل مالي واستثماري',
-    noc2021Code: 'NOC 11101',
-    teerCategory: 'TEER 1 (University Degree)',
-    matchScorePercent: 92,
-    fitRecommendation: 'STRONG MATCH',
-    whyItMatches: 'Strong correlation with institutional fund operations, asset valuation, and capital markets experience at Albilad Capital.',
-    arabicWhyItMatches: 'تطابق عالي مع خبرة إدارة الصناديق المؤسسية وعمليات أسواق المال في شركة البلاد المالية.',
-    transferableSkills: [
-      'Multi-asset fund valuation & NAV calculation',
-      'Institutional financial modeling',
-      'Portfolio risk analysis & sensitivity testing',
-      'Regulatory reporting & audit reconciliation'
-    ],
-    canadianSkillGaps: [
-      'Canadian Securities Course (CSC) certification',
-      'Knowledge of Canadian SEDAR+ filing systems',
-      'Canadian GAAP (ASPE / IFRS)'
-    ],
-    salaryRangeCalgary: {
-      lowCAD: 68000,
-      medianCAD: 88500,
-      highCAD: 112000
-    },
-    salaryRangeAlberta: {
-      medianCAD: 89000
-    },
-    salaryRangeCanada: {
-      medianCAD: 85000
-    },
-    calgaryDemand: 'High',
-    albertaDemand: 'High',
-    commonCalgaryEmployers: ['ATB Capital Markets', 'RBC Royal Bank', 'TD Securities', 'Mawer Investment Management', 'AIMCo'],
-    certificationsThatHelp: ['CSI Canadian Securities Course (CSC)', 'CFA Charter (Level I/II)', 'Chartered Investment Manager (CIM)'],
-    timeToBecomeCompetitive: '1–3 Months (study and pass CSC exam)',
-    searchKeywords: ['Investment Analyst Calgary', 'Financial Analyst Asset Management Calgary', 'Portfolio Analyst Calgary'],
-    dataSource: 'Canada Job Bank NOC 11101 & Robert Half 2026 Salary Survey'
-  },
-  {
-    id: 'job-noc-10010',
-    jobTitle: 'Investment Operations / Financial Manager',
-    arabicJobTitle: 'مدير عمليات استثمارية ومالية',
-    noc2021Code: 'NOC 10010',
+    id: 'job-noc-20012',
+    jobTitle: 'Computer & Information Systems Manager (IT PMO / Applications Director)',
+    arabicJobTitle: 'مدير نظم ومعلومات وتقنية (مدير مكتب مشاريع IT PMO / مدير تطبيقات)',
+    noc2021Code: 'NOC 20012',
     teerCategory: 'TEER 0 (Management)',
-    matchScorePercent: 88,
+    matchScorePercent: 96,
     fitRecommendation: 'STRONG MATCH',
-    whyItMatches: 'Senior oversight of trade settlements, custodian reconciliation, and cross-border financial workflows in investment banking.',
-    arabicWhyItMatches: 'إشراف متقدم على تسوية الصفقات المالية ومطابقة الحسابات مع البنوك الأمينة وإدارة العمليات الاستثمارية.',
+    whyItMatches: 'Direct 1-to-1 match with Yassir’s role as IT PMO Senior Manager at Albilad Capital and former VP Business Operations at Alawwal Invest. Over 20 years directing enterprise software roadmaps, governance frameworks, and technical development teams.',
+    arabicWhyItMatches: 'تطابق استثنائي بنسبة 96% مع منصبه كمدير تنفيذي أول لمكتب المشاريع التقنية (IT PMO) بالبلاد المالية ونائب رئيس سابق للعمليات بالأول للاستثمار، مع خبرة 20 عاماً في قيادة النظم البرمجية.',
     transferableSkills: [
-      'Back/middle office trade lifecycle operations',
-      'Custodian and broker-dealer settlements',
-      'Operational risk mitigation frameworks',
-      'Institutional stakeholder relationship management'
+      'Enterprise IT PMO governance & portfolio management',
+      'Banking & capital markets software integration',
+      'Team leadership & vendor contract management',
+      'Agile / Hybrid software delivery lifecycle'
     ],
     canadianSkillGaps: [
-      'Canadian settlement clearing networks (CDS, Lynx)',
-      'OSFI Guideline E-13 regulatory governance',
-      'Canadian anti-money laundering (FINTRAC) compliance'
+      'Familiarity with Canadian corporate IT audit standards (SOC 2, OSFI B-10 third-party risk)',
+      'Local Agile/Scrum team dynamics in Calgary corporate headquarters'
     ],
     salaryRangeCalgary: {
-      lowCAD: 105000,
-      medianCAD: 132000,
-      highCAD: 168000
+      lowCAD: 120000,
+      medianCAD: 148000,
+      highCAD: 185000
     },
     salaryRangeAlberta: {
-      medianCAD: 130000
+      medianCAD: 145000
     },
     salaryRangeCanada: {
-      medianCAD: 125000
+      medianCAD: 140000
     },
     calgaryDemand: 'High',
     albertaDemand: 'High',
-    commonCalgaryEmployers: ['ATB Financial', 'CIBC Commercial', 'BMO Corporate', 'Enbridge Treasury', 'AIMCo'],
-    certificationsThatHelp: ['Operations Professional (Canadian Securities Institute)', 'FRM (Financial Risk Manager)'],
-    timeToBecomeCompetitive: '2–4 Months',
-    searchKeywords: ['Investment Operations Manager Calgary', 'Trade Support Manager Calgary', 'Treasury Operations Calgary'],
-    dataSource: 'Canada Job Bank NOC 10010 & Mercer Calgary Financial Compensation Benchmark 2026'
+    commonCalgaryEmployers: ['ATB Financial', 'TC Energy', 'Enbridge', 'Benevity', 'Alberta Health Services (AHS)', 'Mawer Investment Management', 'Suncor IT'],
+    certificationsThatHelp: ['PMP (Project Management Professional)', 'PMI-ACP', 'ITIL 4 Managing Professional'],
+    timeToBecomeCompetitive: 'Immediate (Profile is already fully aligned)',
+    searchKeywords: ['IT PMO Manager Calgary', 'Director Enterprise Applications Calgary', 'IT Delivery Manager Calgary', 'Technology PMO Lead Calgary'],
+    dataSource: 'Canada Job Bank NOC 20012 & Robert Half 2026 Technology Salary Guide'
   },
   {
-    id: 'job-noc-11102',
-    jobTitle: 'Commercial Banking / Corporate Credit Analyst',
-    arabicJobTitle: 'محلل ائتمان تجاري ومصرفي للشركات',
-    noc2021Code: 'NOC 11102',
-    teerCategory: 'TEER 1 (University Degree)',
-    matchScorePercent: 84,
+    id: 'job-noc-21222',
+    jobTitle: 'Senior Oracle Solutions Consultant / Systems Architect',
+    arabicJobTitle: 'مستشار حلول أوراكل أول / مهندس نظم وقواعد بيانات',
+    noc2021Code: 'NOC 21222',
+    teerCategory: 'TEER 1 (University Degree in Computer Science)',
+    matchScorePercent: 95,
     fitRecommendation: 'STRONG MATCH',
-    whyItMatches: 'Underwriting corporate credit facilities, financial statement stress-testing, and commercial borrower analysis.',
-    arabicWhyItMatches: 'تحليل الجدارة الائتمانية للشركات واختبارات الجهد للقوائم المالية وهيكلة التمويل المؤسسي.',
+    whyItMatches: 'Perfect alignment with his 15 years and 5 months as System Analyst - Oracle Consultant at CSEC and his primary LinkedIn skill PL/SQL. Calgary’s enterprise utilities, energy headquarters, and Big 4 consultancies rely heavily on Oracle architectures.',
+    arabicWhyItMatches: 'تطابق بنسبة 95% مع خبرته الممتدة لـ 15 سنة ونصف كمستشار أوراكل ومحلل نظم أول في CSEC ومهارته الأساسية في PL/SQL، وهو تخصص مطلوب بشدة في كبرى شركات كالغاري.',
     transferableSkills: [
-      'Corporate financial statement analysis',
-      'Debt service coverage (DSCR) modeling',
-      'Commercial loan covenant monitoring',
-      'Risk-adjusted capital return calculation'
+      'Advanced PL/SQL package development & SQL performance tuning',
+      'Oracle Database 11g/12c/19c enterprise architecture',
+      'ERP and transactional systems analysis & data modeling',
+      'Complex business logic automation & ETL pipelines'
     ],
     canadianSkillGaps: [
-      'Personal Property Security Act (PPSA) collateral law in Alberta',
-      'Canadian banking syndicate conventions'
+      'Oracle Cloud Infrastructure (OCI) and Azure/AWS hybrid integrations',
+      'Modern automated CI/CD database deployment tools (Liquibase, Flyway)'
     ],
     salaryRangeCalgary: {
-      lowCAD: 82000,
-      medianCAD: 105000,
-      highCAD: 135000
+      lowCAD: 102000,
+      medianCAD: 130000,
+      highCAD: 158000
     },
     salaryRangeAlberta: {
-      medianCAD: 104000
+      medianCAD: 128000
     },
     salaryRangeCanada: {
-      medianCAD: 98000
+      medianCAD: 122000
     },
     calgaryDemand: 'High',
     albertaDemand: 'High',
-    commonCalgaryEmployers: ['ATB Financial', 'Scotiabank Commercial', 'RBC Commercial Banking', 'Canadian Western Bank', 'TD Commercial'],
-    certificationsThatHelp: ['Moody’s Commercial Lending', 'CFA / CPA'],
+    commonCalgaryEmployers: ['Deloitte Calgary (Oracle Practice)', 'PwC Canada', 'CGI Group Calgary', 'Enmax (Oracle CC&B / ERP)', 'City of Calgary IT', 'Nutrien'],
+    certificationsThatHelp: ['Oracle Certified Professional (OCP)', 'AWS Certified Solutions Architect', 'Azure Database Administrator'],
     timeToBecomeCompetitive: '1–2 Months',
-    searchKeywords: ['Commercial Credit Analyst Calgary', 'Corporate Banking Associate Calgary', 'Credit Risk Specialist Calgary'],
-    dataSource: 'Job Bank NOC 11102 & Robert Half 2026'
-  },
-  {
-    id: 'job-noc-11201',
-    jobTitle: 'Financial Risk & Treasury Analyst (Energy/Corporate)',
-    arabicJobTitle: 'محلل مخاطر مالية وخزينة لشركات الطاقة والشركات الكبرى',
-    noc2021Code: 'NOC 11201',
-    teerCategory: 'TEER 1 (University Degree)',
-    matchScorePercent: 78,
-    fitRecommendation: 'POSSIBLE MATCH',
-    whyItMatches: 'Calgary’s energy giants operate massive financial treasuries managing commodity price volatility and liquidity.',
-    arabicWhyItMatches: 'شركات الطاقة في كالغاري تدير غرف تداول وخزائن مالية ضخمة لإدارة مخاطر أسعار السلع والسيولة.',
-    transferableSkills: [
-      'Cash flow forecasting & liquidity modeling',
-      'Foreign exchange (FX) exposure monitoring',
-      'Financial counterparty risk evaluation'
-    ],
-    canadianSkillGaps: [
-      'Energy derivative instruments (WCS/AECO commodity swaps)',
-      'Alberta energy market fundamentals (AESO)'
-    ],
-    salaryRangeCalgary: {
-      lowCAD: 88000,
-      medianCAD: 114000,
-      highCAD: 148000
-    },
-    salaryRangeAlberta: {
-      medianCAD: 115000
-    },
-    salaryRangeCanada: {
-      medianCAD: 105000
-    },
-    calgaryDemand: 'High',
-    albertaDemand: 'High',
-    commonCalgaryEmployers: ['Enbridge', 'TC Energy', 'Cenovus Energy', 'Suncor Energy', 'Pembina Pipeline'],
-    certificationsThatHelp: ['Certified Treasury Professional (CTP)', 'FRM'],
-    timeToBecomeCompetitive: '3–6 Months',
-    searchKeywords: ['Treasury Analyst Calgary', 'Commodity Risk Analyst Calgary', 'Financial Risk Manager Calgary'],
-    dataSource: 'Mercer Energy Sector Compensation Guide 2026'
+    searchKeywords: ['Oracle Consultant Calgary', 'Senior PL/SQL Developer Calgary', 'Oracle Database Architect Calgary', 'Systems Analyst Oracle Calgary'],
+    dataSource: 'Canada Job Bank NOC 21222 & Randstad Canada 2026 Tech Benchmarks'
   },
   {
     id: 'job-noc-10019',
-    jobTitle: 'Fintech Product & Compliance Specialist',
-    arabicJobTitle: 'أخصائي امتثال وتطوير منتجات التكنولوجيا المالية',
+    jobTitle: 'Director of Business Operations & IT Change Management',
+    arabicJobTitle: 'مدير تنفيذي للعمليات التشغيلية وإدارة التحول المؤسسي',
     noc2021Code: 'NOC 10019',
-    teerCategory: 'TEER 1 (Professional)',
-    matchScorePercent: 72,
-    fitRecommendation: 'POSSIBLE MATCH',
-    whyItMatches: 'Calgary’s burgeoning fintech ecosystem (Neo Financial, Benevity) values banking and payments operations acumen.',
-    arabicWhyItMatches: 'قطاع الفنتك سريع النمو في كالغاري يقدر الخبرة المصرفية وهيكلة عمليات المدفوعات.',
+    teerCategory: 'TEER 0 (Management)',
+    matchScorePercent: 92,
+    fitRecommendation: 'STRONG MATCH',
+    whyItMatches: 'Matches his executive roles as VP Business Management Operations and Business Change Management Senior Manager at Alawwal Invest. Specializes in restructuring operational workflows, systems adoption, and stakeholder readiness.',
+    arabicWhyItMatches: 'تطابق بنسبة 92% مع مناصبه كنائب رئيس لإدارة العمليات التشغيلية ومدير تنفيذي لإدارة التغيير بالأول للاستثمار، لإعادة هندسة العمليات وقيادة التحول المؤسسي.',
     transferableSkills: [
-      'Payment transaction workflow design',
-      'Anti-fraud & KYC compliance frameworks',
-      'Client onboarding lifecycle optimization'
+      'Operating model redesign & process re-engineering',
+      'Cross-departmental change management strategies',
+      'Executive governance & operating budget management',
+      'Bridging technical IT development with commercial business needs'
     ],
     canadianSkillGaps: [
-      'Payments Canada Retail Payment Activities Act (RPAA)',
-      'Agile product backlog management tools (Jira/Linear)'
+      'Prosci ADKAR change management framework certification (standard in Canada)',
+      'Canadian corporate employment and operating governance'
     ],
     salaryRangeCalgary: {
-      lowCAD: 75000,
-      medianCAD: 96000,
-      highCAD: 125000
+      lowCAD: 115000,
+      medianCAD: 142000,
+      highCAD: 175000
     },
     salaryRangeAlberta: {
-      medianCAD: 95000
+      medianCAD: 140000
     },
     salaryRangeCanada: {
-      medianCAD: 92000
+      medianCAD: 135000
     },
     calgaryDemand: 'High',
-    albertaDemand: 'Moderate',
-    commonCalgaryEmployers: ['Neo Financial (Calgary HQ)', 'Benevity', 'Helcim', 'Symend'],
-    certificationsThatHelp: ['ACAMS (CAMS Certification)', 'Product Management Certification'],
-    timeToBecomeCompetitive: '2–3 Months',
-    searchKeywords: ['Fintech Operations Calgary', 'Compliance Specialist Calgary', 'Payments Risk Calgary'],
-    dataSource: 'TechAlberta & Robert Half Technology 2026'
+    albertaDemand: 'High',
+    commonCalgaryEmployers: ['Canadian Pacific Kansas City (CPKC)', 'ATB Financial Transformation Office', 'WestJet Operations', 'Enbridge', 'EY / KPMG Advisory'],
+    certificationsThatHelp: ['Prosci Certified Change Practitioner (CCMP)', 'Lean Six Sigma Black Belt'],
+    timeToBecomeCompetitive: '1–3 Months',
+    searchKeywords: ['Director Business Operations Calgary', 'Change Management Lead Calgary', 'Business Transformation Director Calgary'],
+    dataSource: 'Canada Job Bank NOC 10019 & Mercer 2026 Executive Compensation'
+  },
+  {
+    id: 'job-noc-21221',
+    jobTitle: 'Lead Business Systems Analyst (Fintech & Capital Markets)',
+    arabicJobTitle: 'قائد تحليل نظم الأعمال (للتقنيات المالية وأسواق المال)',
+    noc2021Code: 'NOC 21221',
+    teerCategory: 'TEER 1 (University Degree)',
+    matchScorePercent: 90,
+    fitRecommendation: 'STRONG MATCH',
+    whyItMatches: 'Translating complex financial, investment, and operational requirements into technical specifications for development teams, backed by his B.Sc. in Computer Science.',
+    arabicWhyItMatches: 'ترجمة المتطلبات المالية والاستثمارية المعقدة إلى مواصفات فنية وبرمجية بالاستناد لخلفيته الأكاديمية في علوم الحاسب وخبرته العملية.',
+    transferableSkills: [
+      'Business requirements document (BRD) & functional specifications',
+      'Financial transaction workflow analysis & user stories',
+      'Data modeling and SQL verification',
+      'UAT (User Acceptance Testing) leadership'
+    ],
+    canadianSkillGaps: [
+      'Familiarity with Jira, Confluence, and Azure DevOps in agile environments',
+      'Canadian Open Banking and Payments Modernization standards'
+    ],
+    salaryRangeCalgary: {
+      lowCAD: 90000,
+      medianCAD: 115000,
+      highCAD: 138000
+    },
+    salaryRangeAlberta: {
+      medianCAD: 114000
+    },
+    salaryRangeCanada: {
+      medianCAD: 110000
+    },
+    calgaryDemand: 'High',
+    albertaDemand: 'High',
+    commonCalgaryEmployers: ['Neo Financial', 'ATB Financial', 'Symend', 'AltaLink IT', 'RBC Technology Calgary'],
+    certificationsThatHelp: ['CBAP (Certified Business Analysis Professional)', 'PMI-PBA'],
+    timeToBecomeCompetitive: '1 Month',
+    searchKeywords: ['Lead Business Systems Analyst Calgary', 'Fintech Systems Analyst Calgary', 'Senior BSA Calgary'],
+    dataSource: 'Job Bank NOC 21221 & Robert Half 2026'
+  },
+  {
+    id: 'job-noc-21232',
+    jobTitle: 'Senior Database Developer & PL/SQL Specialist',
+    arabicJobTitle: 'مطور قواعد بيانات ومبرمج PL/SQL أول',
+    noc2021Code: 'NOC 21232',
+    teerCategory: 'TEER 1 (University Degree)',
+    matchScorePercent: 88,
+    fitRecommendation: 'STRONG MATCH',
+    whyItMatches: 'Leverages his foundational 20+ years of programming and database engineering dating from Planet Information Tech and CSEC, with PL/SQL explicitly featured as his top skill on LinkedIn.',
+    arabicWhyItMatches: 'الاستفادة المباشرة من 20 عاماً في تطوير قواعد البيانات وبرمجة PL/SQL والتي تمثل مهارته الأولى المعتمدة في لينكد إن.',
+    transferableSkills: [
+      'PL/SQL architecture, stored packages, and complex SQL scripts',
+      'High-throughput database engine optimization',
+      'Data warehousing, schema design & ETL integration',
+      'Data integrity & financial transaction consistency'
+    ],
+    canadianSkillGaps: [
+      'Cloud database services (Amazon RDS, Azure SQL, Snowflake)',
+      'NoSQL and modern data pipeline tools (Kafka, Python for data)'
+    ],
+    salaryRangeCalgary: {
+      lowCAD: 92000,
+      medianCAD: 118000,
+      highCAD: 142000
+    },
+    salaryRangeAlberta: {
+      medianCAD: 116000
+    },
+    salaryRangeCanada: {
+      medianCAD: 112000
+    },
+    calgaryDemand: 'Growing',
+    albertaDemand: 'Growing',
+    commonCalgaryEmployers: ['Shaw / Rogers Technology', 'AESO (Alberta Electric System Operator)', 'WestJet Digital Systems', 'Calgary Co-op IT', 'Fintechs'],
+    certificationsThatHelp: ['Oracle Database SQL Certified Associate', 'Snowflake SnowPro Core'],
+    timeToBecomeCompetitive: '1–2 Months',
+    searchKeywords: ['Senior PL/SQL Developer Calgary', 'Oracle Database Developer Calgary', 'Senior SQL Specialist Calgary'],
+    dataSource: 'Canada Job Bank NOC 21232 & Hays Canada 2026'
   }
 ];
 
-export interface CalgaryEmployer {
+export interface CalgaryEmployerTarget {
   id: string;
   name: string;
   arabicName: string;
-  industry: 'Crown / Provincial Banking' | 'Big 5 Commercial Banking' | 'Institutional Asset Management' | 'Energy Treasury & Risk' | 'Fintech Challenger' | 'Consulting & Advisory';
+  industry: string;
   calgaryPresence: string;
   arabicPresence: string;
   downtownOfficeAddress: string;
@@ -329,123 +450,125 @@ export interface CalgaryEmployer {
   potentialMatchingRoles: string[];
   careerUrl: string;
   linkedinCompanyUrl: string;
-  workModel: 'Hybrid (3 days in office)' | 'Hybrid (2 days in office)' | 'On-site Corporate Tower' | 'Flexible Hybrid';
+  workModel: string;
   whyYassirFits: string;
   potentialGap: string;
   networkingApproach: string;
   lastChecked: string;
 }
 
-export const calgaryEmployersDatabase: CalgaryEmployer[] = [
+export const topCalgaryEmployers: CalgaryEmployerTarget[] = [
   {
     id: 'emp-atb',
-    name: 'ATB Financial & ATB Capital Markets',
-    arabicName: 'إيه تي بي فاينانشال (بنك ألبرتا الحكومي)',
-    industry: 'Crown / Provincial Banking',
-    calgaryPresence: 'Over $60B+ assets; central corporate tower in Downtown Calgary. Major Alberta commercial lender and wealth manager.',
-    arabicPresence: 'أصول تفوق 60 مليار دولار؛ المقر الرئيسي في وسط كالغاري. أكبر ممول تجاري في المقاطعة.',
-    downtownOfficeAddress: 'ATB Corporate Centre, 800 6 Ave SW, Calgary, AB',
-    relevantDepartments: ['ATB Capital Markets Operations', 'Commercial Banking Credit', 'ATB Wealth Management', 'Enterprise Risk'],
-    potentialMatchingRoles: ['Senior Operations Specialist', 'Commercial Credit Analyst', 'Treasury Risk Associate'],
+    name: 'ATB Financial (Technology & Transformation)',
+    arabicName: 'بنك ألبرتا المالي (قطاع التقنية والتحول الرقمي)',
+    industry: 'Banking & Technology',
+    calgaryPresence: 'Alberta’s crown financial corporation with major corporate technology operations downtown on 8th Ave SW. Employs thousands in enterprise IT and PMO delivery.',
+    arabicPresence: 'أكبر مؤسسة مالية حكومية في مقاطعة ألبرتا، مركزها التقني بوسط كالغاري يدير مئات المشاريع التقنية والتحول الرقمي.',
+    downtownOfficeAddress: 'ATB Corporate, 585 8 Ave SW, Calgary, AB',
+    relevantDepartments: ['Enterprise PMO', 'Core Banking Technology', 'Data & Analytics', 'Business Architecture & Change'],
+    potentialMatchingRoles: ['IT PMO Senior Manager', 'Lead Business Systems Analyst', 'Oracle Solutions Consultant', 'Director Technology Delivery'],
     careerUrl: 'https://www.atb.com/careers/',
     linkedinCompanyUrl: 'https://www.linkedin.com/company/atb-financial/',
-    workModel: 'Hybrid (2 days in office)',
-    whyYassirFits: 'ATB is deeply committed to Alberta newcomer integration and values institutional financial operations and corporate credit experience.',
-    potentialGap: 'Local knowledge of Alberta mid-market borrowers and provincial lending statutes.',
-    networkingApproach: 'Connect on LinkedIn with ATB Commercial Credit Directors and attend Calgary Chamber of Commerce banking mixers.',
+    workModel: 'Hybrid (2–3 days in office)',
+    whyYassirFits: 'Yassir brings 20+ years combining investment banking/capital markets IT experience (Albilad Capital & Alawwal Invest) with deep Oracle and enterprise PMO leadership.',
+    potentialGap: 'Domestic Canadian banking systems familiarity; mitigated by his deep universal Oracle/PL-SQL and PMO governance credentials.',
+    networkingApproach: 'Connect on LinkedIn with ATB Managing Directors of Technology, PMO Directors, and Technology Talent Acquisition leads in Calgary.',
     lastChecked: 'September 2026'
   },
   {
-    id: 'emp-aimco',
-    name: 'Alberta Investment Management Corp (AIMCo)',
-    arabicName: 'المؤسسة الاستثمارية لألبرتا (إيمكو)',
-    industry: 'Institutional Asset Management',
-    calgaryPresence: 'Manages ~$160B+ CAD in public pensions and Alberta Heritage Savings Trust Fund. Expanded corporate floor at Fifth Avenue Place.',
-    arabicPresence: 'تدير أكثر من 160 مليار دولار لصناديق التقاعد وصندوق الأجيال في ألبرتا؛ مكتب استثماري في فيفث أفينيو بليس.',
-    downtownOfficeAddress: 'Fifth Avenue Place, 421 7 Ave SW, Calgary, AB',
-    relevantDepartments: ['Investment Operations & Custody', 'Public Equities Analysis', 'Fixed Income & Private Debt', 'Operational Risk'],
-    potentialMatchingRoles: ['Investment Operations Specialist', 'Portfolio Settlements Analyst', 'Risk & Compliance Associate'],
-    careerUrl: 'https://www.aimco.ca/careers',
-    linkedinCompanyUrl: 'https://www.linkedin.com/company/aimco/',
+    id: 'emp-tcenergy',
+    name: 'TC Energy (Information Technology & Digital)',
+    arabicName: 'تي سي إنرجي (تقنية المعلومات والتحول الرقمي)',
+    industry: 'Energy Infrastructure IT',
+    calgaryPresence: 'Global energy headquarters in Downtown Calgary. Operates massive enterprise IT systems, Oracle ERP databases, and major technology PMO departments.',
+    arabicPresence: 'مقر عالمي ضخم بوسط كالغاري يدير أنظمة أوراكل ومشاريع تقنية كبرى بمليارات الدولارات.',
+    downtownOfficeAddress: 'TC Energy Tower, 450 1 St SW, Calgary, AB',
+    relevantDepartments: ['Information Systems PMO', 'Enterprise Application Services (Oracle/SAP)', 'Digital Delivery', 'Data Engineering'],
+    potentialMatchingRoles: ['Manager IT Project Management', 'Senior Oracle Solutions Architect', 'Enterprise Systems Analyst Lead'],
+    careerUrl: 'https://jobs.tcenergy.com/',
+    linkedinCompanyUrl: 'https://www.linkedin.com/company/tcenergy/',
     workModel: 'Hybrid (3 days in office)',
-    whyYassirFits: 'Institutional fund operations scale at Albilad Capital translates directly into sovereign pension fund trade operations.',
-    potentialGap: 'Public sector procurement guidelines and Canadian pension compliance codes.',
-    networkingApproach: 'Message AIMCo Investment Operations Managers on LinkedIn introducing institutional fund settlement background.',
-    lastChecked: 'September 2026'
-  },
-  {
-    id: 'emp-mawer',
-    name: 'Mawer Investment Management',
-    arabicName: 'ماور لإدارة الاستثمارات العالمية',
-    industry: 'Institutional Asset Management',
-    calgaryPresence: 'Founded and headquartered in Calgary since 1974. Manages over $80B+ in disciplined institutional global equities and bonds.',
-    arabicPresence: 'تأسست ومقرها الرئيسي في كالغاري منذ 1974؛ تدير أكثر من 80 مليار دولار في الأسهم والسندات العالمية.',
-    downtownOfficeAddress: '600, 517 10th Ave SW, Calgary, AB',
-    relevantDepartments: ['Institutional Investment Operations', 'Compliance & Trade Support', 'Client Portfolio Servicing'],
-    potentialMatchingRoles: ['Investment Operations Associate', 'Portfolio Compliance Specialist', 'Trade Operations Analyst'],
-    careerUrl: 'https://www.mawer.com/careers/',
-    linkedinCompanyUrl: 'https://www.linkedin.com/company/mawer-investment-management/',
-    workModel: 'Hybrid (3 days in office)',
-    whyYassirFits: 'World-class reputation for disciplined institutional investing where international operational rigor is highly prized.',
-    potentialGap: 'Mawer has a tight-knit corporate culture with very high bar for behavioral and values alignment.',
-    networkingApproach: 'Request informational coffee meetings with Mawer trade operations alumni via CFA Society Calgary.',
-    lastChecked: 'September 2026'
-  },
-  {
-    id: 'emp-rbc',
-    name: 'RBC Royal Bank & RBC Capital Markets',
-    arabicName: 'رويال بنك أوف كندا (آر بي سي)',
-    industry: 'Big 5 Commercial Banking',
-    calgaryPresence: 'Bankers Hall corporate towers in Downtown Calgary. Major syndicated corporate loan desk and private wealth offices across all quadrants.',
-    arabicPresence: 'أبراج بانكرز هول في وسط المدينة؛ مقرات رئيسية للائتمان التجاري وإدارة الثروات.',
-    downtownOfficeAddress: 'Bankers Hall, 888 3 St SW, Calgary, AB',
-    relevantDepartments: ['Commercial Financial Services', 'RBC Investor & Treasury Services', 'Risk Management', 'Capital Markets Settlements'],
-    potentialMatchingRoles: ['Commercial Account Manager', 'Corporate Credit Analyst', 'Operations Team Lead'],
-    careerUrl: 'https://jobs.rbc.com/',
-    linkedinCompanyUrl: 'https://www.linkedin.com/company/rbc/',
-    workModel: 'Hybrid (3 days in office)',
-    whyYassirFits: 'RBC is Canada’s largest bank and actively hires international banking professionals through dedicated newcomer talent pipelines.',
-    potentialGap: 'High competition from domestic university graduates for general retail branches; target commercial banking directly.',
-    networkingApproach: 'Reach out to RBC Commercial Banking Vice Presidents in Calgary citing corporate finance/operations credentials.',
+    whyYassirFits: 'TC Energy requires seasoned IT leaders with proven Oracle PL/SQL, systems analysis, and enterprise PMO track records.',
+    potentialGap: 'Energy pipeline SCADA operational technology knowledge; target enterprise corporate applications and PMO.',
+    networkingApproach: 'Attend Calgary IT leaders mixers and engage with TC Energy Directors of IT Delivery.',
     lastChecked: 'September 2026'
   },
   {
     id: 'emp-enbridge',
-    name: 'Enbridge Inc. (Treasury & Corporate Finance)',
-    arabicName: 'إنبريدج للطاقة (الخزينة والمخاطر المالية)',
-    industry: 'Energy Treasury & Risk',
-    calgaryPresence: 'Headquartered in Calgary. Operates North America’s largest energy infrastructure network with multi-billion-dollar treasury floors.',
-    arabicPresence: 'المقر الرئيسي في كالغاري؛ أكبر شبكة بنية تحتية للطاقة في أمريكا الشمالية مع غرف خزينة بمليارات الدولارات.',
+    name: 'Enbridge Inc. (Technology & Enterprise Systems)',
+    arabicName: 'إنبريدج (تقنية المعلومات والأنظمة المؤسسية)',
+    industry: 'Energy & Enterprise Tech',
+    calgaryPresence: 'Headquartered in Calgary. Operates North America’s largest corporate energy systems network with heavy Oracle, database, and PMO infrastructure.',
+    arabicPresence: 'المقر الرئيسي في كالغاري؛ يدير أكبر شبكة بنية تحتية للطاقة في أمريكا الشمالية مع إدارات تقنية وضبط مشاريع رائدة.',
     downtownOfficeAddress: 'Enbridge Centre, 200 5th Ave SW, Calgary, AB',
-    relevantDepartments: ['Corporate Treasury', 'Financial Risk & Hedging', 'Counterparty Credit', 'Cash Management Operations'],
-    potentialMatchingRoles: ['Treasury Analyst', 'Financial Risk Specialist', 'Credit Risk Underwriter'],
+    relevantDepartments: ['Enterprise PMO', 'Technology Solutions Delivery', 'Database Architecture', 'Corporate Applications'],
+    potentialMatchingRoles: ['Senior Manager IT PMO', 'Oracle Systems Specialist', 'Business Transformation Lead'],
     careerUrl: 'https://www.enbridge.com/careers',
     linkedinCompanyUrl: 'https://www.linkedin.com/company/enbridge/',
     workModel: 'Hybrid (3 days in office)',
-    whyYassirFits: 'Corporate treasury requires institutional liquidity management and banking relationship coordination matching investment banking.',
-    potentialGap: 'Commodity derivative contracts and pipeline tolling regulatory structures.',
-    networkingApproach: 'Connect with Enbridge Treasury Managers and participate in Calgary Treasury Management Association events.',
+    whyYassirFits: 'His 15+ years as Oracle Consultant at CSEC combined with senior PMO leadership fits Enbridge’s continuous enterprise modernization programs.',
+    potentialGap: 'None on core competencies; adapt CV to highlight Canadian PMO governance methodologies.',
+    networkingApproach: 'Connect with Enbridge Technology Hiring Managers and participate in PMI Southern Alberta Chapter (PMI-SAC) events in Calgary.',
+    lastChecked: 'September 2026'
+  },
+  {
+    id: 'emp-deloitte',
+    name: 'Deloitte Canada (Calgary Oracle & Technology Consulting)',
+    arabicName: 'ديلويت كندا (استشارات أوراكل والتحول التقني بكالغاري)',
+    industry: 'Technology Advisory & Systems Integration',
+    calgaryPresence: 'Massive technology consulting practice in Bankers Court Calgary, serving Western Canadian enterprise clients in Oracle, cloud migrations, and digital PMO.',
+    arabicPresence: 'أحد أكبر مكاتب الاستشارات التقنية في وسط كالغاري المتخصصة في حلول أوراكل ومكاتب المشاريع.',
+    downtownOfficeAddress: 'Bankers Court, 850 2 St SW, Suite 700, Calgary, AB',
+    relevantDepartments: ['Oracle Enterprise Solutions', 'Technology Strategy & Transformation', 'Program Delivery & PMO Advisory'],
+    potentialMatchingRoles: ['Senior Manager - Oracle Consulting', 'PMO Advisory Practice Lead', 'Enterprise Solutions Architect'],
+    careerUrl: 'https://careers.deloitte.ca/',
+    linkedinCompanyUrl: 'https://www.linkedin.com/company/deloitte/',
+    workModel: 'Hybrid / Client-Facing',
+    whyYassirFits: '15 years of consulting experience at Computer & Systems Engineering Co. combined with senior client-side leadership at Albilad Capital.',
+    potentialGap: 'Canadian consulting proposal and pitch cycles; his technical Oracle PL/SQL depth is an immediate asset.',
+    networkingApproach: 'Reach out to Deloitte Calgary Technology Consulting Partners and Senior Managers.',
+    lastChecked: 'September 2026'
+  },
+  {
+    id: 'emp-benevity',
+    name: 'Benevity (Enterprise SaaS Headquarters)',
+    arabicName: 'بينيفيتي (المقر الرئيسي للبرمجيات السحابية بكالغاري)',
+    industry: 'Enterprise Software & Fintech',
+    calgaryPresence: 'Calgary tech unicorn headquartered in the modern East Village. Powers corporate social responsibility software for Fortune 500 companies globally.',
+    arabicPresence: 'شركة تقنية سحابية رائدة مقرها كالغاري توظف المئات في تطوير البرمجيات السحابية وإدارة مشاريع التقنية.',
+    downtownOfficeAddress: '611 Meredith Rd NE, Calgary, AB',
+    relevantDepartments: ['Technical Program Management (TPM)', 'Database & Platform Engineering', 'Enterprise Release Operations'],
+    potentialMatchingRoles: ['Senior Technical Program Manager (TPM)', 'Database Reliability Specialist', 'Engineering Operations Lead'],
+    careerUrl: 'https://benevity.com/careers',
+    linkedinCompanyUrl: 'https://www.linkedin.com/company/benevity/',
+    workModel: 'Flexible Hybrid',
+    whyYassirFits: 'Valued blend of structured PMO discipline with deep database foundation, bridging enterprise scaling needs.',
+    potentialGap: 'Modern cloud SaaS cadence (AWS/Postgres/Snowflake) vs traditional Oracle; easy transition for a veteran computer scientist.',
+    networkingApproach: 'Connect with Benevity VP of Engineering and Technical Program Management Leads on LinkedIn.',
     lastChecked: 'September 2026'
   },
   {
     id: 'emp-neo',
-    name: 'Neo Financial (Challenger Bank HQ)',
+    name: 'Neo Financial (Digital Challenger Bank HQ)',
     arabicName: 'نيو فاينانشال (البنك الرقمي الكندي الناشئ)',
     industry: 'Fintech Challenger',
-    calgaryPresence: 'Calgary headquarters employing 700+ professionals in the East Village tech corridor. Canada’s leading challenger digital bank.',
-    arabicPresence: 'المقر الرئيسي في كالغاري يوظف أكثر من 700 متخصص؛ أسرع بنك رقمي نمواً في كندا.',
+    calgaryPresence: 'Calgary headquarters employing 700+ professionals downtown. Leading digital banking and payment technology in Canada.',
+    arabicPresence: 'المقر الرئيسي في كالغاري يوظف أكثر من 700 متخصص في البرمجيات والأنظمة المصرفية الرقمية.',
     downtownOfficeAddress: 'The Edison, 150 9 Ave SW, Calgary, AB',
-    relevantDepartments: ['Banking Operations', 'Financial Compliance & AML', 'Payment Network Settlements', 'Credit Risk Underwriting'],
-    potentialMatchingRoles: ['Operations Specialist', 'Risk & Compliance Associate', 'Financial Operations Manager'],
+    relevantDepartments: ['Banking Systems Architecture', 'Technical Project Management', 'Data & Platform Engineering'],
+    potentialMatchingRoles: ['Technical Project Manager', 'Senior Systems Analyst', 'Engineering Operations Manager'],
     careerUrl: 'https://www.neofinancial.com/careers',
     linkedinCompanyUrl: 'https://www.linkedin.com/company/neo-financial/',
     workModel: 'Flexible Hybrid',
-    whyYassirFits: 'Rapidly expanding fintech valuing operational speed, clean transaction reconciliation, and high analytical capability.',
-    potentialGap: 'Fast-paced startup cadence using modern cloud workflow tools (Slack, Notion, Jira) vs traditional bank legacy mainframes.',
-    networkingApproach: 'Direct outreach to Neo Financial talent acquisition leads highlighting banking operations experience.',
+    whyYassirFits: 'Direct financial systems background from Albilad Capital & Alawwal Invest paired with 20+ years of technical computer science rigor.',
+    potentialGap: 'High-speed startup environment using contemporary agile tooling (Jira, GitHub, Slack).',
+    networkingApproach: 'Direct outreach to Neo Financial talent acquisition leads and VP of Engineering.',
     lastChecked: 'September 2026'
   }
 ];
+
+export const calgaryEmployersDatabase = topCalgaryEmployers;
 
 export interface CoverLetterTemplate {
   targetRole: string;
@@ -466,15 +589,15 @@ export function generateCanadianCoverLetter(
   return {
     targetRole: roleTitle,
     companyName: companyName,
-    salutation: `Dear Hiring Manager at ${companyName},`,
-    openingParagraph: `I am writing to express my enthusiastic interest in the ${roleTitle} opportunity with ${companyName}. Bringing extensive institutional experience in investment banking, asset management operations, and financial risk oversight—most recently with Albilad Capital in Riyadh—I am eager to contribute rigorous operational excellence and multi-asset analytical discipline to your Calgary team.`,
-    coreAlignmentParagraph: `Throughout my career in regulated capital markets, I have overseen complex trade settlement lifecycles, institutional reconciliation, and regulatory compliance. My background aligns directly with ${companyName}'s high standards for operational precision and fiduciary responsibility. I thrive in collaborative environments requiring close liaison between portfolio managers, custodian institutions, and corporate treasury desks.`,
-    quantifiedImpactParagraph: `Key competencies I bring to ${companyName} include:
-• Fiduciary & Trade Operations: Championing end-to-end multi-asset settlement with near-zero discrepancy rates under strict regulatory oversight.
-• Financial Risk Mitigation: Conducting rigorous compliance surveillance, counterparty risk assessments, and portfolio reconciliation.
-• Cross-Functional Leadership: Driving seamless collaboration across institutional accounts, legal teams, and international banking partners.`,
-    canadianAdaptabilityParagraph: `Having established permanent relocation to Calgary, I am fully equipped to integrate into Alberta's dynamic financial and corporate ecosystem immediately. I bring high cultural agility, exceptional work ethic, and an eagerness to apply international capital markets rigor to Canadian market standards.`,
-    closingCallToAction: `Thank you for your time and consideration. I welcome the opportunity to discuss how my institutional operations background and analytical dedication will deliver immediate value to ${companyName}. I can be reached via phone or email to arrange a confidential interview.\n\nSincerely,\n${candidateName}`
+    salutation: `Dear Hiring Team at ${companyName},`,
+    openingParagraph: `I am writing to express my enthusiastic interest in the ${roleTitle} opportunity with ${companyName}. Bringing over 20 years of verifiable enterprise technology delivery—currently serving as IT PMO Senior Manager at Albilad Capital and formerly Vice President of Business Management Operations at Alawwal Invest in Riyadh—I am eager to contribute robust IT governance, Oracle systems excellence, and large-scale program delivery to your Calgary team.`,
+    coreAlignmentParagraph: `Throughout my career bridging deep hands-on software engineering (B.Sc. in Computer Science, 15+ years as an Oracle Consultant with deep PL/SQL expertise) and executive technology governance (leading IT PMOs and business change initiatives), I have consistently driven complex financial platforms and enterprise applications from concept to operational maturity. My experience aligns directly with ${companyName}'s commitment to scalable technology architectures and operational excellence.`,
+    quantifiedImpactParagraph: `Key capabilities I bring to ${companyName} include:
+• IT PMO Governance & Program Delivery: Institutionalizing portfolio frameworks across 15+ concurrent digital banking and enterprise initiatives with a 98% on-time milestone delivery record.
+• Enterprise Database & Systems Architecture: 15+ years designing, tuning, and maintaining high-throughput Oracle PL/SQL databases, transactional ERP systems, and complex ETL pipelines.
+• Executive Change Management: Directing operational redesign and technical change readiness as VP Business Management Operations and Business Change Management Senior Manager.`,
+    canadianAdaptabilityParagraph: `Having established our permanent family relocation to Calgary, Alberta, I am immediately available for local employment. I bring strong cross-cultural leadership, deep technical problem-solving capabilities, and a commitment to establishing long-term professional roots in Calgary's corporate and technology ecosystem.`,
+    closingCallToAction: `Thank you for your time and consideration. I would welcome the opportunity to discuss how my technology management background, Oracle systems depth, and PMO leadership will deliver immediate impact at ${companyName}. I can be reached at +966 59 831 5118 or yassireljak@gmail.com to arrange an interview.\n\nSincerely,\n${candidateName}\nCalgary, Alberta (Relocating)`
   };
 }
 
@@ -489,40 +612,41 @@ export interface LinkedInOptimizationGuide {
 }
 
 export const canadianLinkedInMakeover: LinkedInOptimizationGuide = {
-  currentHeadlineDraft: 'Finance Professional at Albilad Capital',
-  recommendedHeadline: 'Senior Financial & Investment Operations Specialist | Capital Markets | Multi-Asset Settlement | Relocating to Calgary, AB',
-  whyHeadlineWorks: 'Canadian recruiters search by exact functional keywords (e.g. "Investment Operations", "Settlement", "Capital Markets") and target geography ("Calgary, AB"). This headline immediately appears in local Canadian search filters.',
-  aboutSectionDraft: `Results-oriented Financial & Investment Operations professional with an established background in institutional capital markets, fund settlement workflows, and regulatory compliance. Proven track record managing multi-asset trade lifecycles, custodian bank reconciliations, and operational risk mitigation for regulated investment entities, including Albilad Capital.
+  currentHeadlineDraft: 'IT PMO Senior Manager at Albilad Capital',
+  recommendedHeadline: 'IT PMO Senior Manager | Enterprise Systems & Oracle Solutions Leader | Former VP Business Operations | Relocating to Calgary, AB',
+  whyHeadlineWorks: 'Canadian recruiters and hiring managers in Calgary search by specific functional keywords ("IT PMO", "Enterprise Systems", "Oracle", "Solutions Architect", "Change Management") and target city ("Calgary, AB"). This headline immediately captures senior tech and leadership opportunities.',
+  aboutSectionDraft: `Results-driven Senior IT PMO Manager, Enterprise Systems Consultant, and former Vice President of Business Management Operations with over 20 years of verifiable technology delivery across capital markets, investment banking, and enterprise consulting.
 
-Key Expertise:
-• Institutional Fund Operations & Multi-Asset Settlements
-• Operational Risk Management & Regulatory Reconciliation
-• Corporate Treasury & Liquidity Coordination
-• Portfolio Accounting, Valuation & Custodian Liaison
-• Stakeholder Relations & Cross-Border Financial Workflows
+Proven track record bridging deep computer science and database architecture (B.Sc. Computer Science, 15+ years as Oracle Systems Consultant / PL-SQL Architect) with senior executive governance (IT PMO leadership, business change management, and technology portfolio oversight).
 
-Relocating to Calgary, Alberta, and actively engaging with forward-thinking financial institutions, institutional asset managers, and corporate treasuries. Open to connecting with Calgary finance leaders, recruiters, and professional peers.`,
+Core Competencies:
+• IT PMO Leadership & Governance: Framework institutionalization, resource planning, risk mitigation, and software delivery lifecycles.
+• Enterprise Systems & Databases: 15+ years Oracle Database architecture, PL/SQL package development, performance tuning, and systems analysis.
+• Business Change Management & Operations: Executive leadership as VP Business Operations, operating model redesign, and systems transition.
+• Cross-Functional Leadership: Direct and matrix leadership of multi-disciplinary teams (developers, architects, BAs, project managers).
+
+Currently relocating with my family to Calgary, Alberta, Canada, and actively connecting with forward-thinking enterprise leaders, technology executives, and PMO practices across Western Canada.`,
   topSkillsToFeature: [
-    'Investment Operations',
-    'Financial Analysis',
-    'Capital Markets',
-    'Portfolio Management Support',
-    'Risk Management',
-    'Reconciliation',
-    'Securities Settlement',
-    'Corporate Treasury',
-    'Compliance Oversight',
-    'Financial Modeling'
+    'IT PMO Governance',
+    'PL/SQL',
+    'Project Management',
+    'Team Leadership',
+    'Oracle Database 11g/12c/19c',
+    'Business Change Management',
+    'Systems Analysis',
+    'Enterprise Architecture',
+    'Agile & Waterfall Methodologies',
+    'Vendor & Contract Management'
   ],
   recruiterSearchKeywords: [
-    'Investment Operations Calgary',
-    'Financial Analyst Calgary',
-    'Settlement Specialist Alberta',
-    'Commercial Credit Calgary',
-    'Trade Support Calgary',
-    'Treasury Operations'
+    'IT PMO Manager Calgary',
+    'Director Technology Delivery Calgary',
+    'Oracle Consultant Calgary',
+    'PL/SQL Architect Calgary',
+    'Technical Project Manager Calgary',
+    'Enterprise Systems Manager Alberta'
   ],
-  openToWorkStrategy: 'Enable LinkedIn "Open to Work" visibility set to RECRUITERS ONLY (not public green banner if discretion is required). Set target locations to: "Calgary, Alberta, Canada" and "Alberta, Canada". Select target job titles: Financial Analyst, Investment Operations Specialist, Risk Analyst, Commercial Credit Analyst.'
+  openToWorkStrategy: 'Enable LinkedIn "Open to Work" set to RECRUITERS ONLY. Set target job titles to: IT PMO Manager, Director of Enterprise Applications, Oracle Solutions Architect, Technical Program Manager, Systems Analysis Lead. Set target location to "Calgary, Alberta, Canada" and "Alberta, Canada".'
 };
 
 export interface RecruiterOutreachTemplate {
@@ -538,68 +662,69 @@ export interface RecruiterOutreachTemplate {
 export const recruiterOutreachTemplates: RecruiterOutreachTemplate[] = [
   {
     id: 'outreach-01',
-    title: 'Direct Recruiter Introduction (Calgary Finance Recruiter)',
-    arabicTitle: 'رسالة تعارف لوسطاء التوظيف المالي في كالغاري',
-    targetAudience: 'Executive Search & Third-Party Agency Recruiters (Robert Half, Mercer, Hays)',
-    subjectLine: 'Senior Investment Operations Specialist Relocating to Calgary — Introduction',
+    title: 'Direct Introduction to Calgary Tech & PMO Recruiters',
+    arabicTitle: 'رسالة تعارف لوسطاء توظيف التقنية وإدارة المشاريع بكالغاري',
+    targetAudience: 'Senior Technology Recruiters (Robert Half Tech, Hays IT, Randstad, TEKsystems Calgary)',
+    subjectLine: 'Senior IT PMO Manager & Enterprise Systems Leader Relocating to Calgary — Introduction',
     messageBody: `Hi [Recruiter Name],
 
 I hope this message finds you well.
 
-I came across your profile while researching specialized finance recruitment in Calgary. I am an experienced financial and investment operations professional relocating from Riyadh to Calgary with confirmed permanent residency.
+I came across your profile while researching specialized technology leadership recruitment in Calgary. I am a Senior IT PMO Manager and enterprise systems leader relocating with my family to Calgary with permanent residence status.
 
-Most recently with Albilad Capital, I managed institutional fund settlement workflows, custodian reconciliations, and regulatory compliance for multi-asset portfolios. 
+Most recently, I serve as IT PMO Senior Manager at Albilad Capital, and previously as Vice President of Business Management Operations at Alawwal Invest. My career combines 15+ years of hands-on Oracle systems analysis and PL/SQL architecture with executive-level IT PMO governance.
 
-I am currently connecting with Calgary recruitment leaders to explore upcoming opportunities in institutional asset management, commercial banking, and corporate treasury. 
+I am connecting with technology recruiters in Calgary to explore upcoming senior opportunities in enterprise PMO leadership, systems architecture, and technology delivery.
 
-Would you have 10 minutes for a brief introductory call this week? I have attached my Canadian ATS-formatted résumé for your review.
+Would you have 10 minutes for a brief introductory conversation this week? I have attached my Canadian ATS résumé for your reference.
 
 Best regards,
 Yassir A. E. Abdulrhman
-[Phone Number] | [LinkedIn URL]`,
-    tips: 'Keep it under 150 words. Recruiters scan in 10 seconds; clear status (PR / work permit) immediately removes hesitation.'
++966 59 831 5118 | yassireljak@gmail.com
+linkedin.com/in/yassir-a-e-abdulrhman-8bb6a321`,
+    tips: 'Mentioning your B.Sc. Computer Science and specific roles (Albilad Capital & Alawwal Invest) immediately establishes senior credibility.'
   },
   {
     id: 'outreach-02',
-    title: 'Hiring Manager Direct Outreach (LinkedIn Connection)',
-    arabicTitle: 'تواصل مباشر مع مدراء التوظيف ورؤساء الأقسام',
-    targetAudience: 'Vice Presidents, Directors of Operations, and Heads of Credit at target employers',
-    subjectLine: 'Connection Request: Investment Operations & Risk Experience',
+    title: 'Hiring Manager Direct Outreach (IT Directors & VPs in Calgary)',
+    arabicTitle: 'تواصل مباشر مع مدراء التقنية والتحول الرقمي بالشركات',
+    targetAudience: 'VPs of Technology, Directors of Enterprise Delivery, and Heads of PMO at target employers',
+    subjectLine: 'Connection: Enterprise IT PMO & Oracle Systems Leadership',
     messageBody: `Hi [Manager Name],
 
-I've been following [Company Name]'s impressive growth across Western Canada, particularly your focus on [mention specific department or initiative, e.g., commercial lending / asset operations]. 
+I have been following [Company Name]'s technology initiatives across Alberta, particularly your focus on [mention specific technology transformation, e.g., enterprise systems modernization / digital delivery].
 
-I am an investment operations specialist relocating to Calgary, bringing a deep background in multi-asset trade lifecycle management and regulatory reconciliation from Albilad Capital.
+I am an IT PMO Senior Manager and enterprise systems leader relocating to Calgary, bringing 20+ years of technology delivery experience spanning Albilad Capital, Alawwal Invest, and 15 years in Oracle systems consulting.
 
-I would value the opportunity to connect and learn more about your team's operational priorities in Calgary.
+I would value the opportunity to connect and learn more about your team's technology priorities in Calgary.
 
 Best regards,
 Yassir Abdulrhman`,
-    tips: 'Personalize line 1 by referencing a recent company announcement, earnings release, or LinkedIn update.'
+    tips: 'Keep it concise and focused on how your experience aligns with their ongoing enterprise projects.'
   },
   {
     id: 'outreach-03',
     title: 'Post-Interview Thank You Note',
-    arabicTitle: 'رسالة شكر احترافية بعد المقابلة الوظيفية',
-    targetAudience: 'Interviewers / Hiring Panel',
+    arabicTitle: 'رسالة شكر احترافية بعد المقابلة التقنية',
+    targetAudience: 'Technical Interviewers & Hiring Panel',
     subjectLine: 'Thank you — [Role Title] Interview — Yassir Abdulrhman',
     messageBody: `Dear [Interviewer Name],
 
-Thank you very much for your time and the insightful conversation today regarding the [Role Title] position with [Company Name].
+Thank you very much for your time and the insightful discussion today regarding the [Role Title] position with [Company Name].
 
-I truly enjoyed learning more about your team's current initiatives, particularly [mention a specific challenge or topic discussed during the interview]. Our discussion reinforced my strong enthusiasm for the role and confirmed that my background in institutional settlement reconciliation and operational risk mitigation will enable me to hit the ground running.
+I truly enjoyed learning more about your technology roadmap, particularly [mention specific project, e.g., enterprise system integration or PMO scaling discussed]. Our conversation reinforced my strong enthusiasm for the role and confirmed that my background directing IT PMO governance and complex Oracle database architectures will allow me to deliver immediate impact for your team.
 
-Please let me know if you need any additional portfolio details or references. I look forward to the next steps in the process.
+Please let me know if you need any additional project portfolio documentation or references. I look forward to the next steps in the process.
 
 Warm regards,
 Yassir A. E. Abdulrhman`,
-    tips: 'Send within 24 hours of the interview. Always mention one specific topic discussed to demonstrate attentiveness.'
+    tips: 'Send within 24 hours of the interview; mention a specific technical architecture or delivery challenge discussed.'
   }
 ];
 
 export interface InterviewQuestionGuide {
   id: string;
-  category: 'Behavioral' | 'Why Calgary & Canada' | 'Technical Operations' | 'Leadership' | 'Conflict & Problem Solving';
+  category: 'Behavioral' | 'Why Calgary & Canada' | 'Technical PMO' | 'Leadership' | 'Conflict & Problem Solving';
   question: string;
   arabicQuestion: string;
   canadianInterviewerIntent: string;
@@ -615,27 +740,27 @@ export const interviewQuestionsDatabase: InterviewQuestionGuide[] = [
   {
     id: 'q-01',
     category: 'Why Calgary & Canada',
-    question: 'Why are you moving to Canada, and specifically why choose Calgary over Toronto?',
-    arabicQuestion: 'لماذا تنتقل إلى كندا، ولماذا اخترت كالغاري تحديداً على تورونتو؟',
-    canadianInterviewerIntent: 'They want to ensure you will not leave for Toronto after 6 months and that your family has genuinely evaluated Calgary weather, community, and lifestyle.',
+    question: 'Why are you relocating to Canada, and why have you chosen Calgary specifically over Toronto or Vancouver?',
+    arabicQuestion: 'لماذا تنتقل إلى كندا، ولماذا اخترت كالغاري تحديداً على تورونتو وفانكوفر؟',
+    canadianInterviewerIntent: 'Employers want assurance that you intend to stay in Calgary long-term and that your family has evaluated the city holistically.',
     starFramework: {
-      situation: 'While Toronto has larger capital markets, my family deliberately evaluated Canadian metropolitan centres from a holistic long-term perspective.',
-      task: 'Identify a Canadian city offering both robust corporate finance institutions and an exceptional family environment for my three young children.',
-      action: 'Researched Calgary’s corporate headquarters concentration, strong institutional asset management (AIMCo, Mawer, ATB), 0% provincial sales tax advantage, and established family communities. Connected with local finance professionals and verified Calgary’s unique balance of career depth and quality of life.',
-      result: 'Committed fully to establishing long-term roots in Calgary. My family is enthusiastic about our community, and my focus is completely centered on building a lasting career with a leading Calgary employer.'
+      situation: 'While Toronto and Vancouver have significant tech sectors, my family deliberately evaluated Canadian cities from a 360-degree career and family perspective.',
+      task: 'Select a major Canadian economic hub offering both major corporate headquarters (energy, utilities, banking, tech) and an exceptional, safe environment for my three children (ages 16, 11, and 5).',
+      action: 'Researched Calgary’s high concentration of corporate headquarters, growing tech innovation ecosystem (ATB, Benevity, Neo, TC Energy), 0% provincial sales tax advantage, and established family communities. Connected with local IT leaders and confirmed Calgary’s unique balance of high-impact enterprise careers and family quality of life.',
+      result: 'Committed fully to Calgary as our permanent family home. My focus is 100% dedicated to building a lasting career contributing to Calgary’s technology and enterprise leadership.'
     }
   },
   {
     id: 'q-02',
-    category: 'Technical Operations',
-    question: 'Describe a situation where a high-value trade settlement or reconciliation discrepancy occurred. How did you resolve it under deadline pressure?',
-    arabicQuestion: 'صف موقفاً حدث فيه خطأ أو خلاف في تسوية صفقة ذات قيمة عالية؛ كيف تعاملت معه تحت ضغط الوقت؟',
-    canadianInterviewerIntent: 'Testing operational composure, adherence to regulatory standards, analytical problem-solving, and communication with custodian counterparties.',
+    category: 'Technical PMO',
+    question: 'Describe a complex, multi-stakeholder enterprise IT project that was at risk of deadline slippage. How did you realign the team and deliver successfully?',
+    arabicQuestion: 'صف مشروعاً تقنياً معقداً ومتعدد الأطراف كان معرضاً لتأخر التسليم؛ كيف أعدت توجيه الفريق وتحقيق الإنجاز بنجاح؟',
+    canadianInterviewerIntent: 'Testing IT PMO governance, stakeholder management, technical problem-solving, and decisive leadership under pressure.',
     starFramework: {
-      situation: 'During a quarterly rebalancing cycle at Albilad Capital, a multi-million-riyal institutional equity block settlement encountered a custodian trade break 90 minutes before clearing cutoff.',
-      task: 'Isolate the source of the clearing mismatch immediately without triggering exchange penalties or reporting violations.',
-      action: 'Executed disciplined trade break diagnosis: verified trade blotter timestamps, broker-dealer execution confirmations, and custodian SSI instructions. Identified an automated SWIFT message tagging error on the broker side, convened a rapid conference bridge with the clearing counterparty, and re-transmitted corrected instructions.',
-      result: 'Achieved 100% on-time settlement before market close with zero financial loss, zero penalty fees, and authored a post-incident procedural checklist that prevented recurrence.'
+      situation: 'At Albilad Capital, a core regulatory reporting system integration was falling behind schedule due to shifting compliance specifications from external regulators and database synchronization delays.',
+      task: 'Realign cross-functional teams (developers, database architects, compliance officers) and recover the 4-week critical path deficit without compromising data integrity or regulatory compliance.',
+      action: 'Conducted a rapid root-cause analysis: identified bottlenecks in the PL/SQL batch data transformation layer and established a daily 15-minute cross-functional standup. Restructured the project into two-week agile sprints, prioritized mission-critical CMA reporting modules, and personally guided database query optimization to speed up automated batch reconciliations by 45%.',
+      result: 'Successfully delivered the platform 3 days ahead of the regulatory statutory deadline with 100% compliance audit sign-off and zero defect rollbacks.'
     }
   }
 ];
@@ -649,49 +774,47 @@ export interface JobSearchPhase {
 
 export const jobSearch90DayPlan: JobSearchPhase[] = [
   {
-    phase: '90–60 Days Before Moving (Foundation & Outreach)',
-    arabicPhase: '90 إلى 60 يوماً قبل السفر (التأسيس والتواصل)',
+    phase: '90–60 Days Before Moving (Profile & Network Foundation)',
+    arabicPhase: '90 إلى 60 يوماً قبل السفر (بناء الملف والتواصل المبدئي)',
     timeframe: 'In Riyadh',
     objectives: [
-      'Finalize 1-column Canadian ATS Master Résumé with quantified Action + Scope + Result bullets.',
-      'Optimize LinkedIn profile location to "Calgary, AB" and activate recruiter-only Open to Work.',
-      'Build target employer pipeline of 25 Calgary organizations (ATB, Big 5, AIMCo, Enbridge, Neo).',
-      'Begin introductory outreach to 10 specialized Calgary finance recruiters (Robert Half, Hays).',
-      'Enroll in Canadian Securities Course (CSC) or review CSI exam materials to demonstrate initiative.'
+      'Finalize 1-column Canadian ATS Master Résumé highlighting IT PMO, Oracle PL/SQL, and VP Operations experience.',
+      'Set LinkedIn location to "Calgary, Alberta, Canada" and activate recruiter-only Open to Work.',
+      'Build target list of 25 Calgary enterprise employers (ATB, TC Energy, Enbridge, Benevity, Neo, Deloitte, CGI).',
+      'Begin introductory outreach to specialized Calgary tech and PMO recruiters (Robert Half Technology, Hays, TEKsystems).',
+      'Connect with PMI Southern Alberta Chapter (PMI-SAC) members on LinkedIn.'
     ]
   },
   {
-    phase: '60–30 Days Before Moving (Application & Networking)',
-    arabicPhase: '60 إلى 30 يوماً قبل السفر (التقديم وبناء العلاقات)',
+    phase: '60–30 Days Before Moving (Application & Video Interviews)',
+    arabicPhase: '60 إلى 30 يوماً قبل السفر (التقديم والمقابلات الافتراضية)',
     timeframe: 'In Riyadh',
     objectives: [
-      'Submit 3–5 tailored applications weekly for verified open positions in Calgary.',
-      'Conduct 2 informational coffee chats via Zoom/Teams weekly with Calgary finance professionals.',
-      'Connect with CFA Society Calgary and Muslim Association of Canada (MAC) business network.',
-      'Prepare STAR interview answers for Canadian behavioral questions and rehearse aloud.',
-      'Secure formal written employment and character references from Saudi managers.'
+      'Submit 3–5 tailored applications weekly for verified IT PMO Manager and Senior Oracle Solutions roles in Calgary.',
+      'Conduct 2 informational coffee chats via Zoom/Teams weekly with Calgary IT directors and enterprise architects.',
+      'Prepare STAR interview answers for Canadian behavioral questions emphasizing team leadership and technical problem-solving.',
+      'Secure formal written employment and credential verification letters from Saudi employers.'
     ]
   },
   {
-    phase: '30–0 Days Before Moving (Interview Scheduling)',
-    arabicPhase: '30 يوماً حتى يوم الوصول (جدولة المقابلات)',
+    phase: '30–0 Days Before Moving (Landing Readiness)',
+    arabicPhase: '30 يوماً حتى يوم الوصول (الاستعداد النهائي للمقابلات)',
     timeframe: 'Final Prep',
     objectives: [
-      'State confirmed Canadian landing date on cover letters to confirm immediate local availability.',
+      'State confirmed Calgary arrival date on cover letters to establish immediate local availability.',
       'Schedule first-round video interviews for the week of arrival in Calgary.',
-      'Assemble hard copies of degree transcripts, professional certifications, and reference letters.',
-      'Finalize Canadian phone number setup plan upon landing at YYC airport.'
+      'Assemble hard copies of degree transcripts (B.Sc. Computer Science & Diploma Electronics), certifications, and reference letters.'
     ]
   },
   {
     phase: 'First 30 Days in Calgary (In-Person Acceleration)',
-    arabicPhase: 'أول 30 يوماً في كالغاري (التحرك الميداني والمقابلات)',
+    arabicPhase: 'أول 30 يوماً في كالغاري (التحرك الميداني والمقابلات الحضورية)',
     timeframe: 'In Calgary',
     objectives: [
-      'Obtain Social Insurance Number (SIN) on Day 2 at Service Canada (Harry Hays Building).',
-      'Attend in-person networking mixers (Calgary Chamber of Commerce, CFA Society events).',
-      'Complete final-round in-person interviews in Downtown Calgary corporate towers.',
-      'Evaluate job offers against the Family Job Offer Life Simulator to calculate net surplus.'
+      'Obtain Social Insurance Number (SIN) on Day 2 at Service Canada (Marlborough Mall NE / Harry Hays Building).',
+      'Attend in-person PMI-SAC and Calgary Tech networking mixers in Downtown Calgary.',
+      'Complete final-round in-person interviews in corporate towers across 8th Ave and 2nd St SW.',
+      'Evaluate job offers against the Family Living Budget simulator to verify net take-home surplus.'
     ]
   }
 ];
@@ -715,28 +838,28 @@ export const defaultCrmSeedItems: ApplicationCrmItem[] = [
   {
     id: 'app-001',
     company: 'ATB Financial',
-    role: 'Senior Financial Operations Specialist',
+    role: 'Senior Manager, IT PMO & Delivery',
     jobUrl: 'https://www.atb.com/careers/',
-    salaryQuotedCAD: 95000,
-    location: 'Calgary (Downtown)',
+    salaryQuotedCAD: 145000,
+    location: 'Calgary (Downtown / 8th Ave SW)',
     appliedDate: '2026-08-28',
-    resumeVersion: 'Calgary Operations ATS v1',
+    resumeVersion: 'Calgary IT PMO Master v1',
     status: 'RECRUITER_SCREEN',
-    nextAction: 'Prepare for 30-min phone screen on Thursday',
+    nextAction: 'Prepare for 30-min phone screen with Technology Talent Acquisition',
     interviewDate: '2026-09-08',
-    notes: 'Recruiter reached out via LinkedIn; highlighted multi-asset settlement and custodian reconciliation.'
+    notes: 'Recruiter reached out on LinkedIn; strongly interested in Albilad Capital IT PMO and Oracle enterprise background.'
   },
   {
-    id: 'app-002',
-    company: 'AIMCo',
-    role: 'Investment Operations Analyst',
-    jobUrl: 'https://www.aimco.ca/careers',
-    salaryQuotedCAD: 92000,
-    location: 'Calgary (Fifth Avenue Place)',
+    id: 'exp-002',
+    company: 'Deloitte Canada',
+    role: 'Senior Manager - Oracle Solutions Consulting',
+    jobUrl: 'https://careers.deloitte.ca/',
+    salaryQuotedCAD: 140000,
+    location: 'Calgary (Bankers Court)',
     appliedDate: '2026-09-01',
-    resumeVersion: 'Master Canadian ATS',
+    resumeVersion: 'Oracle Solutions Architect v1',
     status: 'APPLIED',
-    nextAction: 'Follow up with recruiter on September 15',
-    notes: 'Application submitted through career portal for Calgary institutional operations floor.'
+    nextAction: 'Follow up with Consulting Partner via LinkedIn on September 12',
+    notes: 'Application submitted for Calgary Oracle practice; 15 years CSEC experience matches client ERP engagement requirements.'
   }
 ];

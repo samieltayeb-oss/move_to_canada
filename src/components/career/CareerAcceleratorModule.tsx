@@ -144,41 +144,67 @@ export function CareerAcceleratorModule() {
       </div>
 
       {/* Profile Ingestion & Verification Transparency Card */}
-      <div className="glass-panel p-6 rounded-2xl border border-sky-500/20">
+      <div className="glass-panel p-6 rounded-2xl border border-sky-500/30 bg-gradient-to-r from-slate-900 via-sky-950/20 to-slate-900">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono font-bold">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-400 font-mono font-bold text-base shrink-0">
               YA
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-white">{yassirVerifiedProfile.candidateName}</h3>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-white">{yassirVerifiedProfile.candidateName}</h3>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  Profile Status: Active
+                  Verified CV: Active
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                  20+ Yrs Enterprise IT
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
-                {yassirVerifiedProfile.locationStatus.value} • {yassirVerifiedProfile.employerStatus.value}
+              <p className="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">
+                {yassirVerifiedProfile.currentTitle} • {yassirVerifiedProfile.currentEmployer}
+              </p>
+              <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+                {yassirVerifiedProfile.mobile} • {yassirVerifiedProfile.email} • {yassirVerifiedProfile.location}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Public Verification Protocol: CMA Regulated Firm</span>
+          <div className="flex flex-col sm:items-end gap-1 text-xs text-slate-300">
+            <div className="flex items-center gap-1.5 font-mono text-emerald-400">
+              <ShieldCheck className="w-4 h-4" />
+              <span>CMA-Regulated Banking &amp; Capital Markets IT</span>
+            </div>
+            <span className="text-[11px] text-slate-400">Former VP Business Operations, Alawwal Invest</span>
           </div>
         </div>
 
-        {/* Verification Warning Rule Notice */}
-        <div className="mt-4 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-start gap-3 text-xs text-amber-200">
-          <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-semibold block mb-0.5">
-              {isRtl ? 'بروتوكول التحقق المهني الصارم (مكافحة الهلوسة):' : 'Strict Professional Verification Protocol:'}
+        {/* Verified Education & Top Skills Strip */}
+        <div className="mt-4 pt-1 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span className="text-[11px] font-bold font-mono text-sky-400 uppercase block mb-1">
+              Verified Academic Credentials:
             </span>
-            <p className="text-amber-300/90 leading-relaxed font-light">
-              {isRtl ? yassirVerifiedProfile.arabicUnverifiedWarning : yassirVerifiedProfile.unverifiedWarning}
-            </p>
+            <ul className="space-y-1 text-slate-300 text-[11px]">
+              {yassirVerifiedProfile.verifiedEducation.map((edu, eIdx) => (
+                <li key={eIdx} className="flex justify-between">
+                  <span><strong>{edu.degree}</strong> ({edu.institution})</span>
+                  <span className="text-slate-500 font-mono">{edu.years}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span className="text-[11px] font-bold font-mono text-amber-400 uppercase block mb-1">
+              Top Verified Skills:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {yassirVerifiedProfile.topSkills.map((sk, sIdx) => (
+                <span key={sIdx} className="px-2 py-0.5 rounded bg-slate-950 text-slate-200 border border-slate-800 text-[10px] font-mono">
+                  {sk}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -538,7 +564,7 @@ export function CareerAcceleratorModule() {
                 Yassir A. E. Abdulrhman
               </h1>
               <p className="text-xs text-slate-600 mt-1">
-                Calgary, Alberta, Canada • +1 (403) XXX-XXXX • yassir.abdulrhman@email.com • linkedin.com/in/yassir-a-e-abdulrhman-8bb6a321/
+                Calgary, Alberta, Canada (Relocating) • +966 59 831 5118 • yassireljak@gmail.com • linkedin.com/in/yassir-a-e-abdulrhman-8bb6a321
               </p>
               <p className="text-xs font-semibold text-sky-800 mt-1 uppercase tracking-wide">
                 Work Authorization: Permanent Resident (PR) of Canada — Legally Authorized to Work
@@ -551,25 +577,25 @@ export function CareerAcceleratorModule() {
                 Professional Summary
               </h2>
               <p className="text-xs text-slate-800 leading-relaxed font-sans">
-                Results-driven Financial & Investment Operations Specialist offering extensive institutional experience in capital markets, multi-asset trade lifecycle settlement, custodian reconciliation, and regulatory compliance. Proven track record at Albilad Capital managing institutional account workflows and mitigating operational risk under Capital Market Authority oversight. Relocating permanently to Calgary, Alberta, with immediate full work authorization.
+                Results-driven Senior IT PMO Manager and Enterprise Systems Consultant with over 20 years of verifiable technology delivery across capital markets, investment banking, and enterprise consulting. Former Vice President of Business Management Operations and currently IT PMO Senior Manager at Albilad Capital, directing core software portfolios, regulatory compliance, and cross-functional teams. Proven technical depth spanning 15+ years in Oracle database architecture and PL/SQL engineering paired with executive-level IT governance and business transformation.
               </p>
             </div>
 
             {/* Core Competencies */}
             <div className="mb-6">
               <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-400 pb-1 mb-2 font-sans">
-                Core Competencies & Technical Skills
+                Core Competencies &amp; Technical Skills
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-1 text-xs text-slate-800 font-sans">
-                <div>• Investment Operations & Settlements</div>
-                <div>• Custodian & Bank Reconciliations</div>
-                <div>• Operational Risk Management</div>
-                <div>• Capital Markets Compliance</div>
-                <div>• Cash Management & Treasury Support</div>
-                <div>• Financial Modeling & Valuation</div>
-                <div>• Portfolio Accounting Systems</div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-1.5 text-xs text-slate-800 font-sans">
+                <div>• IT PMO Governance &amp; Portfolio Delivery</div>
+                <div>• Oracle Database &amp; PL/SQL Architecture</div>
+                <div>• Business Change Management</div>
+                <div>• Capital Markets IT Infrastructure</div>
+                <div>• Systems Analysis &amp; Data Modeling</div>
+                <div>• Agile &amp; Waterfall Project Delivery</div>
+                <div>• SQL Tuning &amp; ETL Batch Processing</div>
                 <div>• Cross-Functional Team Leadership</div>
-                <div>• Client & Stakeholder Relations</div>
+                <div>• Vendor &amp; Executive Stakeholder Relations</div>
               </div>
             </div>
 
@@ -589,7 +615,7 @@ export function CareerAcceleratorModule() {
                       <span className="text-slate-600 font-mono text-[11px]">{exp.startDate} – {exp.endDate} | {exp.location}</span>
                     </div>
 
-                    <ul className="mt-2 space-y-1.5 text-xs text-slate-800 list-disc list-inside font-sans leading-relaxed">
+                    <ul className="mt-2 space-y-1 text-xs text-slate-800 list-disc list-inside font-sans leading-relaxed">
                       {exp.normalizedAchievements.map((ach, idx) => (
                         <li key={idx}>{ach}</li>
                       ))}
@@ -602,18 +628,19 @@ export function CareerAcceleratorModule() {
             {/* Education & Professional Credentials */}
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-400 pb-1 mb-2 font-sans">
-                Education & Credentials
+                Education &amp; Credentials
               </h2>
-              <div className="font-sans text-xs space-y-1 text-slate-800">
+              <div className="font-sans text-xs space-y-2 text-slate-800">
                 <div className="flex justify-between">
-                  <span><strong>Bachelor of Science in Finance / Business Administration</strong> — [University Name]</span>
-                  <span className="text-slate-600 font-mono text-[11px]">[Year]</span>
+                  <span><strong>Bachelor of Science (B.Sc.) in Computer Science</strong> — Omdurman Ahlia University (Faculty of Applied Science &amp; Computer)</span>
+                  <span className="text-slate-600 font-mono text-[11px]">1995 – 2001</span>
                 </div>
-                <div>
+                <div className="flex justify-between">
+                  <span><strong>Diploma in Electronics and Communications Engineering</strong> — Sudan University (Faculty of Human Resource &amp; Technology)</span>
+                  <span className="text-slate-600 font-mono text-[11px]">1996 – 1998</span>
+                </div>
+                <div className="pt-1 text-slate-700">
                   <strong>Canadian Equivalency:</strong> Four-Year Canadian Bachelor&apos;s Degree verified via World Education Services (WES) ECA.
-                </div>
-                <div className="pt-1 text-slate-700 italic">
-                  * Enrolled in Canadian Securities Course (CSC) — Canadian Securities Institute (CSI).
                 </div>
               </div>
             </div>

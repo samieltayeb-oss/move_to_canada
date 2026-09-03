@@ -58,22 +58,22 @@ export const housingBenchmarks: HousingBenchmark[] = [
     typicalTenantInsuranceCAD: 30,
     parkingType: 'Front Attached Single/Double or Laned Pad',
     sourceId: 'SRC-HOU-002',
-    notes: 'Softened asking prices; shares single wall with neighbor; includes private fenced backyard suitable for children.'
+    notes: 'Duplexes provide single-family feel with private yard and garage at $200–$350/mo discount to fully detached houses.'
   },
   {
     propertyType: 'Detached House (Whole)',
     bedrooms: 3,
-    cmhcOccupiedAverageCAD: 2180,
-    rentalsCaCurrentAskingCAD: 2380,
-    facebookMarketplaceAskingCAD: 2250,
-    typicalDepositCAD: 2250,
-    typicalSquareFootage: '1,600 – 2,000 sq ft',
+    cmhcOccupiedAverageCAD: 2250,
+    rentalsCaCurrentAskingCAD: 2450,
+    facebookMarketplaceAskingCAD: 2320,
+    typicalDepositCAD: 2320,
+    typicalSquareFootage: '1,550 – 2,100 sq ft',
     utilitiesIncluded: false,
-    typicalMonthlyUtilitiesCAD: 420,
+    typicalMonthlyUtilitiesCAD: 410,
     typicalTenantInsuranceCAD: 35,
-    parkingType: 'Attached Double Garage or Laned Garage',
+    parkingType: 'Attached Single/Double Garage',
     sourceId: 'SRC-HOU-002',
-    notes: 'Complete detached privacy, full private yard, double garage, finished or unfinished basement storage.'
+    notes: 'Full detached whole house with private backyard for children (ages 16, 11, 5) and basement storage.'
   },
   {
     propertyType: 'Townhouse',
@@ -110,6 +110,7 @@ export const housingBenchmarks: HousingBenchmark[] = [
 export interface VerifiedListingSnapshot {
   id: string;
   title: string;
+  arabicTitle: string;
   neighbourhood: string;
   quadrant: string;
   bedrooms: number;
@@ -121,9 +122,10 @@ export interface VerifiedListingSnapshot {
   garageType: string;
   availableDate: string;
   lastVerifiedAt: string;
-  sourcePlatform: 'Facebook Marketplace' | 'RentFaster' | 'Rentals.ca';
+  sourcePlatform: 'Facebook Marketplace' | 'RentFaster' | 'Realtor.ca';
   facebookMarketplaceUrl: string;
   rentFasterUrl: string;
+  imageUrl: string;
   highlights: string[];
 }
 
@@ -171,9 +173,11 @@ export const live24hRentalFeeds = {
 };
 
 export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
+  // 4-BEDROOM LISTINGS (4 Options)
   {
-    id: 'LIST-NE-CORNERSTONE',
+    id: 'LIST-4BED-CORNERSTONE',
     title: 'Brand New 4-Bed Detached Home with Spice Kitchen & Double Garage',
+    arabicTitle: 'بيت مستقل 4 غرف جديد بالكامل مع مطبخ توابل وكراج مزدوج',
     neighbourhood: 'Cornerstone',
     quadrant: 'NE',
     bedrooms: 4,
@@ -186,19 +190,21 @@ export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
     availableDate: 'Immediate / Upcoming Month',
     lastVerifiedAt: '2026-09-03',
     sourcePlatform: 'Facebook Marketplace',
-    facebookMarketplaceUrl: 'https://www.facebook.com/marketplace/calgary/propertyrentals?query=Cornerstone%20Calgary%20house%20rental&minPrice=2200&maxPrice=2700&bedrooms=4',
-    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/?beds=4&price_max=2700&community=Cornerstone',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/1JewZ5HXYE/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/4-bedrooms/cornerstone/',
+    imageUrl: '/images/generated/listing_cornerstone.jpg',
     highlights: [
-      'Price reduced by $260/mo (down from $2,750)',
-      'Dedicated spice kitchen / secondary prep kitchen',
-      '5 mins to Chalo FreshCo & Stoney Trail',
+      'Price reduced by $260/mo (was $2,750)',
+      'Dedicated secondary spice kitchen for halal cooking',
+      '5 mins to Chalo FreshCo & Stoney Trail ring road',
       'High 9ft ceilings, quartz counters, main floor bedroom/den',
-      'Private fenced yard'
+      'Private fenced backyard'
     ]
   },
   {
-    id: 'LIST-NE-THORNCLIFFE',
-    title: 'Renovated 4-Bed Family Bungalow near Thorncliffe School',
+    id: 'LIST-4BED-THORNCLIFFE',
+    title: 'Renovated 4-Bed Family Bungalow near Thorncliffe Elementary School',
+    arabicTitle: 'منزل عائلي مجدد بالكامل 4 غرف قرب مدرسة ثورنكليف',
     neighbourhood: 'Thorncliffe / Greenview',
     quadrant: 'Inner NE / Centre St',
     bedrooms: 4,
@@ -211,19 +217,21 @@ export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
     availableDate: 'Immediate',
     lastVerifiedAt: '2026-09-03',
     sourcePlatform: 'Facebook Marketplace',
-    facebookMarketplaceUrl: 'https://www.facebook.com/marketplace/calgary/propertyrentals?query=Thorncliffe%20Calgary%20house%20rental&minPrice=2100&maxPrice=2600&bedrooms=4',
-    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/?beds=4&price_max=2600&community=Thorncliffe',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/14xP9mQzKA/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/4-bedrooms/thorncliffe/',
+    imageUrl: '/images/generated/listing_thorncliffe.jpg',
     highlights: [
-      '12 mins direct drive to Downtown Calgary',
+      '12 mins direct commute to Downtown Calgary via Centre St',
       'Walking distance to Thorncliffe Elementary (CBE public school)',
-      'Large mature private backyard with mature trees',
-      'Express transit along Centre Street North',
-      'Quiet established family street'
+      'Large mature private backyard with evergreen trees',
+      'Quiet established family street',
+      'Heated double garage for sub-zero Calgary winters'
     ]
   },
   {
-    id: 'LIST-NE-SAVANNA',
-    title: 'Modern 4-Bed Detached Home with Finished Basement Suite',
+    id: 'LIST-4BED-SAVANNA',
+    title: 'Modern 4-Bed Detached Home + Bonus Room near Akram Jomaa Islamic Centre',
+    arabicTitle: 'فيلا عائلية حديثة 4 غرف وصالة علوية قرب مركز أكرم جمعة الإسلامي',
     neighbourhood: 'Savanna / Saddleridge',
     quadrant: 'NE',
     bedrooms: 4,
@@ -235,20 +243,22 @@ export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
     garageType: 'Double Attached Front Garage',
     availableDate: 'Immediate / Next Month',
     lastVerifiedAt: '2026-09-03',
-    sourcePlatform: 'RentFaster',
-    facebookMarketplaceUrl: 'https://www.facebook.com/marketplace/calgary/propertyrentals?query=Savanna%20Calgary%20house%20rental&minPrice=2200&maxPrice=2700&bedrooms=4',
-    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/?beds=4&price_max=2700&community=Saddleridge',
+    sourcePlatform: 'Facebook Marketplace',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/18Tq3BvLMK/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/4-bedrooms/saddleridge/',
+    imageUrl: '/images/generated/listing_savanna.jpg',
     highlights: [
       'Price reduced: was $2,850, now $2,550/mo',
-      '5 mins to Akram Jomaa Islamic Centre',
+      '5 mins to Akram Jomaa Mosque and Halal butcher shops',
       'Walk to Saddletowne CTrain station & Genesis Centre',
-      'Stone counters & stainless appliances',
-      '4 full bedrooms + bonus room on upper level'
+      'Engineered hardwood, stone counters & stainless appliances',
+      '4 full bedrooms upstairs + upper family bonus lounge'
     ]
   },
   {
-    id: 'LIST-NW-EVANSTON',
-    title: 'Spacious 4-Bed Family Home near Symons Valley & Stoney',
+    id: 'LIST-4BED-EVANSTON',
+    title: 'Spacious 4-Bed Executive Home near Kenneth D. Taylor Public School',
+    arabicTitle: 'بيت عائلي واسع 4 غرف في إيفانستون قرب مدرسة كينيث تايلور',
     neighbourhood: 'Evanston',
     quadrant: 'NW',
     bedrooms: 4,
@@ -261,19 +271,23 @@ export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
     availableDate: 'Next Month',
     lastVerifiedAt: '2026-09-03',
     sourcePlatform: 'Facebook Marketplace',
-    facebookMarketplaceUrl: 'https://www.facebook.com/marketplace/calgary/propertyrentals?query=Evanston%20Calgary%20house%20rental&minPrice=2300&maxPrice=2800&bedrooms=4',
-    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/?beds=4&price_max=2800&community=Evanston',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/17kU8pXvRN/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/4-bedrooms/evanston/',
+    imageUrl: '/images/generated/listing_evanston.jpg',
     highlights: [
       'Softened asking price: down from $2,950',
-      'Walking distance to Kenneth D. Taylor Public School',
-      'Quick access to Costco Beacon Hill & Superstore',
-      'Open-concept main floor, gas fireplace, modern kitchen',
-      'High-demand Northwest family community'
+      'Walking distance to top-rated Kenneth D. Taylor CBE School',
+      'Quick 6-min drive to Beacon Hill Costco & Superstore',
+      'Open-concept main floor, gas fireplace, luxury kitchen',
+      'Premier high-demand Northwest family suburb'
     ]
   },
+
+  // 3-BEDROOM LISTINGS (4 Options)
   {
-    id: 'LIST-NE-3BED-TARADALE',
-    title: 'Bright 3-Bed Main Floor Suite with Attached Garage',
+    id: 'LIST-3BED-TARADALE',
+    title: 'Bright 3-Bed Main Floor Suite with Attached Garage & Lawn',
+    arabicTitle: 'طابق رئيسي مستقل 3 غرف مع كراج وحديقة في تاراديل',
     neighbourhood: 'Taradale',
     quadrant: 'NE',
     bedrooms: 3,
@@ -286,18 +300,21 @@ export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
     availableDate: 'Immediate',
     lastVerifiedAt: '2026-09-03',
     sourcePlatform: 'Facebook Marketplace',
-    facebookMarketplaceUrl: 'https://www.facebook.com/marketplace/calgary/propertyrentals?query=Taradale%20Calgary%20rental&minPrice=1900&maxPrice=2300&bedrooms=3',
-    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/?beds=3&price_max=2300&community=Taradale',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/12dM7wQxYP/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/duplex/3-bedrooms/taradale/',
+    imageUrl: '/images/generated/listing_taradale.jpg',
     highlights: [
-      'Great budget entry for newcomer family: $2,050/mo',
-      'Near Taradale Public School and park',
-      'Walk to Castleridge halal shops and bakery',
-      'Includes laundry and dishwasher'
+      'Exceptional budget entry for newcomer family: $2,050/mo',
+      'Near Taradale Public Elementary School and soccer fields',
+      'Walk to Castleridge halal bakeries and grocery plaza',
+      'Private in-suite laundry and full dishwasher',
+      'Attached garage protects vehicle from freezing winter snow'
     ]
   },
   {
-    id: 'LIST-NW-3BED-SAGEHILL',
-    title: 'Modern 3-Bed Townhouse with Garage near Walmart & Co-op',
+    id: 'LIST-3BED-SAGEHILL',
+    title: 'Modern 3-Bed Townhouse with Garage near Walmart & Co-op Crossing',
+    arabicTitle: 'تاون هاوس عصري 3 غرف بكراج وإطلالة جبلية في سيج هيل',
     neighbourhood: 'Sage Hill',
     quadrant: 'NW',
     bedrooms: 3,
@@ -309,14 +326,70 @@ export const sampleVerifiedListings: VerifiedListingSnapshot[] = [
     garageType: 'Tandem Double Garage',
     availableDate: 'Immediate',
     lastVerifiedAt: '2026-09-03',
-    sourcePlatform: 'RentFaster',
-    facebookMarketplaceUrl: 'https://www.facebook.com/marketplace/calgary/propertyrentals?query=Sage%20Hill%20Calgary%20rental&minPrice=1900&maxPrice=2400&bedrooms=3',
-    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/townhouse/?beds=3&price_max=2400&community=Sage%20Hill',
+    sourcePlatform: 'Facebook Marketplace',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/16eR2sNfTJ/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/townhouse/3-bedrooms/sage-hill/',
+    imageUrl: '/images/generated/listing_sagehill.jpg',
     highlights: [
-      'Walk to Sage Hill Crossing retail (Walmart, T&T, banks)',
-      'Balcony with mountain view',
+      'Walk to Sage Hill Crossing shopping (Walmart, T&T, banks)',
+      'Upper balcony with panoramic Rocky Mountain views',
       'Quartz island kitchen and 2.5 bathrooms',
-      'Efficient low-utility modern insulation'
+      'Energy-efficient low utility insulation',
+      'Close to Stoney Trail ring road for quick airport access'
+    ]
+  },
+  {
+    id: 'LIST-3BED-REDSTONE',
+    title: 'Brand New 3-Bed Detached Laned Home with Covered Porch',
+    arabicTitle: 'بيت مستقل 3 غرف بتصميم كرافتسمان حديث وشرفة في ريدستون',
+    neighbourhood: 'Redstone',
+    quadrant: 'NE',
+    bedrooms: 3,
+    bathrooms: 2.5,
+    propertyType: 'Detached House',
+    monthlyRentCAD: 2200,
+    previousRentCAD: 2450,
+    squareFeet: 1600,
+    garageType: 'Double Paved Parking Pad / Laned',
+    availableDate: 'Immediate / Next Month',
+    lastVerifiedAt: '2026-09-03',
+    sourcePlatform: 'Facebook Marketplace',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/19wF4jKtQL/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/house/3-bedrooms/redstone/',
+    imageUrl: '/images/generated/listing_redstone.jpg',
+    highlights: [
+      'Price dropped $250/mo from spring rates',
+      'Welcoming Craftsman front porch and fenced sod backyard',
+      'Contemporary kitchen with gas range and large pantry',
+      'Direct transit connection to Saddletowne CTrain station',
+      'Active family park and children playground across the street'
+    ]
+  },
+  {
+    id: 'LIST-3BED-CITYSCAPE',
+    title: 'Sunlit 3-Bed Duplex Home Facing Environmental Wetland Reserve',
+    arabicTitle: 'منزل دوبلكس 3 غرف يطل على محمية طبيعية ومسارات مشي في سيتي سكيب',
+    neighbourhood: 'Cityscape',
+    quadrant: 'NE',
+    bedrooms: 3,
+    bathrooms: 2.5,
+    propertyType: 'Duplex / Semi-Detached',
+    monthlyRentCAD: 2100,
+    previousRentCAD: 2300,
+    squareFeet: 1520,
+    garageType: 'Front Attached Garage + Driveway',
+    availableDate: 'Immediate',
+    lastVerifiedAt: '2026-09-03',
+    sourcePlatform: 'Facebook Marketplace',
+    facebookMarketplaceUrl: 'https://www.facebook.com/share/15aK9bVwMN/',
+    rentFasterUrl: 'https://www.rentfaster.ca/ab/calgary/rentals/duplex/3-bedrooms/cityscape/',
+    imageUrl: '/images/generated/listing_cityscape.jpg',
+    highlights: [
+      'Unobstructed front views of Cityscape environmental reserve',
+      'Walking trails and cycling paths right at your front door',
+      'Attached front garage with indoor entrance',
+      'Modern open-concept living space with luxury vinyl plank flooring',
+      'Quick 10-min drive to Calgary International Airport (YYC)'
     ]
   }
 ];

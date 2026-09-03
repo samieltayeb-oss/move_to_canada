@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/context/AppContext';
 import { housingBenchmarks, sampleVerifiedListings, live24hRentalFeeds } from '@/data/housing';
 import { 
@@ -15,10 +16,17 @@ import {
 
 export function HousingCommandCenter() {
   const { t, formatCurrency, openSourceModal, isRtl } = useApp();
-  const [selectedBedrooms, setSelectedBedrooms] = useState<3 | 4>(4);
+  const [bedroomFilter, setBedroomFilter] = useState<'4' | '3' | 'ALL'>('4');
 
-  const filteredBenchmarks = housingBenchmarks.filter(b => b.bedrooms === selectedBedrooms);
-  const filteredListings = sampleVerifiedListings.filter(l => l.bedrooms === selectedBedrooms);
+  const filteredBenchmarks = housingBenchmarks.filter(b => {
+    if (bedroomFilter === 'ALL') return true;
+    return b.bedrooms === parseInt(bedroomFilter);
+  });
+
+  const filteredListings = sampleVerifiedListings.filter(l => {
+    if (bedroomFilter === 'ALL') return true;
+    return l.bedrooms === parseInt(bedroomFilter);
+  });
 
   return (
     <section id="housing-command" className="py-12 border-b border-slate-800/80">
@@ -38,27 +46,37 @@ export function HousingCommandCenter() {
             </p>
           </div>
 
-          {/* 3-Bed vs 4-Bed Toggle */}
-          <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 self-start md:self-auto">
+          {/* 3-Bed vs 4-Bed vs All Toggle */}
+          <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 self-start md:self-auto text-xs font-semibold">
             <button
-              onClick={() => setSelectedBedrooms(3)}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-                selectedBedrooms === 3
+              onClick={() => setBedroomFilter('4')}
+              className={`px-3.5 py-1.5 rounded-lg transition-all ${
+                bedroomFilter === '4'
                   ? 'bg-sky-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              {t.housing.toggle3Bed}
+              4-Bed Homes (4 Options)
             </button>
             <button
-              onClick={() => setSelectedBedrooms(4)}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
-                selectedBedrooms === 4
+              onClick={() => setBedroomFilter('3')}
+              className={`px-3.5 py-1.5 rounded-lg transition-all ${
+                bedroomFilter === '3'
                   ? 'bg-sky-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              {t.housing.toggle4Bed}
+              3-Bed Homes (4 Options)
+            </button>
+            <button
+              onClick={() => setBedroomFilter('ALL')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                bedroomFilter === 'ALL'
+                  ? 'bg-sky-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              All 8 Homes
             </button>
           </div>
         </div>
@@ -225,100 +243,115 @@ export function HousingCommandCenter() {
           ))}
         </div>
 
-        {/* Real Active Listings with Price Reductions */}
+        {/* Real Active Listings with Price Reductions (8 Total Listings with Photos) */}
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
             <div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-400" />
-                <span>{isRtl ? 'عينات من بيوت معروضة فعلياً' : 'Real Active Listings with Price Reductions'} ({selectedBedrooms}-Bed)</span>
+                <span>
+                  {isRtl ? 'عينات من بيوت معروضة فعلياً بالصور وروابط الإعلانات' : 'Real Active Listings with Photos & Direct Links'} ({filteredListings.length} Options)
+                </span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {isRtl ? 'تم رصدها من فيسبوك ماركت بليس ورنت فاستر في أحياء كالغاري' : 'Sampled from Facebook Marketplace & RentFaster across top Calgary communities'}
+                {isRtl ? 'تم رصدها من فيسبوك ماركت بليس ورنت فاستر مع روابط المشاركة المباشرة' : 'Sampled from Facebook Marketplace & RentFaster with direct shareable listing links'}
               </p>
             </div>
             <span className="text-xs text-emerald-400 font-mono px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-800">
-              Cornerstone, Thorncliffe, Savanna, Evanston
+              Cornerstone, Thorncliffe, Savanna, Evanston, Taradale, Sage Hill, Redstone, Cityscape
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredListings.map((listing) => (
               <div
                 key={listing.id}
-                className="glass-panel rounded-2xl p-5 border border-slate-800/80 hover:border-sky-500/40 transition-all flex flex-col justify-between"
+                className="glass-panel rounded-2xl overflow-hidden border border-slate-800/80 hover:border-sky-500/40 transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 mb-3">
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800 font-semibold">
-                          {listing.quadrant} • {listing.neighbourhood}
-                        </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
-                          {listing.sourcePlatform}
-                        </span>
-                      </div>
-                      <h4 className="text-sm font-bold text-white mt-1">
-                        {listing.title}
-                      </h4>
+                  {/* Property Image Header */}
+                  <div className="relative w-full h-48 sm:h-56 bg-slate-900 overflow-hidden">
+                    <Image
+                      src={listing.imageUrl}
+                      alt={listing.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30"></div>
+
+                    {/* Badge Overlay */}
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-950/90 text-sky-300 border border-sky-800/80 backdrop-blur-md font-bold">
+                        {listing.quadrant} • {listing.neighbourhood}
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-950/90 text-slate-200 border border-slate-800 backdrop-blur-md">
+                        {listing.propertyType}
+                      </span>
                     </div>
 
-                    <div className="sm:text-right shrink-0">
-                      <div className="flex items-baseline sm:justify-end gap-1.5">
+                    {/* Price Overlay */}
+                    <div className="absolute bottom-3 right-3 text-right">
+                      <div className="flex items-baseline gap-1.5 bg-slate-950/90 px-3 py-1 rounded-xl border border-slate-800/80 backdrop-blur-md">
                         {listing.previousRentCAD && (
-                          <span className="text-xs line-through text-slate-500 font-mono">
+                          <span className="text-xs line-through text-slate-400 font-mono">
                             ${listing.previousRentCAD}
                           </span>
                         )}
-                        <span className="text-xl font-bold font-mono text-emerald-400">
+                        <span className="text-lg sm:text-xl font-bold font-mono text-emerald-400">
                           {formatCurrency(listing.monthlyRentCAD)}
                         </span>
+                        <span className="text-[10px] text-slate-400">/mo</span>
                       </div>
-                      <span className="text-[10px] text-slate-400 block">{t.common.monthly}</span>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 text-[11px] text-slate-300 py-2.5 my-2.5 border-y border-slate-800/60 font-mono">
-                    <div>{listing.bedrooms} Beds • {listing.bathrooms} Baths</div>
-                    <div>{listing.squareFeet.toLocaleString()} sq ft</div>
-                    <div className="text-right text-slate-400 truncate">{listing.garageType}</div>
-                  </div>
+                  <div className="p-5">
+                    <h4 className="text-sm sm:text-base font-bold text-white mb-2 leading-snug">
+                      {isRtl ? listing.arabicTitle : listing.title}
+                    </h4>
 
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {listing.highlights.map((h, i) => (
-                      <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
-                        {h}
-                      </span>
-                    ))}
+                    <div className="grid grid-cols-3 gap-2 text-[11px] text-slate-300 py-2.5 my-2 border-y border-slate-800/60 font-mono">
+                      <div>{listing.bedrooms} Beds • {listing.bathrooms} Baths</div>
+                      <div>{listing.squareFeet.toLocaleString()} sq ft</div>
+                      <div className="text-right text-slate-400 truncate">{listing.garageType}</div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 my-3">
+                      {listing.highlights.map((h, i) => (
+                        <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                          {h}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                {/* Direct Action Links */}
-                <div className="pt-3 border-t border-slate-800 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                {/* Direct Action Links (Exact Share Link Format) */}
+                <div className="p-5 pt-0 border-t border-slate-800/60 mt-auto space-y-2.5">
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-3">
                     <span>{t.common.lastVerified} {listing.lastVerifiedAt}</span>
                     <span className="font-mono text-[10px] text-emerald-400">Available: {listing.availableDate}</span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <a
                       href={listing.facebookMarketplaceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
+                      className="py-2.5 px-3 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors group"
                     >
-                      <span>Facebook Marketplace</span>
-                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-amber-400" />
+                      <span>Direct Facebook Listing</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
                     </a>
                     <a
                       href={listing.rentFasterUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
+                      className="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
                     >
-                      <span>RentFaster Calgary</span>
-                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-sky-400" />
+                      <span>RentFaster Listing</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-sky-400" />
                     </a>
                   </div>
                 </div>

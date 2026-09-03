@@ -87,10 +87,19 @@ export function AllPagesPortal() {
       href: '/schools',
       title: isRtl ? 'تعليم ومدارس الأبناء' : 'Schools Command Center',
       subtitle: isRtl ? 'تحويل صفوف الأبناء ومركز CBE' : 'Alberta K-12 & Islamic Schools',
-      desc: isRtl ? 'تحويل صفوف الأبناء الثلاثة (أعمار 11، 8، 4)، رسوم مدارس كالغاري الإسلامية CIS، وإجراءات Welcome Centre.' : 'Grade placement for 3 kids, CBE Newcomer Reception Centre protocol, and CIS/Al-Amal tuition.',
+      desc: isRtl ? 'تحويل صفوف الأبناء الثلاثة (أعمار 16، 11، 5)، رسوم مدارس كالغاري الإسلامية CIS، وإجراءات Welcome Centre.' : 'Grade placement for 3 kids (ages 16, 11, 5), CBE Newcomer Reception Centre protocol, and CIS/Al-Amal tuition.',
       badge: 'Education',
       color: 'border-slate-700 text-slate-300 bg-slate-800/40',
       icon: GraduationCap
+    },
+    {
+      href: '/activities',
+      title: isRtl ? 'أنشطة العطلات والدعم البلدي' : 'Family Weekend & Fair Entry',
+      subtitle: isRtl ? 'رحلات بانف والأنشطة وبرنامج Fair Entry' : 'Kids Outings & City Subsidy',
+      desc: isRtl ? '9 وجهات أسبوعية للأبناء (16، 11، 5 سنوات) وبرنامج الدخول العادل (Fair Entry) لتوفير 2,400 دولار سنوياً على المواصلات والمسابح.' : 'Weekend trips (Banff, Genesis, Zoo) tailored for ages 16, 11, 5, plus City of Calgary Fair Entry municipal fee subsidies.',
+      badge: 'Recreation & Subsidy',
+      color: 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10',
+      icon: Compass
     },
     {
       href: '/muslim-life',

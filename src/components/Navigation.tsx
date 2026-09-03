@@ -53,7 +53,8 @@ export function Navigation() {
         { href: '/neighbourhoods', label: isRtl ? 'مستكشف الأحياء العائلية' : 'Neighbourhood Explorer', desc: 'Cornerstone, Thorncliffe, Saddleridge & NW', badge: 'NE Updated' },
         { href: '/schools', label: isRtl ? 'تعليم ومدارس الأبناء' : 'Schools Command Center', desc: 'CBE Public $0 tuition default & Islamic CIS option', badge: 'CBE $0 Default' },
         { href: '/muslim-life', label: isRtl ? 'المساجد والمجتمع الإسلامي' : 'Muslim Life & Halal Infrastructure', desc: 'Akram Jomaa, prayer shifts, Tahfeez' },
-        { href: '/settlement', label: isRtl ? 'خارطة الأيام الأولى (SIN وكرت الصحة)' : 'First Days & Settlement Roadmap', desc: 'Day 1 SIN, AHCIP health cards, CBE schools', badge: 'Day 1–3' }
+        { href: '/settlement', label: isRtl ? 'خارطة الأيام الأولى (SIN وكرت الصحة)' : 'First Days & Settlement Roadmap', desc: 'Day 1 SIN, AHCIP health cards, CBE schools', badge: 'Day 1–3' },
+        { href: '/activities', label: isRtl ? 'أنشطة العائلة وبرنامج الدعم البلدي' : 'Weekend Activities & Fair Entry', desc: 'Banff, Genesis Centre, Village Square & Fair Entry', badge: 'Fair Entry' }
       ]
     },
     {

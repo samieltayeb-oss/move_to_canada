@@ -5,6 +5,7 @@ import { HeroProfile } from '@/components/HeroProfile';
 import { HomeSummaryWidgets } from '@/components/HomeSummaryWidgets';
 import { AllPagesPortal } from '@/components/AllPagesPortal';
 import { FirstDaysArrivalGuide } from '@/components/settlement/FirstDaysArrivalGuide';
+import { FamilyWeekendModule } from '@/components/activities/FamilyWeekendModule';
 import { ExecutiveDecisionDashboard } from '@/components/ExecutiveDecisionDashboard';
 import { CalgaryRealityCheck } from '@/components/CalgaryRealityCheck';
 import { SourceModal } from '@/components/SourceModal';
@@ -25,6 +26,11 @@ export default function Home() {
       {/* 4. First 72 Hours in Calgary: Newcomer Immediate Action Guide (SIN, AHCIP Health Cards, CBE Schools) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <FirstDaysArrivalGuide />
+      </div>
+
+      {/* 5. Calgary Family Weekend, Kids Activities & Fair Entry Subsidy */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <FamilyWeekendModule />
       </div>
 
       {/* 5. Executive Decision Dashboard (Personalized Fit Score) */}
