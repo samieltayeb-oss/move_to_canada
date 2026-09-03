@@ -1,136 +1,118 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
-import { ShieldCheck, MessageSquare, AlertCircle } from 'lucide-react';
+import { Compass, ShieldCheck, Printer } from 'lucide-react';
 
 export function Footer() {
-  const { t } = useApp();
-  const [reportModalOpen, setReportModalOpen] = useState(false);
-  const [reportSuccess, setReportSuccess] = useState(false);
+  const { isRtl } = useApp();
 
-  const handleSubmitReport = (e: React.FormEvent) => {
-    e.preventDefault();
-    setReportSuccess(true);
-    setTimeout(() => {
-      setReportSuccess(false);
-      setReportModalOpen(false);
-    }, 2000);
-  };
+  const sections = [
+    {
+      title: isRtl ? 'الاستقرار والمعيشة' : 'Relocation & Living',
+      links: [
+        { href: '/', label: isRtl ? 'لوحة المؤشرات الرئيسية' : 'Command Center Overview' },
+        { href: '/calgary', label: isRtl ? 'واقع الحياة في كالغاري' : 'Calgary Reality Check' },
+        { href: '/housing', label: isRtl ? 'السكن والإيجارات' : 'Housing & Rentals' },
+        { href: '/neighbourhoods', label: isRtl ? 'مستكشف الأحياء' : 'Neighbourhood Explorer' },
+        { href: '/schools', label: isRtl ? 'تعليم ومدارس الأبناء' : 'Schools & CBE Welcome' },
+        { href: '/muslim-life', label: isRtl ? 'المساجد والحياة الإسلامية' : 'Muslim Community & Mosques' },
+        { href: '/settlement', label: isRtl ? 'خارطة طريق الاستقرار' : 'Settlement Roadmap' },
+      ]
+    },
+    {
+      title: isRtl ? 'المهنة والمالية' : 'Career & Finance',
+      links: [
+        { href: '/career', label: isRtl ? 'مسرع التوظيف الكندي' : 'Career Accelerator (NOC & ATS)' },
+        { href: '/cost-of-living', label: isRtl ? 'الميزانية ومحاكي العروض' : 'Family Budget (20 Categories)' },
+        { href: '/groceries', label: isRtl ? 'التموين وسلة الحلال' : 'Groceries & Costco Planner' },
+        { href: '/banking', label: isRtl ? 'البنوك الكندية والائتمان' : 'Banking & Credit Score' },
+        { href: '/fuel', label: isRtl ? 'أسعار البنزين والتنقل' : 'Fuel & Commute Engine' },
+        { href: '/connectivity', label: isRtl ? 'الاتصالات والخدمات' : 'Telecom & Home Utilities' },
+      ]
+    },
+    {
+      title: isRtl ? 'التنقل والمصادر' : 'Transit & Legalities',
+      links: [
+        { href: '/driving', label: isRtl ? 'استبدال رخصة القيادة' : 'Driver Licensing (Saudi to AB)' },
+        { href: '/cars', label: isRtl ? 'شراء سيارة دفع رباعي' : 'Family AWD Vehicles & 0% PST' },
+        { href: '/healthcare', label: isRtl ? 'التأمين الصحي AHCIP' : 'Healthcare (AHCIP) & Transit' },
+        { href: '/city-compare', label: isRtl ? 'مقارنة 9 مدن كندية' : 'Canadian City Value Index' },
+        { href: '/videos', label: isRtl ? 'فيديوهات وتجارب كالغاري' : 'Videos & Winter Survival' },
+        { href: '/plan', label: isRtl ? 'خطة الانتقال التنفيذية' : 'Action Plan & PDF Dossier' },
+        { href: '/sources', label: isRtl ? 'سجل المصادر الحكومية (32)' : 'Official Source Registry (32)' },
+      ]
+    }
+  ];
 
   return (
-    <footer className="border-t border-slate-800/80 bg-slate-950 py-12 text-xs text-slate-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Top Badging & Freshness Policy */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-          <div>
-            <div className="flex items-center gap-2 text-white font-bold text-sm mb-1">
-              <ShieldCheck className="w-4 h-4 text-sky-400" />
-              <span>DATA GOVERNANCE &amp; SOURCE PROVENANCE</span>
-            </div>
-            <p className="text-[11px] text-slate-400">
-              All quantitative metrics are indexed against primary Tier 1 &amp; Tier 2 Canadian government and institutional data.
+    <footer className="border-t border-slate-800 bg-slate-950 text-slate-400 text-xs mt-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+          {/* Brand Col */}
+          <div className="space-y-3">
+            <Link href="/" className="flex items-center gap-2.5 text-white font-bold">
+              <div className="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400">
+                <Compass className="w-4 h-4" />
+              </div>
+              <span className="text-sm tracking-tight">Yassir&apos;s Calgary Move Center</span>
+            </Link>
+            <p className="text-slate-400 text-xs leading-relaxed font-light">
+              {isRtl 
+                ? 'نظام استخبارات تنفيذي متكامل للانتقال من الرياض إلى كالغاري، مدعوم ببيانات حكومية موثقة لعام 2026'
+                : 'Executive relocation and career intelligence system for Yassir A. E. Abdulrhman and family moving from Riyadh, Saudi Arabia to Calgary, Alberta.'}
             </p>
+            <div className="flex items-center gap-2 text-[11px] text-emerald-400 font-mono">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>32 Verified Primary Sources</span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
-              {t.common.current}: 0–30 Days
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800">
-              {t.common.recent}: 31–90 Days
-            </span>
+          {/* Nav Categories */}
+          {sections.map((col, idx) => (
+            <div key={idx} className="space-y-2.5">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                {col.title}
+              </h4>
+              <ul className="space-y-1.5">
+                {col.links.map((link, lIdx) => (
+                  <li key={lIdx}>
+                    <Link
+                      href={link.href}
+                      className="text-slate-400 hover:text-sky-400 transition-colors block py-0.5"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+          <p>
+            © 2026 Move to Canada — Calgary Relocation Command Center. Built for Yassir A. E. Abdulrhman.
+          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/sources" className="hover:text-slate-300">
+              {isRtl ? 'سجل المصادر' : 'Data Governance'}
+            </Link>
+            <Link href="/plan" className="hover:text-slate-300">
+              {isRtl ? 'الملف التنفيذي' : 'Executive Dossier'}
+            </Link>
             <button
-              onClick={() => setReportModalOpen(true)}
-              className="text-[11px] text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-medium ml-2"
+              onClick={() => window.print()}
+              className="hover:text-slate-300 inline-flex items-center gap-1"
             >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>{t.common.reportOutdated}</span>
+              <Printer className="w-3 h-3" />
+              <span>Print / PDF</span>
             </button>
           </div>
         </div>
-
-        {/* Disclaimer Callout */}
-        <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800 text-[11px] leading-relaxed text-slate-400">
-          <strong className="text-slate-300 block mb-1">Notice &amp; Disclaimer:</strong>
-          {t.common.disclaimerText}
-        </div>
-
-        {/* Bottom Credits */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 pt-4">
-          <div>
-            Built for <strong>Yassir A. E. Abdulrhman &amp; Family</strong> • Riyadh (KSA) → Calgary, Alberta (Canada)
-          </div>
-          <div className="flex items-center gap-1">
-            <span>Precision Engineering for Global Newcomers</span>
-          </div>
-        </div>
       </div>
-
-      {/* Report Outdated Modal */}
-      {reportModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="glass-panel border border-slate-700 rounded-2xl max-w-md w-full p-6 bg-slate-950 text-xs">
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-amber-400" />
-                <span>Report Outdated Data or Policy Shift</span>
-              </h4>
-              <button onClick={() => setReportModalOpen(false)} className="text-slate-400 hover:text-white">
-                ✕
-              </button>
-            </div>
-
-            {reportSuccess ? (
-              <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-center font-medium">
-                ✓ Report logged to audit registry. Thank you!
-              </div>
-            ) : (
-              <form onSubmit={handleSubmitReport} className="space-y-4">
-                <p className="text-slate-300 text-[11px]">
-                  Found a change in Alberta transit fares, school fees, CRA brackets, or AHCIP rules? Let us know so the verification ledger can be updated immediately.
-                </p>
-
-                <div>
-                  <label className="block text-slate-300 mb-1">Dataset or Policy Area:</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Calgary Transit 2026 Child Fares"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 mb-1">New Information or Official Source URL:</label>
-                  <textarea
-                    rows={3}
-                    required
-                    placeholder="Provide details or official link..."
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div className="flex justify-end gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setReportModalOpen(false)}
-                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold"
-                  >
-                    Submit Report
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </footer>
   );
 }

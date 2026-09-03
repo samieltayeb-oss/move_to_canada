@@ -3,6 +3,7 @@
 import React from 'react';
 import { HeroProfile } from '@/components/HeroProfile';
 import { HomeSummaryWidgets } from '@/components/HomeSummaryWidgets';
+import { AllPagesPortal } from '@/components/AllPagesPortal';
 import { ExecutiveDecisionDashboard } from '@/components/ExecutiveDecisionDashboard';
 import { CalgaryRealityCheck } from '@/components/CalgaryRealityCheck';
 import { SourceModal } from '@/components/SourceModal';
@@ -17,10 +18,13 @@ export default function Home() {
       {/* 2. Core Family Relocation Intelligence Brief (Summary Widgets) */}
       <HomeSummaryWidgets />
 
-      {/* 3. Executive Decision Dashboard (Personalized Fit Score) */}
+      {/* 3. Master Multi-Page Navigation Portal (18 Dedicated Hubs) */}
+      <AllPagesPortal />
+
+      {/* 4. Executive Decision Dashboard (Personalized Fit Score) */}
       <ExecutiveDecisionDashboard />
 
-      {/* 4. Calgary Reality Check (Strengths vs. Difficulties) */}
+      {/* 5. Calgary Reality Check (Strengths vs. Difficulties) */}
       <CalgaryRealityCheck />
 
       {/* Universal Source Provenance Modal */}

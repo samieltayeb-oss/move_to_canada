@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +26,10 @@ export const metadata: Metadata = {
     "Calgary housing",
     "Calgary Islamic schools",
     "Alberta taxes",
-    "Saudi driving license Alberta"
+    "Saudi driving license Alberta",
+    "Calgary Career Accelerator",
+    "Costco Calgary food budget",
+    "Calgary gas prices"
   ],
   authors: [{ name: "Antigravity Executive Intelligence" }]
 };
@@ -47,7 +52,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-sky-500 selection:text-white">
         <AppProvider>
-          {children}
+          <Navigation />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
         </AppProvider>
       </body>
     </html>
