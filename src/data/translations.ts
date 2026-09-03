@@ -52,6 +52,10 @@ export interface TranslationDictionary {
     familySummary: string;
     editProfile: string;
     saveProfile: string;
+    headOfHousehold: string;
+    targetCity: string;
+    familyMembers: string;
+    childAges: string;
     numAdults: string;
     numKids: string;
     immigrationStatus: string;
@@ -261,6 +265,10 @@ export const translations: Record<'en' | 'ar', TranslationDictionary> = {
       familySummary: "Household Profile: 2 Adults • 3 Children Under 15 • Saudi Arabia → Canada",
       editProfile: "Customize Parameters",
       saveProfile: "Save Profile",
+      headOfHousehold: "Head of Household",
+      targetCity: "Target Destination",
+      familyMembers: "Family Members",
+      childAges: "Children Ages",
       numAdults: "Adults",
       numKids: "Children (<15)",
       immigrationStatus: "Immigration Status",
@@ -468,6 +476,10 @@ export const translations: Record<'en' | 'ar', TranslationDictionary> = {
       familySummary: "ملف العائلة: بالغان • 3 أطفال دون 15 سنة • السعودية ← كندا",
       editProfile: "تعديل بيانات العائلة",
       saveProfile: "حفظ التعديلات",
+      headOfHousehold: "رب الأسرة",
+      targetCity: "المدينة المستهدفة",
+      familyMembers: "أفراد العائلة",
+      childAges: "أعمار الأبناء",
       numAdults: "البالغين",
       numKids: "الأطفال (<15)",
       immigrationStatus: "الوضع القانوني للهجرة",

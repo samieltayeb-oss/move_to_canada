@@ -51,19 +51,31 @@ export function VideosLifestyleModule() {
               className="glass-panel glass-card-hover rounded-2xl overflow-hidden border border-slate-800/80 flex flex-col justify-between"
             >
               <div>
-                {/* Thumbnail Simulator & Play Trigger */}
+                {/* Real YouTube Thumbnail & Play Trigger */}
                 <div
                   onClick={() => handlePlayVideo(vid)}
-                  className="relative h-44 bg-gradient-to-tr from-slate-950 via-slate-900 to-sky-950/60 cursor-pointer group flex items-center justify-center border-b border-slate-800"
+                  className="relative h-44 bg-slate-900 cursor-pointer group flex items-center justify-center border-b border-slate-800 overflow-hidden"
                 >
-                  <div className="w-12 h-12 rounded-full bg-red-600/90 text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-red-900/40">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://img.youtube.com/vi/${vid.embedId}/hqdefault.jpg`}
+                    alt={vid.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 brightness-90"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-slate-950/30 group-hover:bg-slate-950/10 transition-colors" />
+                  <div className="absolute w-12 h-12 rounded-full bg-red-600/95 text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl shadow-black/60">
                     <Play className="w-5 h-5 fill-white ml-0.5" />
                   </div>
-                  <span className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white">
+                  <span className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/85 font-mono text-[10px] text-white">
                     {vid.duration}
                   </span>
-                  <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-slate-950/80 text-sky-400 border border-sky-800/60 text-[10px] font-mono">
-                    {isRtl ? vid.arabicCategory : vid.category}
+                  <span className={`absolute top-2.5 left-2.5 px-2 py-0.5 rounded font-mono text-[10px] font-semibold border ${
+                    vid.language === 'Arabic' 
+                      ? 'bg-amber-950/90 text-amber-300 border-amber-700/60' 
+                      : 'bg-slate-950/90 text-sky-400 border-sky-800/60'
+                  }`}>
+                    {vid.language === 'Arabic' ? 'عربي' : 'EN'} • {isRtl ? vid.arabicCategory : vid.category}
                   </span>
                 </div>
 

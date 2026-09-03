@@ -99,10 +99,25 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
-          <p>
-            © 2026 Move to Canada — Calgary Relocation Command Center. Built for Yassir A. E. Abdulrhman.
-          </p>
+        <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+            <p>
+              © 2026 Move to Canada — Calgary Relocation Command Center. Built for Yassir A. E. Abdulrhman.
+            </p>
+            <span className="hidden sm:inline text-slate-700">•</span>
+            <p className="text-slate-400">
+              System built by{' '}
+              <a
+                href="https://nexorayyc.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sky-400 hover:text-sky-300 font-semibold underline underline-offset-2 transition-colors inline-flex items-center gap-1"
+              >
+                <span>Nexora</span>
+                <span className="font-mono text-slate-400 text-[10px]">(nexorayyc.io)</span>
+              </a>
+            </p>
+          </div>
           <div className="flex items-center gap-4">
             <Link href="/sources" className="hover:text-slate-300">
               {isRtl ? 'سجل المصادر' : 'Data Governance'}

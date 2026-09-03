@@ -35,9 +35,9 @@ export function Navigation() {
     { href: '/career', label: isRtl ? 'مسرع التوظيف' : 'Career Accelerator', icon: Briefcase, highlight: true, badge: 'NOC & ATS' },
     { href: '/groceries', label: isRtl ? 'التموين والغذاء' : 'Groceries & Halal', icon: ShoppingBag, highlight: true, badge: 'Costco & 2026' },
     { href: '/fuel', label: isRtl ? 'أسعار الوقود' : 'Gas & Fuel', icon: Fuel, highlight: true, badge: 'StatsCan' },
-    { href: '/housing', label: isRtl ? 'السكن والإيجار' : 'Housing', icon: Home },
+    { href: '/housing', label: isRtl ? 'السكن والإيجار' : 'Housing', icon: Home, badge: 'Price Drop' },
     { href: '/cost-of-living', label: isRtl ? 'الميزانية الشاملة' : 'Family Budget', icon: Calculator },
-    { href: '/schools', label: isRtl ? 'المدارس' : 'Schools', icon: GraduationCap },
+    { href: '/schools', label: isRtl ? 'المدارس' : 'Schools', icon: GraduationCap, badge: 'CBE $0' },
     { href: '/muslim-life', label: isRtl ? 'الحياة الإسلامية' : 'Muslim Life', icon: Moon },
     { href: '/driving', label: isRtl ? 'رخصة القيادة' : 'Driving & Licence', icon: Car },
     { href: '/plan', label: isRtl ? 'خطة الانتقال' : 'Move Plan', icon: FileText }
@@ -49,9 +49,9 @@ export function Navigation() {
       routes: [
         { href: '/', label: isRtl ? 'لوحة القيادة والمؤشرات' : 'Executive Overview & Fit Score', desc: 'Scorecard & key relocation indicators' },
         { href: '/calgary', label: isRtl ? 'واقع الحياة في كالغاري' : 'Calgary Reality Check', desc: 'Strengths vs. winter & service challenges' },
-        { href: '/housing', label: isRtl ? 'السكن والإيجارات (3 و 4 غرف)' : 'Housing Command Center', desc: 'CMHC vs Rentals.ca, deposits & listings' },
-        { href: '/neighbourhoods', label: isRtl ? 'مستكشف الأحياء العائلية' : 'Neighbourhood Explorer', desc: 'NE, NW, SW & SE community comparison' },
-        { href: '/schools', label: isRtl ? 'تعليم ومدارس الأبناء' : 'Schools Command Center', desc: 'CBE Welcome Centre, Islamic CIS tuition' },
+        { href: '/housing', label: isRtl ? 'السكن والإيجارات (3 و 4 غرف)' : 'Housing Command Center', desc: 'Price drop, Facebook Marketplace & CMHC', badge: 'Price Drop' },
+        { href: '/neighbourhoods', label: isRtl ? 'مستكشف الأحياء العائلية' : 'Neighbourhood Explorer', desc: 'Cornerstone, Thorncliffe, Saddleridge & NW', badge: 'NE Updated' },
+        { href: '/schools', label: isRtl ? 'تعليم ومدارس الأبناء' : 'Schools Command Center', desc: 'CBE Public $0 tuition default & Islamic CIS option', badge: 'CBE $0 Default' },
         { href: '/muslim-life', label: isRtl ? 'المساجد والمجتمع الإسلامي' : 'Muslim Life & Halal Infrastructure', desc: 'Akram Jomaa, prayer shifts, Tahfeez' },
         { href: '/settlement', label: isRtl ? 'خارطة طريق الاستقرار' : 'Settlement Roadmap', desc: 'Pre-arrival to Year 1 statutory steps' }
       ]
@@ -74,7 +74,7 @@ export function Navigation() {
         { href: '/cars', label: isRtl ? 'شراء سيارة العائلة وتوفير الضريبة' : 'Family AWD Vehicles & 0% PST', desc: 'Highlander, Sienna, Pilot & auto insurance' },
         { href: '/healthcare', label: isRtl ? 'التأمين الصحي AHCIP والمواصلات' : 'Alberta Healthcare (AHCIP) & Transit', desc: 'Zero-day wait period & CTrain family fares' },
         { href: '/city-compare', label: isRtl ? 'مؤشر القيمة ومقارنة 9 مدن' : 'Canadian City Value Index', desc: 'Calgary vs Edmonton, Toronto, Vancouver' },
-        { href: '/videos', label: isRtl ? 'معرض فيديوهات الانتقال والطقس' : 'Calgary Videos & Winter Survival', desc: 'Real Gulf families, Chinooks & thermal layers' },
+        { href: '/videos', label: isRtl ? 'معرض فيديوهات الانتقال والطقس' : 'Calgary Videos & Winter Survival', desc: 'Verified 2026 videos in English & Arabic', badge: 'Live Videos' },
         { href: '/plan', label: isRtl ? 'خطة الانتقال والملف التنفيذي' : 'My Move Plan & PDF Dossier', desc: 'Interactive checklist & printable dossier' },
         { href: '/sources', label: isRtl ? 'سجل المصادر الرسمية (32 مصدر)' : 'Official Source Registry', desc: 'StatCan, Alberta.ca, CMHC, CBE governance' }
       ]
@@ -83,12 +83,12 @@ export function Navigation() {
 
   return (
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Top Header Row */}
-        <div className="flex items-center justify-between h-16 border-b border-slate-800/50">
+        <div className="flex items-center justify-between h-16 border-b border-slate-800/50 gap-2">
           {/* Brand Crest */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-900 border border-sky-500/30 group-hover:border-sky-400/60 transition-all shadow-md shadow-sky-950/50 flex items-center justify-center p-1">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0 min-w-0">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-slate-900 border border-sky-500/30 group-hover:border-sky-400/60 transition-all shadow-md shadow-sky-950/50 flex items-center justify-center p-1 shrink-0">
               <Image
                 src="/images/logo.png"
                 alt="Move to Canada Logo"
@@ -98,68 +98,66 @@ export function Navigation() {
                 priority
               />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-amber-400 uppercase font-semibold">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="text-[9px] sm:text-[11px] font-mono tracking-wider sm:tracking-widest text-amber-400 uppercase font-semibold truncate">
                   YASSIR&apos;S MOVE COMMAND
                 </span>
                 <span className="hidden lg:inline-flex text-[9px] font-mono px-2 py-0.2 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                   {t.common.current} • 2026
                 </span>
               </div>
-              <h1 className="text-xs sm:text-sm font-bold tracking-tight text-slate-100 group-hover:text-white transition-colors">
+              <h1 className="text-xs sm:text-sm font-bold tracking-tight text-slate-100 group-hover:text-white transition-colors truncate">
                 {t.appTitle}
               </h1>
             </div>
           </Link>
 
-          {/* Quick Mega-Menu Trigger & Action Controls */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* All Pages Dropdown Trigger */}
-            <div className="relative">
-              <button
-                onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-                className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
-                  megaMenuOpen 
-                    ? 'bg-sky-600 border-sky-500 text-white shadow-lg shadow-sky-600/20' 
-                    : 'bg-slate-900/90 border-slate-700 text-slate-200 hover:border-sky-400 hover:text-white'
-                }`}
-              >
-                <LayoutGrid className="w-3.5 h-3.5 text-sky-400" />
-                <span>{isRtl ? 'جميع الصفحات والأقسام (18)' : 'All 18 Pages & Hubs'}</span>
-                <ChevronDown className={`w-3 h-3 transition-transform ${megaMenuOpen ? 'rotate-180 text-white' : 'text-slate-400'}`} />
-              </button>
-            </div>
+          {/* Action Controls & Navigation Dropdown */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            {/* All Pages Dropdown Trigger (Desktop) */}
+            <button
+              onClick={() => setMegaMenuOpen(!megaMenuOpen)}
+              className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                megaMenuOpen 
+                  ? 'bg-sky-600 border-sky-500 text-white shadow-lg shadow-sky-600/20' 
+                  : 'bg-slate-900/90 border-slate-700 text-slate-200 hover:border-sky-400 hover:text-white'
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5 text-sky-400" />
+              <span>{isRtl ? 'جميع الأقسام (18)' : 'All 18 Hubs'}</span>
+              <ChevronDown className={`w-3 h-3 transition-transform ${megaMenuOpen ? 'rotate-180 text-white' : 'text-slate-400'}`} />
+            </button>
 
             {/* Currency Toggle */}
-            <div className="flex items-center rounded-lg bg-slate-900 p-0.5 border border-slate-800 text-xs font-mono">
+            <div className="flex items-center rounded-lg bg-slate-900 p-0.5 border border-slate-800 text-[11px] sm:text-xs font-mono">
               <button
                 onClick={() => setCurrency('CAD')}
-                className={`px-2 py-1 rounded transition-all ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded transition-all ${
                   currency === 'CAD'
                     ? 'bg-sky-600 text-white font-bold shadow-sm'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                CAD ($)
+                CAD
               </button>
               <button
                 onClick={() => setCurrency('SAR')}
-                className={`px-2 py-1 rounded transition-all ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded transition-all ${
                   currency === 'SAR'
                     ? 'bg-amber-600 text-white font-bold shadow-sm'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                SAR (ر.س)
+                SAR
               </button>
             </div>
 
             {/* Language Toggle */}
-            <div className="flex items-center rounded-lg bg-slate-900 p-0.5 border border-slate-800 text-xs font-mono">
+            <div className="flex items-center rounded-lg bg-slate-900 p-0.5 border border-slate-800 text-[11px] sm:text-xs font-mono">
               <button
                 onClick={() => setLocale('en')}
-                className={`px-2 py-1 rounded transition-all ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded transition-all ${
                   locale === 'en'
                     ? 'bg-slate-800 text-sky-400 font-bold'
                     : 'text-slate-400 hover:text-white'
@@ -169,13 +167,13 @@ export function Navigation() {
               </button>
               <button
                 onClick={() => setLocale('ar')}
-                className={`px-2 py-1 rounded transition-all ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded transition-all ${
                   locale === 'ar'
-                    ? 'bg-slate-800 text-amber-400 font-bold'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-slate-800 text-amber-400 font-bold font-arabic'
+                    : 'text-slate-400 hover:text-white font-arabic'
                 }`}
               >
-                العربية
+                عربي
               </button>
             </div>
 
@@ -197,13 +195,13 @@ export function Navigation() {
               <span>{t.common.printExport}</span>
             </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
-              aria-label="Toggle Menu"
+              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 hover:text-white hover:border-sky-500 focus:outline-none"
+              aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-sky-400" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -217,7 +215,7 @@ export function Navigation() {
               <Link
                 key={route.href}
                 href={route.href}
-                className={`whitespace-nowrap px-3 py-1.5 rounded-xl font-medium transition-all flex items-center gap-2 ${
+                className={`whitespace-nowrap px-3 py-1.5 rounded-xl font-medium transition-all flex items-center gap-1.5 ${
                   isActive
                     ? 'bg-sky-600 text-white font-bold shadow-md shadow-sky-600/20'
                     : route.highlight
@@ -310,12 +308,29 @@ export function Navigation() {
         </div>
       )}
 
-      {/* MOBILE DRAWER (ALL 18 PAGES WITH CATEGORIES) */}
+      {/* MOBILE DRAWER (TOUCH-OPTIMIZED FOR ALL 18 PAGES) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-800 bg-slate-950 px-4 py-6 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="md:hidden border-t border-slate-800 bg-slate-950/98 px-4 py-5 space-y-6 max-h-[85vh] overflow-y-auto shadow-2xl backdrop-blur-2xl">
+          {/* Mobile Profile & Quick Action Header */}
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-sky-950/40 via-slate-900 to-amber-950/30 border border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400 font-mono font-bold text-xs">
+                YA
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-amber-400 block font-semibold uppercase">Yassir Abdulrhman</span>
+                <span className="text-xs text-white font-medium">Calgary Move Center</span>
+              </div>
+            </div>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              2026 Ref
+            </span>
+          </div>
+
+          {/* Grouped 18 Routes List */}
           {allPagesGrouped.map((grp, gIdx) => (
             <div key={gIdx} className="space-y-2">
-              <h4 className="text-xs font-bold font-mono uppercase tracking-wider text-sky-400 px-1">
+              <h4 className="text-[11px] font-bold font-mono uppercase tracking-wider text-sky-400 px-1 border-b border-slate-900 pb-1">
                 {grp.groupName}
               </h4>
               <div className="space-y-1">
@@ -326,16 +341,16 @@ export function Navigation() {
                       key={rIdx}
                       href={rt.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`block px-3 py-2 rounded-xl text-xs transition-all ${
+                      className={`block px-3 py-2.5 rounded-xl text-xs transition-all ${
                         isActive
-                          ? 'bg-sky-600 text-white font-bold'
-                          : 'text-slate-300 hover:bg-slate-900'
+                          ? 'bg-sky-600 text-white font-bold shadow-md shadow-sky-950/60'
+                          : 'text-slate-200 hover:bg-slate-900 active:bg-slate-800 border border-transparent hover:border-slate-800'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span>{rt.label}</span>
+                        <span className="text-xs font-medium">{rt.label}</span>
                         {rt.badge && (
-                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">
+                          <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
                             {rt.badge}
                           </span>
                         )}
@@ -347,13 +362,14 @@ export function Navigation() {
             </div>
           ))}
 
-          <div className="pt-4 border-t border-slate-800">
+          {/* Mobile Print & Dossier Trigger */}
+          <div className="pt-2 border-t border-slate-800 space-y-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 window.print();
               }}
-              className="w-full py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs font-medium flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-colors"
             >
               <Printer className="w-4 h-4 text-slate-400" />
               <span>{t.common.printExport}</span>

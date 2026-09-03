@@ -7,7 +7,7 @@ export interface CuratedVideo {
   embedId: string;
   duration: string;
   publishedYear: string;
-  category: 'Cost of Living' | 'Winter & Driving' | 'Neighbourhoods & Housing' | 'Family & Kids' | 'Gulf Expat Transition';
+  category: 'Overview & Guide' | 'Cost of Living' | 'Winter & Reality' | 'Neighbourhoods & Housing' | 'Arabic & Family Tour';
   arabicCategory: string;
   language: 'English' | 'Arabic' | 'Bilingual';
   whyWatch: string;
@@ -18,82 +18,122 @@ export interface CuratedVideo {
 export const curatedVideos: CuratedVideo[] = [
   {
     id: 'vid-01',
-    title: 'The Truth About Living in Calgary in 2026 | Moving to Calgary IS NOT for Everyone',
-    arabicTitle: 'حقيقة العيش في كالغاري 2026 | الهجرة لكالغاري لا تناسب الجميع',
-    channelName: 'Ryan Gillard — Calgary Real Estate',
-    youtubeUrl: 'https://www.youtube.com/watch?v=kYJz7n7bI7s',
-    embedId: 'kYJz7n7bI7s',
-    duration: '18:42',
-    publishedYear: '2025/2026',
-    category: 'Cost of Living',
-    arabicCategory: 'تكاليف المعيشة والواقع',
+    title: 'Moving to Calgary in 2026? WATCH THIS FIRST | Mapping, Prices, Best Areas, Schools',
+    arabicTitle: 'الانتقال إلى كالغاري في 2026؟ شاهد هذا أولاً | الخريطة، الأسعار، أفضل الأحياء والمدارس',
+    channelName: 'Ton Nguyen — Living in Calgary',
+    youtubeUrl: 'https://www.youtube.com/watch?v=ZjfFvYr2Grs',
+    embedId: 'ZjfFvYr2Grs',
+    duration: '24:10',
+    publishedYear: '2026',
+    category: 'Overview & Guide',
+    arabicCategory: 'الدليل الشامل لكالغاري',
     language: 'English',
-    whyWatch: 'An unvarnished, data-driven look at Calgary’s true costs: utility transmission delivery riders, winter property maintenance, and why Calgary is no longer dirt cheap.',
-    arabicWhyWatch: 'نظرة واقعية وصريحة مدعمة بالأرقام حول التكاليف الحقيقية للسكن والرسوم الإضافية لفواتير الشتاء وأسعار المنازل.',
+    whyWatch: 'Comprehensive 2026 master orientation mapping out Calgary quadrants, realistic rental prices, school catchment dynamics, and essential newcomer strategies.',
+    arabicWhyWatch: 'شرح مفصل ومحدث لعام 2026 لخريطة كالغاري، وأسعار الإيجارات الحقيقية، والمدارس، وكيفية اختيار الحي الأنسب لعائلتك.',
     keyTakeaways: [
-      'Detached home winter utility bills can surge to $500–$650/mo due to distribution/transmission fees.',
-      'Auto insurance without Canadian history is a major shock for international newcomers.',
-      'Calgary remains far more affordable than Toronto or Vancouver, but requires realistic financial buffers.'
+      'Northeast and Northwest Calgary offer the most modern, family-friendly suburban communities.',
+      'Calgary rental market is softening with more inventory available for 3 and 4-bedroom homes.',
+      'School boundaries are strictly enforced by CBE; plan housing location around desired schools.'
     ]
   },
   {
     id: 'vid-02',
-    title: 'Calgary Neighborhood Guide for Families | Best Suburbs for Kids and Schools',
-    arabicTitle: 'دليل أحياء كالغاري للعائلات | أفضل الضواحي للأطفال والمدارس',
-    channelName: 'Living in Calgary — Dan',
-    youtubeUrl: 'https://www.youtube.com/watch?v=8qW1g8bXJkM',
-    embedId: '8qW1g8bXJkM',
-    duration: '22:15',
+    title: 'معلومات ستصدمك عن كندا ، مدينة كالغاري | CALGARY ALBERTA',
+    arabicTitle: 'معلومات مهمة وصادمة عن كندا ومدينة كالغاري بالتفصيل',
+    channelName: 'Ali Imad — علي عماد',
+    youtubeUrl: 'https://www.youtube.com/watch?v=U4UeZD3w0ls',
+    embedId: 'U4UeZD3w0ls',
+    duration: '14:25',
     publishedYear: '2025/2026',
-    category: 'Neighbourhoods & Housing',
-    arabicCategory: 'الأحياء والمدارس',
-    language: 'English',
-    whyWatch: 'Ground-level walkthrough comparing Northwest master-planned communities with Southwest executive enclaves and Southeast lake communities.',
-    arabicWhyWatch: 'جولة ميدانية مفصلة تقارن بين أحياء الشمال الغربي الراقية وأحياء الجنوب الغربي ومجتمعات البحيرات العائلية.',
+    category: 'Arabic & Family Tour',
+    arabicCategory: 'جولة وتجربة عربية',
+    language: 'Arabic',
+    whyWatch: 'An honest, transparent Arabic walkthrough answering key concerns for Arab and Muslim newcomers evaluating Calgary.',
+    arabicWhyWatch: 'فيديو باللغة العربية يشرح بوضوح وصراحة واقع المعيشة في كالغاري ومميزات مقاطعة ألبرتا من انعدام ضريبة المبيعات وتوفر الجالية.',
     keyTakeaways: [
-      'NW communities (Evanston, Nolan Hill) provide modern housing near large suburban YMCA complexes.',
-      'SW communities (West Springs, Aspen) offer the fastest downtown commute but highest rents.',
-      'School boundaries are strictly enforced; always verify school capacity before leasing.'
+      'Alberta has 0% Provincial Sales Tax (PST), saving thousands compared to Ontario (13% HST) and BC (12%).',
+      'The Muslim community in Calgary is large, active, and well-supported by mosques and halal amenities.',
+      'Winter temperatures require proper preparation, but the sunny climate and Chinooks make it easier.'
     ]
   },
   {
     id: 'vid-03',
-    title: 'First Canadian Winter Survival Guide: Surviving -30°C in Calgary',
-    arabicTitle: 'دليل النجاة من أول شتاء كندي: كيف تتعامل مع 30 درجة تحت الصفر في كالغاري',
-    channelName: 'Frank Huynh — Calgary Living',
-    youtubeUrl: 'https://www.youtube.com/watch?v=3z8m4n9bQvL',
-    embedId: '3z8m4n9bQvL',
-    duration: '15:30',
-    publishedYear: '2025/2026',
-    category: 'Winter & Driving',
-    arabicCategory: 'الشتاء والقيادة',
+    title: 'Moving to Calgary in 2026? What You NEED to Know Before You Relocate or Buy',
+    arabicTitle: 'الانتقال إلى كالغاري في 2026؟ ما يجب أن تعرفه قبل الانتقال أو الاستئجار',
+    channelName: 'Living in YYC',
+    youtubeUrl: 'https://www.youtube.com/watch?v=EzTM6Fuk02M',
+    embedId: 'EzTM6Fuk02M',
+    duration: '19:45',
+    publishedYear: '2026',
+    category: 'Cost of Living',
+    arabicCategory: 'تكاليف المعيشة والواقع',
     language: 'English',
-    whyWatch: 'Essential practical guide for newcomers from warm climates: how to dress children in 3 layers, why engine block heaters matter, and driving on black ice.',
-    arabicWhyWatch: 'دليل عملي لا غنى عنه للقادمين من الدول الدافئة: كيفية إلباس الأطفال طبقات الملابس، واستخدام سخان محرك السيارة، وتفادي الانزلاق.',
+    whyWatch: 'Clear financial breakdown covering utility billing mechanics, winter tire necessities, and suburban commuting realities.',
+    arabicWhyWatch: 'تحليل مالي دقيق يوضح فواتير الكهرباء والغاز في الشتاء، ومصاريف السيارة والتأمين، والمشاوير اليومية.',
     keyTakeaways: [
-      'Winter tires (Michelin X-Ice or Blizzak) are non-negotiable for family safety on Calgary hills.',
-      'Engine block heaters must be plugged in overnight when temperatures drop below -20°C.',
-      'Calgary’s winter is sunny and dry (not humid gray slush), which makes cold weather much more tolerable.'
+      'Winter utility bills include fixed municipal delivery fees that remain steady year-round.',
+      'All-Wheel Drive (AWD) vehicles and dedicated winter tires provide peace of mind for family travel.',
+      'Calgary offers unmatched proximity to Banff National Park and the Canadian Rockies.'
     ]
   },
   {
     id: 'vid-04',
-    title: 'Moving from the Gulf (Saudi Arabia / UAE) to Canada: The Real Expat Experience',
-    arabicTitle: 'الهجرة من دول الخليج (السعودية والإمارات) إلى كندا: تجربة المقيمين الحقيقية',
-    channelName: 'Hamara Canada & Gulf Expat Chronicles',
-    youtubeUrl: 'https://www.youtube.com/watch?v=7y9b4m2cZkX',
-    embedId: '7y9b4m2cZkX',
-    duration: '26:50',
+    title: 'أول مرة نزور كندا جولة فمدينة كالغاري | Walking in Calgary City, Alberta',
+    arabicTitle: 'جولة ميدانية لأول مرة في مدينة كالغاري ألبرتا',
+    channelName: 'Tarek Marary',
+    youtubeUrl: 'https://www.youtube.com/watch?v=t3IySVQgDYo',
+    embedId: 't3IySVQgDYo',
+    duration: '16:18',
     publishedYear: '2025/2026',
-    category: 'Gulf Expat Transition',
-    arabicCategory: 'الانتقال من الخليج لكندا',
-    language: 'Bilingual',
-    whyWatch: 'Addresses the specific psychological and lifestyle transition from Riyadh/Dubai to Canada: loss of domestic help, self-reliance, Islamic community adaptation, and children schooling.',
-    arabicWhyWatch: 'يناقش الفروقات الحقيقية بين حياة الرفاهية والخدمات المنزلية في الخليج وبين الاعتماد على النفس والبيئة العائلية والمدارس في كندا.',
+    category: 'Arabic & Family Tour',
+    arabicCategory: 'جولة ميدانية للمدينة',
+    language: 'Arabic',
+    whyWatch: 'Street-level visual tour of Calgary downtown, residential streets, infrastructure, cleanliness, and public spaces.',
+    arabicWhyWatch: 'جولة بصرية في شوارع كالغاري ووسط المدينة والحدائق توضح نظافة المدينة ومستوى التنظيم والهدوء.',
     keyTakeaways: [
-      'Transitioning from full-time domestic maids/drivers in the Gulf to DIY household chores in Canada.',
-      'Calgary has a strong, welcoming Muslim community where Friday prayer and Eid are celebrated openly.',
-      'Children gain immense independence, outdoor freedom, and safe neighborhood walkability.'
+      'Calgary is consistently ranked among the world’s cleanest and most livable cities.',
+      'Downtown +15 skywalk network allows walking between 80+ buildings indoors during winter.',
+      'Safe pedestrian walkways and high respect for family pedestrian traffic.'
+    ]
+  },
+  {
+    id: 'vid-05',
+    title: 'Moving to Calgary? Here\'s What You NEED to Know!',
+    arabicTitle: 'الهجرة إلى كالغاري؟ كل ما تحتاج لمعرفته من الصفر',
+    channelName: 'This is Living in Calgary Alberta',
+    youtubeUrl: 'https://www.youtube.com/watch?v=aGBefIaCVlE',
+    embedId: 'aGBefIaCVlE',
+    duration: '21:30',
+    publishedYear: '2025/2026',
+    category: 'Overview & Guide',
+    arabicCategory: 'دليل شامل للقادمين الجدد',
+    language: 'English',
+    whyWatch: 'Covers essential newcomer settlement logistics: health care registration, driver licensing tests, and neighbourhood selection.',
+    arabicWhyWatch: 'يشرح الخطوات اللوجستية للقادمين الجدد: التسجيل في التأمين الصحي AHCIP واختبار رخصة القيادة واختيار الأحياء.',
+    keyTakeaways: [
+      'Alberta has immediate zero-day waiting period for provincial healthcare (AHCIP) coverage.',
+      'Driver licensing requires Class 7 knowledge test before taking Class 5 road examination.',
+      'Children age 12 and under ride Calgary Transit completely free of charge.'
+    ]
+  },
+  {
+    id: 'vid-06',
+    title: 'أهلا وسهلا بكم في مدينه كالغري البرتا كندا • قلب الغرب النابض',
+    arabicTitle: 'أهلاً بكم في كالغاري • قلب الغرب الكندي النابض',
+    channelName: 'Sam Nammoura',
+    youtubeUrl: 'https://www.youtube.com/watch?v=trwTTrE_JgU',
+    embedId: 'trwTTrE_JgU',
+    duration: '12:50',
+    publishedYear: '2025',
+    category: 'Arabic & Family Tour',
+    arabicCategory: 'مقدمة ترحيبية وتجربة استقرار',
+    language: 'Arabic',
+    whyWatch: 'Welcoming perspective from long-time Arab community leaders in Calgary explaining community spirit and mutual support.',
+    arabicWhyWatch: 'رسالة ترحيبية ونصائح قيمة من مقيمين عرب قدامى في كالغاري حول التكيف والاندماج والمحافظة على القيم العائلية.',
+    keyTakeaways: [
+      'Strong Arab and Islamic community presence in Calgary with mutual support networks.',
+      'Calgary offers top-rated universities, colleges, and educational opportunities for youth.',
+      'Openness and welcoming attitude toward skilled newcomers from the Middle East.'
     ]
   }
 ];
