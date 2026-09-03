@@ -52,20 +52,38 @@ export function calculateBcBenefits(
   // 2nd child: $1,100
   // 3rd+ child: $900 each
   let maxBcfb = 0;
-  if (eligibleChildren >= 1) maxBcfb += 1750;
-  if (eligibleChildren >= 2) maxBcfb += 1100;
-  if (eligibleChildren >= 3) maxBcfb += (eligibleChildren - 2) * 900;
+  let floorBcfb = 0;
 
-  // Threshold: $35,902 CAD
-  const bcfbThreshold = 35902;
+  if (eligibleChildren >= 1) {
+    maxBcfb += 1750;
+    floorBcfb += 775;
+  }
+  if (eligibleChildren >= 2) {
+    maxBcfb += 1100;
+    floorBcfb += 750;
+  }
+  if (eligibleChildren >= 3) {
+    maxBcfb += (eligibleChildren - 2) * 900;
+    floorBcfb += (eligibleChildren - 2) * 725;
+  }
+
+  // Two-Tier Statutory Thresholds:
+  // Threshold 1: $30,176 CAD (base reduction down to guaranteed floor)
+  // Threshold 2: $96,562 CAD (second reduction of guaranteed floor down to $0)
+  const bcfbThreshold1 = 30176;
+  const bcfbThreshold2 = 96562;
   const bcfbReductionRate = 0.04; // 4% reduction rate
 
   let annualBcfb = 0;
-  if (afniCAD <= bcfbThreshold) {
+  if (afniCAD <= bcfbThreshold1) {
     annualBcfb = maxBcfb;
+  } else if (afniCAD <= bcfbThreshold2) {
+    const clawback = (afniCAD - bcfbThreshold1) * bcfbReductionRate;
+    // Protected by the statutory guaranteed minimum floor
+    annualBcfb = Math.max(floorBcfb, Math.round(maxBcfb - clawback));
   } else {
-    const clawback = (afniCAD - bcfbThreshold) * bcfbReductionRate;
-    annualBcfb = Math.max(0, Math.round(maxBcfb - clawback));
+    const tier2Clawback = (afniCAD - bcfbThreshold2) * bcfbReductionRate;
+    annualBcfb = Math.max(0, Math.round(floorBcfb - tier2Clawback));
   }
 
   // BC Climate Action Tax Credit (BCCATC)
@@ -80,7 +98,7 @@ export function calculateBcBenefits(
   if (annualBcfb > 0) {
     notes.push(`Estimated monthly BCFB: $${(annualBcfb / 12).toFixed(2)} CAD deposited alongside the federal CCB on the 20th.`);
   } else {
-    notes.push(`BCFB fully phased out due to family income exceeding $${Math.round(bcfbThreshold + (maxBcfb / bcfbReductionRate)).toLocaleString()} CAD.`);
+    notes.push(`BCFB fully phased out due to family income exceeding $${Math.round(bcfbThreshold2 + (floorBcfb / bcfbReductionRate)).toLocaleString()} CAD.`);
   }
 
   return {
