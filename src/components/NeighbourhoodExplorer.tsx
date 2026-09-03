@@ -24,7 +24,7 @@ export function NeighbourhoodExplorer() {
     if (filterType === 'NE_COMMUNITIES') return n.quadrant.includes('NE');
     if (filterType === 'MUSLIM') return n.keyTags.includes('Best for Muslim Family') || n.keyTags.includes('Top Pick for Muslim Families') || n.muslimFamilyScore >= 85;
     if (filterType === 'BUDGET') return n.fourBedDetachedRentCAD <= 2600;
-    if (filterType === 'SCHOOLS') return n.keyTags.includes('Best for Public Schools') || n.keyTags.includes('Great Public Schools') || n.keyTags.includes('Top Rated Schools');
+    if (filterType === 'SCHOOLS') return n.keyTags.includes('Best for Public Schools') || n.keyTags.includes('Great Public Schools') || n.keyTags.includes('Top Rated Schools') || n.keyTags.includes('Top Schools');
     if (filterType === 'TRANSIT') return n.keyTags.includes('Transit Access') || n.keyTags.includes('CTrain Walkable') || n.nearestCTrainStation.includes('Line') || n.nearestCTrainStation.includes('BRT');
     if (filterType === 'EXECUTIVE') return n.quadrant.includes('SW') || n.fourBedDetachedRentCAD > 3500;
     return true;
