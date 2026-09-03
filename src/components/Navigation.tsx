@@ -53,7 +53,7 @@ export function Navigation() {
         { href: '/neighbourhoods', label: isRtl ? 'مستكشف الأحياء العائلية' : 'Neighbourhood Explorer', desc: 'Cornerstone, Thorncliffe, Saddleridge & NW', badge: 'NE Updated' },
         { href: '/schools', label: isRtl ? 'تعليم ومدارس الأبناء' : 'Schools Command Center', desc: 'CBE Public $0 tuition default & Islamic CIS option', badge: 'CBE $0 Default' },
         { href: '/muslim-life', label: isRtl ? 'المساجد والمجتمع الإسلامي' : 'Muslim Life & Halal Infrastructure', desc: 'Akram Jomaa, prayer shifts, Tahfeez' },
-        { href: '/settlement', label: isRtl ? 'خارطة طريق الاستقرار' : 'Settlement Roadmap', desc: 'Pre-arrival to Year 1 statutory steps' }
+        { href: '/settlement', label: isRtl ? 'خارطة الأيام الأولى (SIN وكرت الصحة)' : 'First Days & Settlement Roadmap', desc: 'Day 1 SIN, AHCIP health cards, CBE schools', badge: 'Day 1–3' }
       ]
     },
     {

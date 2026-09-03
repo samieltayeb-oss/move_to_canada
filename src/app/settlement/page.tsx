@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { FirstDaysArrivalGuide } from '@/components/settlement/FirstDaysArrivalGuide';
 import { MovePlanChecklist } from '@/components/MovePlanChecklist';
 import { SourceModal } from '@/components/SourceModal';
 import { useApp } from '@/context/AppContext';
@@ -26,6 +27,10 @@ export default function SettlementPage() {
         </p>
       </div>
 
+      {/* 1. Immediate First 72 Hours Master Action Guide (SIN, Health Cards, Schools, Banking) */}
+      <FirstDaysArrivalGuide />
+
+      {/* 2. Comprehensive 5-Phase Legal Settlement Checklist */}
       <MovePlanChecklist />
       <SourceModal />
     </div>

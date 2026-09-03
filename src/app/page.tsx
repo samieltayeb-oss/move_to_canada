@@ -4,6 +4,7 @@ import React from 'react';
 import { HeroProfile } from '@/components/HeroProfile';
 import { HomeSummaryWidgets } from '@/components/HomeSummaryWidgets';
 import { AllPagesPortal } from '@/components/AllPagesPortal';
+import { FirstDaysArrivalGuide } from '@/components/settlement/FirstDaysArrivalGuide';
 import { ExecutiveDecisionDashboard } from '@/components/ExecutiveDecisionDashboard';
 import { CalgaryRealityCheck } from '@/components/CalgaryRealityCheck';
 import { SourceModal } from '@/components/SourceModal';
@@ -21,7 +22,12 @@ export default function Home() {
       {/* 3. Master Multi-Page Navigation Portal (18 Dedicated Hubs) */}
       <AllPagesPortal />
 
-      {/* 4. Executive Decision Dashboard (Personalized Fit Score) */}
+      {/* 4. First 72 Hours in Calgary: Newcomer Immediate Action Guide (SIN, AHCIP Health Cards, CBE Schools) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <FirstDaysArrivalGuide />
+      </div>
+
+      {/* 5. Executive Decision Dashboard (Personalized Fit Score) */}
       <ExecutiveDecisionDashboard />
 
       {/* 5. Calgary Reality Check (Strengths vs. Difficulties) */}

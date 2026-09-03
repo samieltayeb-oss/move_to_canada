@@ -6,6 +6,7 @@ import {
   recommendedFamilyVehicles, 
   saudiVehicleImportWarning, 
   saudiLicenceConversionGuide,
+  live24hVehicleFeeds,
   FamilyVehicle
 } from '@/data/vehicles';
 import { 
@@ -16,7 +17,9 @@ import {
   Snowflake,
   ExternalLink,
   Fuel,
-  Users
+  Users,
+  RefreshCw,
+  Clock
 } from 'lucide-react';
 
 export function DrivingVehiclesModule() {
@@ -45,7 +48,7 @@ export function DrivingVehiclesModule() {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               {t.drivingCars.drivingTitle}
             </h2>
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-xs sm:text-sm text-slate-400">
               Alberta non-reciprocal licence rules, GDL modernization, 2015–2024 family vehicles, and shipping regulations
             </p>
           </div>
@@ -148,6 +151,54 @@ export function DrivingVehiclesModule() {
             </div>
           </div>
 
+          {/* 24-HOUR LIVE VEHICLE FEEDS BANNER */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-sky-950/30 border border-amber-500/30 mb-8 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <h4 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <RefreshCw className="w-4 h-4 text-amber-400" />
+                  <span>{isRtl ? 'بوابة إعلانات السيارات الحية المباشرة (تحديث كل 24 ساعة)' : 'Live 24-Hour Vehicle Feeds (Direct FB Marketplace YYC)'}</span>
+                </h4>
+              </div>
+              <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
+                <Clock className="w-3.5 h-3.5 text-amber-400" />
+                <span>{isRtl ? live24hVehicleFeeds.arabicSyncFrequency : live24hVehicleFeeds.syncFrequency}</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed font-light">
+              {isRtl
+                ? 'روابط بحث مباشرة تفتح إعلانات فيسبوك ماركت بليس المحدثة لحظياً لكل علامة تجارية في كالغاري (موديلات 2015 إلى 2024):'
+                : 'Direct deep search channels for live Calgary vehicle inventory across the 5 target family brands (2015 to 2024):'}
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 pt-1">
+              {live24hVehicleFeeds.marketplaceDirectLinks.map((link, lIdx) => (
+                <a
+                  key={lIdx}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-xs transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-800/60 block mb-1.5 w-fit">
+                      {link.tag}
+                    </span>
+                    <strong className="text-slate-200 group-hover:text-white font-medium text-xs line-clamp-2">
+                      {isRtl ? link.arabicBrand : link.brand}
+                    </strong>
+                  </div>
+                  <div className="flex items-center justify-end gap-1 text-[11px] text-amber-400 mt-2 font-mono">
+                    <span>{isRtl ? 'فتح العروض الحية' : 'Open Feed'}</span>
+                    <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* Brand Filter Pills */}
           <div className="flex flex-wrap items-center gap-2 mb-6">
             <span className="text-xs font-mono text-slate-400 mr-1">{isRtl ? 'اختر العلامة:' : 'Filter Make:'}</span>
@@ -222,24 +273,36 @@ export function DrivingVehiclesModule() {
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800 space-y-2.5">
+                {/* Direct Action Links: Facebook Marketplace + AutoTrader */}
+                <div className="pt-3 border-t border-slate-800 space-y-2">
                   <div className="flex items-center justify-between text-[11px] text-slate-400">
                     <span className="flex items-center gap-1">
                       <Snowflake className="w-3.5 h-3.5 text-sky-400" />
                       <span>{car.winterAwdRating}</span>
                     </span>
-                    <span className="text-emerald-400 font-mono">0% PST Saved: ${car.albertaTaxSavingsVsOntarioCAD}</span>
+                    <span className="text-emerald-400 font-mono">0% PST: Save ${car.albertaTaxSavingsVsOntarioCAD}</span>
                   </div>
 
-                  <a
-                    href={car.facebookMarketplaceSearchUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
-                  >
-                    <span>{isRtl ? 'تصفح العروض على فيسبوك ماركت بليس' : 'Browse on FB Marketplace Calgary'}</span>
-                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-amber-400" />
-                  </a>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                    <a
+                      href={car.facebookMarketplaceSearchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
+                    >
+                      <span>FB Marketplace</span>
+                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-amber-400" />
+                    </a>
+                    <a
+                      href={car.autoTraderSearchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
+                    >
+                      <span>AutoTrader YYC</span>
+                      <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-sky-400" />
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}

@@ -221,6 +221,20 @@ export function HeroProfile() {
                     </select>
                   </div>
 
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-medium">{t.hero.childAges} (Yrs)</label>
+                    <input
+                      type="text"
+                      value={tempProfile.childrenAges.join(', ')}
+                      onChange={(e) => {
+                        const parsed = e.target.value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+                        setTempProfile({ ...tempProfile, childrenAges: parsed.length > 0 ? parsed : [16, 11, 5] });
+                      }}
+                      placeholder="16, 11, 5"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-sky-500 font-mono"
+                    />
+                  </div>
+
                   <div className="flex items-center gap-2 pt-2 sm:col-span-2">
                     <input
                       type="checkbox"

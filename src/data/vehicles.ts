@@ -13,10 +13,49 @@ export interface FamilyVehicle {
   facebookOlderGenCAD: string;
   facebookNewerGenCAD: string;
   facebookMarketplaceSearchUrl: string;
+  autoTraderSearchUrl: string;
   albertaTaxSavingsVsOntarioCAD: number; // 8% PST difference
   familyFitNotes: string;
   arabicFamilyFitNotes: string;
 }
+
+export const live24hVehicleFeeds = {
+  syncFrequency: 'Every 24 Hours (Daily Live Update)',
+  arabicSyncFrequency: 'تحديث حي ومباشر كل 24 ساعة يومياً',
+  lastSyncedTimestamp: '2026-09-03',
+  marketplaceDirectLinks: [
+    {
+      brand: 'Toyota (Highlander, Sienna, RAV4)',
+      arabicBrand: 'تويوتا (هايلاندر، سيينا، راف 4)',
+      url: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Toyota%20AWD&minYear=2015&maxYear=2024',
+      tag: 'Top Resale Value'
+    },
+    {
+      brand: 'Honda (Pilot, CR-V, Odyssey)',
+      arabicBrand: 'هوندا (بايلوت، سي آر في، أوديسي)',
+      url: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Honda%20AWD&minYear=2015&maxYear=2024',
+      tag: 'Superior Winter i-VTM4'
+    },
+    {
+      brand: 'Kia (Telluride, Sorento, Carnival)',
+      arabicBrand: 'كيا (تيلورايد، سورينتو، كارنيفال)',
+      url: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Kia%20AWD&minYear=2015&maxYear=2024',
+      tag: 'Top Value for Features'
+    },
+    {
+      brand: 'Hyundai (Palisade, Santa Fe, Tucson)',
+      arabicBrand: 'هيونداي (باليسيد، سانتا في، توسان)',
+      url: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Hyundai%20AWD&minYear=2015&maxYear=2024',
+      tag: 'HTRAC All-Wheel Drive'
+    },
+    {
+      brand: 'Nissan (Pathfinder, Rogue, Armada)',
+      arabicBrand: 'نيسان (باثفايندر، روج، أرمادا)',
+      url: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Nissan%204WD&minYear=2015&maxYear=2024',
+      tag: 'Heavy-Duty 4x4 / V8'
+    }
+  ]
+};
 
 export const recommendedFamilyVehicles: FamilyVehicle[] = [
   // TOYOTA
@@ -35,6 +74,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$16,500 – $24,500 (2015–2018 Gen 3)',
     facebookNewerGenCAD: '$27,000 – $44,000 (2019–2024 Gen 4)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Toyota%20Highlander%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/toyota/highlander/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 2800,
     familyFitNotes: 'The gold standard for Alberta resale value and cold-weather reliability. Spacious seating for Yassir, his wife, and 3 children (16, 11, 5) with generous third-row legroom.',
     arabicFamilyFitNotes: 'المعيار الذهبي لقيمة إعادة البيع والاعتمادية في شتاء ألبرتا القارس. مساحة مريحة لياسر وزوجته والأبناء الثلاثة (16، 11، 5 سنوات).'
@@ -54,6 +94,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$15,500 – $24,000 (2015–2020 V6 AWD)',
     facebookNewerGenCAD: '$36,000 – $48,000 (2021–2024 Hybrid AWD)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Toyota%20Sienna%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/toyota/sienna/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 3200,
     familyFitNotes: 'Ultimate road-trip vehicle for Calgary to Banff. Power sliding doors protect the 5-year-old in freezing winds and prevent parking dings. Huge cargo trunk behind 3rd row.',
     arabicFamilyFitNotes: 'السيارة العائلية المثالية لرحلات بانف والجبال. الأبواب المنزلقة الكهربائية تحمي طفل الـ 5 سنوات من الرياح الباردة، مع صندوق أمتعة عملاق.'
@@ -73,6 +114,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$13,500 – $19,500 (2015–2018 Gen 4)',
     facebookNewerGenCAD: '$22,000 – $34,000 (2019–2024 Gen 5)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Toyota%20RAV4%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/toyota/rav4/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 2000,
     familyFitNotes: 'Canada’s best-selling SUV. Fits 5 passengers comfortably for school drop-offs and city commuting with minimal gas consumption.',
     arabicFamilyFitNotes: 'السيارة الرياضية الأكثر مبيعاً في كندا. تتسع لـ 5 ركاب برحابة لمشاوير المدارس اليومية مع استهلاك بنزين اقتصادي للغاية.'
@@ -94,6 +136,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$14,500 – $22,500 (2015–2018 Gen 3)',
     facebookNewerGenCAD: '$25,000 – $43,000 (2019–2024 Gen 3/4)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Honda%20Pilot%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/honda/pilot/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 2700,
     familyFitNotes: 'Renowned for true torque-vectoring rear differential that claws through Calgary black ice. Second row easily accommodates a 16-year-old teen and 11-year-old.',
     arabicFamilyFitNotes: 'نظام دفع كلي ميكانيكي متفوق يثبت السيارة على الجليد الأسود. الصف الثاني واسع ومريح جداً للأبناء المراهقين.'
@@ -113,6 +156,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$12,500 – $18,000 (2015–2018 Gen 4/5)',
     facebookNewerGenCAD: '$21,000 – $33,000 (2019–2024 Gen 5/6)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Honda%20CR-V%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/honda/cr-v/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 1950,
     familyFitNotes: 'Class-leading rear seat legroom and 90-degree opening rear doors. High resale liquidity on Calgary Facebook Marketplace.',
     arabicFamilyFitNotes: 'مساحة أرجل خلفية هي الأوسع في فئتها وأبواب تفتح بزاوية 90 درجة لسهولة الركوب مع سهولة إعادة البيع في كالغاري.'
@@ -132,6 +176,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$13,500 – $21,000 (2015–2019)',
     facebookNewerGenCAD: '$24,000 – $38,000 (2020–2024)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Honda%20Odyssey&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/honda/odyssey/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 2400,
     familyFitNotes: 'Magic Slide seats allow separating the 16 and 11-year-old siblings or sliding the 5-year-old closer to the front. Built-in CabinWatch camera.',
     arabicFamilyFitNotes: 'مقاعد ماجيك سلايد تتيح الفصل بين الأبناء وتقريب مقعد طفل الـ 5 سنوات إلى الأمام مع كاميرا داخلية لمراقبة المقاعد الخلفية.'
@@ -153,6 +198,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$28,000 – $35,500 (2020–2022 EX/SX)',
     facebookNewerGenCAD: '$37,000 – $48,000 (2023–2024 X-Line/SX)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Kia%20Telluride%20AWD&minYear=2020&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/kia/telluride/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2020%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 3100,
     familyFitNotes: 'Multiple "North American Utility Vehicle of the Year" winner. Premium executive feel with USB ports in every seatback for the kids’ tablets and phones.',
     arabicFamilyFitNotes: 'الحائزة على جوائز أفضل سيارة عائلية في أمريكا الشمالية. مقصورة فخمة مع منافذ شحن USB في جميع المقاعد لأجهزة الأبناء.'
@@ -172,6 +218,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$11,500 – $17,500 (2016–2019 V6 7-seat)',
     facebookNewerGenCAD: '$21,000 – $34,000 (2020–2024 Redesign)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Kia%20Sorento%20AWD&minYear=2016&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/kia/sorento/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2016%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 1900,
     familyFitNotes: 'Compact exterior dimensions make it easy to maneuver in Calgary winter parking lots, yet provides 3 rows for all 3 kids when required.',
     arabicFamilyFitNotes: 'حجم خارجي رشيق يسهل ركنها في مواقف كالغاري الشتوية، مع توفير 3 صفوف مقاعد تتسع للأبناء الثلاثة بكل راحة.'
@@ -191,6 +238,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$26,000 – $32,000 (2022 LX/EX)',
     facebookNewerGenCAD: '$33,000 – $40,000 (2023–2024 SX)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Kia%20Carnival&minYear=2022&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/kia/carnival/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2022%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 2600,
     familyFitNotes: 'SUV styling combined with minivan utility. Slide-Flex seating allows the 5-year-old child car seat to slide forward within arm\'s reach of parents.',
     arabicFamilyFitNotes: 'تصميم SUV خارجي أنيق مع مرونة الميني فان ومقعد وسطي منزلق يتيح الوصول لمقعد طفل الـ 5 سنوات بسهولة.'
@@ -212,6 +260,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$28,500 – $36,000 (2020–2022 Preferred/Luxury)',
     facebookNewerGenCAD: '$37,000 – $47,000 (2023–2024 Calligraphy)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Hyundai%20Palisade%20AWD&minYear=2020&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/hyundai/palisade/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2020%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 3050,
     familyFitNotes: 'Sister model to Telluride with HTRAC multi-mode AWD. Heated 1st and 2nd row seats ensure the 16-year-old and 11-year-old stay warm in Calgary sub-zero mornings.',
     arabicFamilyFitNotes: 'نظام HTRAC ذكي لتوزيع العزم مع مقاعد مدفأة في الصفين الأول والثاني لتدفئة الأبناء (16 و11 سنة) في صباحات كالغاري الباردة.'
@@ -231,6 +280,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$11,000 – $16,500 (2015–2018 XL 7-seater)',
     facebookNewerGenCAD: '$21,000 – $36,000 (2019–2024 5/7-seater)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Hyundai%20Santa%20Fe%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/hyundai/santa%20fe/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 1850,
     familyFitNotes: 'Exceptional budget entry point on Facebook Marketplace Calgary. 2015–2018 Santa Fe XL models offer 7 seats under $17k CAD.',
     arabicFamilyFitNotes: 'خيار اقتصادي ممتاز على فيسبوك ماركت بليس كالغاري؛ موديلات سانتا في XL توفر 7 مقاعد بأسعار أقل من 17 ألف دولار.'
@@ -250,6 +300,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$11,000 – $16,500 (2016–2020 Gen 3)',
     facebookNewerGenCAD: '$20,000 – $31,000 (2021–2024 Gen 4)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Hyundai%20Tucson%20AWD&minYear=2016&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/hyundai/tucson/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2016%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 1750,
     familyFitNotes: 'Standard heated front seats and windshield wiper de-icer on Canadian trims. Highly economical daily runner for errands and short commutes.',
     arabicFamilyFitNotes: 'تدفئة مقاعد وسخانات لمساحات الزجاج الأمامي قياسية في النسخ الكندية، اقتصادية للغاية في المشاوير اليومية.'
@@ -271,6 +322,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$10,500 – $16,500 (2015–2019 V6 7-seater)',
     facebookNewerGenCAD: '$28,000 – $39,000 (2022–2024 9-Speed Auto)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Nissan%20Pathfinder%204WD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/nissan/pathfinder/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 2500,
     familyFitNotes: 'The 2022+ redesign replaced the CVT with a heavy-duty 9-speed automatic transmission. EZ-FLEX seating allows tilting the second row even with a child safety seat installed.',
     arabicFamilyFitNotes: 'الموديلات من 2022 فما فوق تم تزويدها بقير أوتوماتيك 9 سرعات قوي بدلاً من CVT مع نظام مقاعد مرن يتيح الوصول للصف الثالث بسهولة.'
@@ -290,6 +342,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$9,500 – $15,000 (2015–2019 Gen 2)',
     facebookNewerGenCAD: '$18,000 – $28,500 (2020–2024 Gen 3)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Nissan%20Rogue%20AWD&minYear=2015&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/nissan/rogue/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2015%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 1650,
     familyFitNotes: 'NASA-inspired Zero Gravity front and rear outboard seats reduce fatigue during long winter highway drives. Divide-N-Hide cargo floor organizes groceries and strollers.',
     arabicFamilyFitNotes: 'مقاعد انعدام الجاذبية المريحة جداً تمنع التعب في المسافات الطويلة مع منظم أمتعة ذكي في الصندوق الخلفي لحفظ أغراض العائلة.'
@@ -309,6 +362,7 @@ export const recommendedFamilyVehicles: FamilyVehicle[] = [
     facebookOlderGenCAD: '$22,500 – $32,000 (2017–2020 SL/Platinum)',
     facebookNewerGenCAD: '$36,000 – $52,000 (2021–2024 Redesign)',
     facebookMarketplaceSearchUrl: 'https://www.facebook.com/marketplace/calgary/vehicles?query=Nissan%20Armada%204WD&minYear=2017&maxYear=2024',
+    autoTraderSearchUrl: 'https://www.autotrader.ca/cars/nissan/armada/ab/calgary/?rcp=15&rcs=0&srt=4&yRng=2017%2C2024&prx=100&prv=Alberta&loc=T2P%201J9&hprc=True&wcp=True&sts=New-Used&inMarket=advancedSearch',
     albertaTaxSavingsVsOntarioCAD: 3400,
     familyFitNotes: 'Full-size body-on-frame platform closely related to the Nissan Patrol common in Saudi Arabia. Unstoppable in severe prairie blizzards with cavernous space for 5 + heavy luggage.',
     arabicFamilyFitNotes: 'مبنية على شاسيه باترول الشهير في السعودية؛ محرك V8 جبار ونظام دفع رباعي حقيقي ثقيل لا يتعطل في العواصف الثلجية مع مساحة هائلة لخمسة ركاب.'

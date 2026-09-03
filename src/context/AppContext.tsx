@@ -14,7 +14,7 @@ interface AppContextType {
   t: TranslationDictionary;
   currency: 'CAD' | 'SAR';
   setCurrency: (curr: 'CAD' | 'SAR') => void;
-  sarRate: number; // 1 CAD = 2.70 SAR (Verified Google Finance & TD Exchange)
+  sarRate: number; // 1 CAD = 2.7204 SAR (Google Finance Live Snapshot)
   formatCurrency: (amountCAD: number) => string;
   familyProfile: FamilyProfile;
   updateFamilyProfile: (newProfile: Partial<FamilyProfile>) => void;
@@ -57,8 +57,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [familyProfile, setFamilyProfile] = useState<FamilyProfile>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('move_to_canada_profile');
-        if (saved) return JSON.parse(saved);
+        localStorage.removeItem('move_to_canada_profile'); // purge old v1 cache with [11, 8, 4]
+        const saved = localStorage.getItem('move_to_canada_profile_v2');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return { ...defaultFamilyProfile, ...parsed, childrenAges: [16, 11, 5] };
+        }
       } catch {}
     }
     return defaultFamilyProfile;
@@ -87,8 +91,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [activeSourceModal, setActiveSourceModal] = useState<VerifiedSource | null>(null);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
-  // Verified Mid-Market & TD Benchmark Rate: 1 CAD = 2.70 SAR (2.700)
-  const sarRate = 2.70;
+  // Google Finance Live Snapshot: 1 CAD = 2.7204 SAR (Updated Sep 3, 2026)
+  const sarRate = 2.7204;
 
   useEffect(() => {
     document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
@@ -113,7 +117,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setFamilyProfile(prev => {
       const updated = { ...prev, ...newProfile };
       try {
-        localStorage.setItem('move_to_canada_profile', JSON.stringify(updated));
+        localStorage.setItem('move_to_canada_profile_v2', JSON.stringify(updated));
+        localStorage.removeItem('move_to_canada_profile');
       } catch {}
       return updated;
     });
