@@ -21,7 +21,8 @@ import {
   ShoppingBag,
   Fuel,
   ChevronDown,
-  LayoutGrid
+  LayoutGrid,
+  Award
 } from 'lucide-react';
 
 export function Navigation() {
@@ -32,6 +33,7 @@ export function Navigation() {
 
   const primaryBarRoutes = [
     { href: '/', label: isRtl ? 'الرئيسية' : 'Overview', icon: Shield },
+    { href: '/benefits', label: isRtl ? 'المساعدات العائلية' : 'Family Benefits', icon: Award, highlight: true, badge: 'CCB & CGEB' },
     { href: '/career', label: isRtl ? 'مسرع التوظيف' : 'Career Accelerator', icon: Briefcase, highlight: true, badge: 'NOC & ATS' },
     { href: '/groceries', label: isRtl ? 'التموين والغذاء' : 'Groceries & Halal', icon: ShoppingBag, highlight: true, badge: 'Costco & 2026' },
     { href: '/fuel', label: isRtl ? 'أسعار الوقود' : 'Gas & Fuel', icon: Fuel, highlight: true, badge: 'StatsCan' },
@@ -60,6 +62,7 @@ export function Navigation() {
     {
       groupName: isRtl ? 'المهنة والمالية والتموين' : 'Career, Finance & Family Outlay',
       routes: [
+        { href: '/benefits', label: isRtl ? 'المساعدات العائلية والدعم الحكومي (CCB)' : 'Benefits & Family Support (CCB & CGEB)', desc: 'CRA Canada Child Benefit (ages 16, 11, 5), CGEB & ACFB', badge: 'CCB 2026' },
         { href: '/career', label: isRtl ? 'مسرع التوظيف الكندي (ATS)' : 'Career Accelerator Module', desc: 'Job Bank NOC matching, ATS Resume Studio, CRM', badge: 'Primary Pillar' },
         { href: '/cost-of-living', label: isRtl ? 'الميزانية ومحاكي عروض العمل' : 'Total Family Living Budget', desc: '20-category budget & net take-home simulator' },
         { href: '/groceries', label: isRtl ? 'التموين وسلة الحلال وكوستكو' : 'Family Grocery Command Center', desc: 'Canada Food Price Report 2026 age model & Costco' },

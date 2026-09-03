@@ -98,6 +98,137 @@ export function ExecutiveDecisionDashboard() {
           </div>
         </div>
 
+        {/* FINAL FAMILY COMMAND METRICS (SECTION 164 MASTER KPIS) */}
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
+                Executive Synthesis
+              </span>
+              <h3 className="text-lg font-bold text-white mt-0.5">
+                {isRtl ? 'ملخص القرار العائلي الشامل لياسر' : 'Yassir’s Master Family Relocation KPI Dashboard'}
+              </h3>
+            </div>
+            <div className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-xs font-bold text-center">
+              Arrival Readiness: 92% Ready
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 text-xs font-mono">
+            {/* KPI 1 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Calgary Family Fit</span>
+              <strong className="text-base text-amber-300 font-extrabold">{currentScore}/100</strong>
+              <span className="text-[10px] text-emerald-400 block mt-0.5">Top-Tier Quality of Life</span>
+            </div>
+
+            {/* KPI 2 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Best Neighbourhoods</span>
+              <strong className="text-white font-bold truncate block text-xs">Cornerstone &amp; Saddleridge</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">NE Calgary Family Hubs</span>
+            </div>
+
+            {/* KPI 3 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">3-Bed Rent (Market)</span>
+              <strong className="text-white font-bold text-sm">$2,450 CAD</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">/ mo (Rentals.ca)</span>
+            </div>
+
+            {/* KPI 4 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">4-Bed Rent (Market)</span>
+              <strong className="text-white font-bold text-sm">$2,850 CAD</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">/ mo (Active Listings)</span>
+            </div>
+
+            {/* KPI 5 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Monthly Groceries (5)</span>
+              <strong className="text-white font-bold text-sm">$1,650 CAD</strong>
+              <span className="text-[10px] text-emerald-400 block mt-0.5">100% Halal + Costco</span>
+            </div>
+
+            {/* KPI 6 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Gas &amp; Commute</span>
+              <strong className="text-white font-bold text-sm">$280 CAD</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">/ mo (144.9¢/L StatsCan)</span>
+            </div>
+
+            {/* KPI 7 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Total Monthly Outlay</span>
+              <strong className="text-rose-300 font-bold text-sm">~$5,850 CAD</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">Housing, Food, Auto, Util</span>
+            </div>
+
+            {/* KPI 8 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Salary Target</span>
+              <strong className="text-sky-300 font-bold text-sm">$125K–$145K</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">NOC 20012 IT PMO</span>
+            </div>
+
+            {/* KPI 9 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Est. Gov Benefits</span>
+              <strong className="text-emerald-300 font-bold text-sm">~$18,400 CAD</strong>
+              <span className="text-[10px] text-emerald-400 block mt-0.5">/ yr (CCB + CGEB + ACFB)</span>
+            </div>
+
+            {/* KPI 10 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Best Newcomer Bank</span>
+              <strong className="text-amber-300 font-bold text-xs truncate block">ATB &amp; RBC</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">$15k Credit / Alberta Perks</span>
+            </div>
+
+            {/* KPI 11 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">ATS Resume Status</span>
+              <strong className="text-emerald-400 font-bold text-sm">READY (95/100)</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">1-Col Enterprise Validated</span>
+            </div>
+
+            {/* KPI 12 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">AHCIP &amp; Health</span>
+              <strong className="text-sky-300 font-bold text-xs">0-DAY WAIT</strong>
+              <span className="text-[10px] text-amber-400 block mt-0.5">Apply within 3 Months</span>
+            </div>
+
+            {/* KPI 13 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Dental Coverage</span>
+              <strong className="text-white font-bold text-xs">EMPLOYER / CDCP</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">Group benefits primary</span>
+            </div>
+
+            {/* KPI 14 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Schools Plan</span>
+              <strong className="text-white font-bold text-xs">CBE PUBLIC $0</strong>
+              <span className="text-[10px] text-sky-400 block mt-0.5">Ages 16, 11, 5 (CIS Alt)</span>
+            </div>
+
+            {/* KPI 15 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Islamic Life</span>
+              <strong className="text-emerald-300 font-bold text-xs truncate block">Akram Jomaa</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">5-min drive in NE</span>
+            </div>
+
+            {/* KPI 16 */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span className="text-[10px] text-slate-400 block uppercase">Overall Readiness</span>
+              <strong className="text-emerald-400 font-extrabold text-sm">92% STAGED</strong>
+              <span className="text-[10px] text-slate-400 block mt-0.5">Docs, Housing, Jobs Ready</span>
+            </div>
+          </div>
+        </div>
+
         {/* Dynamic Weight Sliders Panel (If toggled) */}
         {showWeightSliders && (
           <div className="glass-panel rounded-2xl p-6 mb-8 border border-sky-500/30 animate-in fade-in duration-200">

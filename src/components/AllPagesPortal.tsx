@@ -22,13 +22,23 @@ import {
   FileText, 
   ShieldCheck, 
   ArrowRight,
-  Layers
+  Layers,
+  Award
 } from 'lucide-react';
 
 export function AllPagesPortal() {
   const { isRtl } = useApp();
 
   const hubs = [
+    {
+      href: '/benefits',
+      title: isRtl ? 'المساعدات العائلية والدعم الحكومي' : 'Benefits & Family Support',
+      subtitle: isRtl ? 'حاسبة إعانات الطفل والضرائب والدعم الصحي' : 'CRA CCB, CGEB, ACFB & Dental (CDCP)',
+      desc: isRtl ? 'حساب مستقل لـ 3 أطفال (16، 11، 5 سنوات)، بديل ضريبة GST/HST (CGEB)، دعم رعاية الأطفال 15$/يوم، وتحويل الريال السعودي.' : 'Independent 3-children CCB calculations (16, 11, 5), CGEB Grocery Benefit, ACFB, Dental CDCP, and SAR to CAD income converter.',
+      badge: 'Government Engine',
+      color: 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10',
+      icon: Award
+    },
     {
       href: '/career',
       title: isRtl ? 'مسرع التوظيف الكندي' : 'Career Accelerator',

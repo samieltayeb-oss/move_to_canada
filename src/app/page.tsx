@@ -6,6 +6,7 @@ import { HomeSummaryWidgets } from '@/components/HomeSummaryWidgets';
 import { AllPagesPortal } from '@/components/AllPagesPortal';
 import { FirstDaysArrivalGuide } from '@/components/settlement/FirstDaysArrivalGuide';
 import { FamilyWeekendModule } from '@/components/activities/FamilyWeekendModule';
+import { BenefitsSupportModule } from '@/components/benefits/BenefitsSupportModule';
 import { ExecutiveDecisionDashboard } from '@/components/ExecutiveDecisionDashboard';
 import { CalgaryRealityCheck } from '@/components/CalgaryRealityCheck';
 import { SourceModal } from '@/components/SourceModal';
@@ -28,12 +29,17 @@ export default function Home() {
         <FirstDaysArrivalGuide />
       </div>
 
-      {/* 5. Calgary Family Weekend, Kids Activities & Fair Entry Subsidy */}
+      {/* 5. Government Benefits & Family Support Command Center (CCB, CGEB, ACFB, Dental, Health) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <BenefitsSupportModule />
+      </div>
+
+      {/* 6. Calgary Family Weekend, Kids Activities & Fair Entry Subsidy */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <FamilyWeekendModule />
       </div>
 
-      {/* 5. Executive Decision Dashboard (Personalized Fit Score) */}
+      {/* 7. Executive Decision Dashboard (Personalized Fit Score & KPI Matrix) */}
       <ExecutiveDecisionDashboard />
 
       {/* 5. Calgary Reality Check (Strengths vs. Difficulties) */}
