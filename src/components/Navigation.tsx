@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
+import { useAuth } from '@/context/AuthContext';
 import { 
   Printer, 
   Bookmark, 
@@ -22,11 +23,15 @@ import {
   Fuel,
   ChevronDown,
   LayoutGrid,
-  Award
+  Award,
+  Compass,
+  LogIn,
+  LogOut
 } from 'lucide-react';
 
 export function Navigation() {
   const { locale, setLocale, t, currency, setCurrency, bookmarks, isRtl } = useApp();
+  const { user, isDemoMode, signOut, enterDemoMode } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -192,17 +197,100 @@ export function Navigation() {
             {/* Print Trigger */}
             <button
               onClick={() => window.print()}
-              className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium transition-all"
+              className="hidden 2xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium transition-all"
               title={t.common.printExport}
             >
               <Printer className="w-3.5 h-3.5 text-slate-400" />
               <span>{t.common.printExport}</span>
             </button>
 
+            {/* Desktop Auth Controls — High Visibility */}
+            <div className="hidden lg:flex items-center gap-2">
+              {!user && !isDemoMode ? (
+                <>
+                  <button
+                    onClick={() => enterDemoMode()}
+                    className="px-2.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold transition-all flex items-center gap-1"
+                    title="Explore with pre-populated demo scenario"
+                  >
+                    <Compass className="w-3.5 h-3.5 text-amber-400" />
+                    <span>{isRtl ? 'تجربة النظام' : 'Try Demo'}</span>
+                  </button>
+
+                  <Link
+                    href="/login"
+                    className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold transition-all flex items-center gap-1"
+                  >
+                    <LogIn className="w-3.5 h-3.5 text-slate-400" />
+                    <span>{isRtl ? 'تسجيل الدخول' : 'Sign In'}</span>
+                  </Link>
+
+                  <Link
+                    href="/register"
+                    className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-500 hover:to-sky-400 text-white text-xs font-bold shadow-md shadow-sky-600/30 transition-all"
+                  >
+                    {isRtl ? 'إنشاء حساب مجاني' : 'Create Free Account'}
+                  </Link>
+                </>
+              ) : isDemoMode ? (
+                <>
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-300 text-[11px] font-mono font-bold">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span>DEMO PROFILE</span>
+                  </div>
+                  <Link
+                    href="/register"
+                    className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-sm transition-all"
+                  >
+                    {isRtl ? 'إنشاء حسابك الخاص' : 'Create Your Own Account'}
+                  </Link>
+                  <button
+                    onClick={() => signOut()}
+                    className="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white text-xs transition-all"
+                  >
+                    {isRtl ? 'إنهاء الديمو' : 'Exit Demo'}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/"
+                    className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-200 transition-all"
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center text-[10px] font-bold font-mono">
+                      {user?.firstName?.substring(0, 2).toUpperCase() || 'ME'}
+                    </div>
+                    <span className="text-xs font-bold text-white max-w-[90px] truncate">
+                      {user?.firstName || 'User'}
+                    </span>
+                  </Link>
+                  <Link
+                    href="/"
+                    className="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium transition-all"
+                  >
+                    {isRtl ? 'لوحة القيادة' : 'My Dashboard'}
+                  </Link>
+                  <Link
+                    href="/account"
+                    className="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium transition-all"
+                  >
+                    {isRtl ? 'حسابي' : 'My Account'}
+                  </Link>
+                  <button
+                    onClick={() => signOut()}
+                    className="px-2.5 py-1.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/40 text-rose-300 hover:text-white text-xs transition-all flex items-center gap-1"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>{isRtl ? 'خروج' : 'Sign Out'}</span>
+                  </button>
+                </>
+              )}
+            </div>
+
             {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 hover:text-white hover:border-sky-500 focus:outline-none"
+              className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 hover:text-white hover:border-sky-500 focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 text-sky-400" /> : <Menu className="w-5 h-5" />}
@@ -314,21 +402,119 @@ export function Navigation() {
 
       {/* MOBILE DRAWER (TOUCH-OPTIMIZED FOR ALL 18 PAGES) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-800 bg-slate-950/98 px-4 py-5 space-y-6 max-h-[85vh] overflow-y-auto shadow-2xl backdrop-blur-2xl">
-          {/* Mobile Profile & Quick Action Header */}
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-sky-950/40 via-slate-900 to-amber-950/30 border border-slate-800 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400 font-mono font-bold text-xs">
-                YA
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-amber-400 block font-semibold uppercase">Yassir Abdulrhman</span>
-                <span className="text-xs text-white font-medium">Calgary Move Center</span>
-              </div>
-            </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              2026 Ref
-            </span>
+        <div className="lg:hidden border-t border-slate-800 bg-slate-950/98 px-4 py-5 space-y-6 max-h-[85vh] overflow-y-auto shadow-2xl backdrop-blur-2xl">
+          {/* Mobile Auth & Account Access Bar — High Visibility */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-sky-950/40 via-slate-900 to-amber-950/30 border border-slate-800 space-y-3">
+            {!user && !isDemoMode ? (
+              <>
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-mono font-bold text-sky-400 uppercase tracking-wider">
+                    {isRtl ? 'حساب المستفيد الجديد' : 'Newcomer Access'}
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                    Canada 2026
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 text-white text-xs font-bold text-center shadow-md shadow-sky-950/50"
+                  >
+                    {isRtl ? 'إنشاء حساب مجاني' : 'Create Free Account'}
+                  </Link>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="py-2 px-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-200 text-xs font-semibold text-center hover:text-white"
+                    >
+                      {isRtl ? 'تسجيل الدخول' : 'Sign In'}
+                    </Link>
+                    <button
+                      onClick={() => {
+                        enterDemoMode();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="py-2 px-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold text-center hover:bg-amber-500/25"
+                    >
+                      {isRtl ? 'تجربة النظام' : 'Try Demo'}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : isDemoMode ? (
+              <>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-xs font-mono font-bold text-amber-300">
+                      DEMO PROFILE: YASSIR
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="text-xs text-slate-400 hover:text-white font-mono"
+                  >
+                    {isRtl ? 'إنهاء الديمو' : 'Exit Demo'}
+                  </button>
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  {isRtl ? 'أنت تستعرض ملف كالغاري المعتمد. أنشئ حسابك لبناء خطتك الخاصة.' : 'Viewing approved Calgary baseline. Create your own account to build your custom move plan.'}
+                </p>
+                <Link
+                  href="/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full py-2.5 px-3 rounded-xl bg-sky-600 text-white text-xs font-bold text-center shadow-md shadow-sky-950/50"
+                >
+                  {isRtl ? 'إنشاء حسابك الخاص' : 'Create Your Own Account'}
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center text-xs font-bold font-mono">
+                      {user?.firstName?.substring(0, 2).toUpperCase() || 'ME'}
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-white block truncate max-w-[160px]">{user?.displayName || user?.email || 'User'}</span>
+                      <span className="text-[10px] font-mono text-emerald-400">Authenticated Member</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="text-xs text-rose-400 hover:text-rose-300 font-medium"
+                  >
+                    {isRtl ? 'خروج' : 'Sign Out'}
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <Link
+                    href="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-2 px-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-medium text-center"
+                  >
+                    {isRtl ? 'لوحة القيادة' : 'My Dashboard'}
+                  </Link>
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-2 px-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-medium text-center"
+                  >
+                    {isRtl ? 'إعدادات الحساب' : 'My Account'}
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Grouped 18 Routes List */}

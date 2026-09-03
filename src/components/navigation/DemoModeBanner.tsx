@@ -8,6 +8,7 @@
  */
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useApp } from '@/context/AppContext';
 import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard';
@@ -72,16 +73,15 @@ export function DemoModeBanner() {
           <div className="flex items-center gap-2">
             {isDemoMode ? (
               <>
-                <button
-                  onClick={() => setShowOnboarding(true)}
+                <Link
+                  href="/register"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-sans text-xs font-bold transition-all shadow-sm"
                 >
-                  <Compass className="w-3.5 h-3.5" />
-                  <span>{isRtl ? 'بدء خطة انتقال جديدة' : 'Start My Move Plan (9-Steps)'}</span>
-                </button>
+                  <span>{isRtl ? 'إنشاء حسابك الخاص' : 'CREATE YOUR OWN ACCOUNT'}</span>
+                </Link>
                 <button
                   onClick={() => signOut()}
-                  className="px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs"
+                  className="px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-mono"
                 >
                   {isRtl ? 'إنهاء الديمو' : 'Exit Demo'}
                 </button>

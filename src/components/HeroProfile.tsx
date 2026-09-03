@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
+import { useAuth } from '@/context/AuthContext';
 import { IMMIGRATION_STATUS_OPTIONS } from '@/data/familyProfile';
 import { 
   PlaneTakeoff, 
@@ -10,11 +11,13 @@ import {
   Check,
   Video,
   ExternalLink,
-  ArrowRight
+  ArrowRight,
+  Compass
 } from 'lucide-react';
 
 export function HeroProfile() {
   const { familyProfile, updateFamilyProfile, t, isRtl } = useApp();
+  const { user, enterDemoMode } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [tempProfile, setTempProfile] = useState(familyProfile);
   const [heroVideoLang, setHeroVideoLang] = useState<'EN' | 'AR'>('EN');
@@ -82,6 +85,33 @@ export function HeroProfile() {
           <p className="mt-2 text-sm text-sky-400 font-medium">
             {t.secondaryCopy}
           </p>
+
+          {/* Hero Action CTAs */}
+          <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-3">
+            <Link
+              href={user ? "/onboarding" : "/register"}
+              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-600 via-sky-500 to-emerald-500 hover:from-sky-500 hover:to-emerald-400 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-sky-600/30 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group"
+            >
+              <span>{isRtl ? 'أنشئ خطة انتقالك المجانية' : 'CREATE YOUR FREE MOVE PLAN'}</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+
+            <button
+              onClick={() => enterDemoMode()}
+              className="px-5 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 hover:border-amber-500/50 text-amber-300 hover:text-amber-200 font-bold text-sm sm:text-base shadow-lg transition-all flex items-center justify-center gap-2"
+            >
+              <Compass className="w-4 h-4 text-amber-400" />
+              <span>{isRtl ? 'تجربة النظام التوضيحي' : 'TRY DEMO'}</span>
+            </button>
+          </div>
+
+          {/* Sub-CTA Text */}
+          <div className="text-xs text-slate-400 flex items-center gap-1.5 pt-2">
+            <span>{isRtl ? 'لديك حساب بالفعل؟' : 'Already have an account?'}</span>
+            <Link href="/login" className="text-sky-400 hover:text-sky-300 font-semibold underline underline-offset-2">
+              {isRtl ? 'تسجيل الدخول' : 'Sign in'}
+            </Link>
+          </div>
         </div>
 
         {/* Two-Column Grid: Profile Card + Featured Relocation Video */}
