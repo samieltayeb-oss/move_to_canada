@@ -1,69 +1,92 @@
-import Image from "next/image";
+'use client';
+
+import React from 'react';
+import { Navigation } from '@/components/Navigation';
+import { HeroProfile } from '@/components/HeroProfile';
+import { ExecutiveDecisionDashboard } from '@/components/ExecutiveDecisionDashboard';
+import { CalgaryRealityCheck } from '@/components/CalgaryRealityCheck';
+import { HousingCommandCenter } from '@/components/HousingCommandCenter';
+import { NeighbourhoodExplorer } from '@/components/NeighbourhoodExplorer';
+import { SchoolsCommandCenter } from '@/components/SchoolsCommandCenter';
+import { IslamicLifeModule } from '@/components/IslamicLifeModule';
+import { BankingCreditModule } from '@/components/BankingCreditModule';
+import { TelecomUtilitiesModule } from '@/components/TelecomUtilitiesModule';
+import { CalculatorsModule } from '@/components/CalculatorsModule';
+import { DrivingVehiclesModule } from '@/components/DrivingVehiclesModule';
+import { TransitHealthcareModule } from '@/components/TransitHealthcareModule';
+import { TaxesCareerModule } from '@/components/TaxesCareerModule';
+import { VideosLifestyleModule } from '@/components/VideosLifestyleModule';
+import { CityComparisonModule } from '@/components/CityComparisonModule';
+import { MovePlanChecklist } from '@/components/MovePlanChecklist';
+import { PrintableMoveDossier } from '@/components/PrintableMoveDossier';
+import { Footer } from '@/components/Footer';
+import { SourceModal } from '@/components/SourceModal';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen flex flex-col bg-slate-950 text-slate-100 print:bg-white print:text-black">
+      {/* Top Fixed Executive Command Bar */}
+      <Navigation />
+
+      {/* Main Content Sections (Screen View) */}
+      <div className="flex-1 print:hidden">
+        {/* 1. Hero & Family Profile Editor */}
+        <HeroProfile />
+
+        {/* 2. Executive Fit Decision Dashboard (Calgary Family Fit Score & Dynamic Weights) */}
+        <ExecutiveDecisionDashboard />
+
+        {/* 3. Calgary Reality Check (Strengths vs Difficulties) */}
+        <CalgaryRealityCheck />
+
+        {/* 4. Housing Command Center (3-Bed vs 4-Bed, CMHC vs Rentals.ca, Verified Listings) */}
+        <HousingCommandCenter />
+
+        {/* 5. Family Neighbourhood Explorer (Quadrants, Best-For Filters, School Catchments) */}
+        <NeighbourhoodExplorer />
+
+        {/* 6. Schools & Children Command Center (3 Kids Progression, CBE Welcome Centre, CIS Fees) */}
+        <SchoolsCommandCenter />
+
+        {/* 7. Islamic Life Module (Mosques, Prayer Shifts, Halal Meat Supply Chains) */}
+        <IslamicLifeModule />
+
+        {/* 8. Banking & Canadian Credit Module (Big 6 Packages, 5 Factors, 12-Month Blueprint) */}
+        <BankingCreditModule />
+
+        {/* 9. Telecom & Home Utilities (PureFibre vs Cable, Mobile, Seasonal Heating Costs) */}
+        <TelecomUtilitiesModule />
+
+        {/* 10. Cost of Living & Upfront Arrival Cash Reserve Calculators */}
+        <CalculatorsModule />
+
+        {/* 11. Driving, Vehicles & Saudi Car Import Inadmissibility Warning */}
+        <DrivingVehiclesModule />
+
+        {/* 12. Transit & Healthcare (AHCIP 0-Day Wait, Free Kids Transit, 811) */}
+        <TransitHealthcareModule />
+
+        {/* 13. Taxes & Financial Career (Progressive Tax Calculator, Calgary Finance Landscape) */}
+        <TaxesCareerModule />
+
+        {/* 14. Videos & First Winter Survival Guide (Video Player, Layering, Chinooks) */}
+        <VideosLifestyleModule />
+
+        {/* 15. Pan-Canadian City Comparison (9 Cities Index, Calgary vs Edmonton, Calgary vs Riyadh) */}
+        <CityComparisonModule />
+
+        {/* 16. Dynamic Move Plan Checklist (Pre-Arrival to Year One, Local Storage) */}
+        <MovePlanChecklist />
+      </div>
+
+      {/* Printable Move Plan Dossier (Visible only during Print / PDF Export) */}
+      <PrintableMoveDossier />
+
+      {/* Sourced Footer & Data Freshness Governance */}
+      <Footer />
+
+      {/* Universal Verified Source Drawer Modal */}
+      <SourceModal />
+    </main>
   );
 }
