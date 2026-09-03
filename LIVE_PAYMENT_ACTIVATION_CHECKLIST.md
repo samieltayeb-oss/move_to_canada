@@ -25,9 +25,9 @@ Before changing `LIVE_PAYMENTS_ENABLED` to `true`, the business owner MUST compl
   - `customer.subscription.deleted`
   - `charge.refunded`
 - [ ] Securely add production secrets in Vercel environment variables:
-  - `STRIPE_SECRET_KEY` = `sk_live_...`
-  - `STRIPE_WEBHOOK_SECRET` = `whsec_...`
-  - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` = `pk_live_...`
+  - `STRIPE_SECRET_KEY` (Live secret key from Stripe Dashboard)
+  - `STRIPE_WEBHOOK_SECRET` (Live signing secret from Stripe Webhooks)
+  - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (Live publishable key from Stripe Dashboard)
 
 ### Commercial Policy Sign-off
 - [ ] Owner reviews and approves final Terms of Service (`/terms`).

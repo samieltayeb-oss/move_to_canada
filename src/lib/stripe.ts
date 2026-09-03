@@ -9,16 +9,42 @@ import Stripe from 'stripe';
 import { COMMERCIAL_CONFIG } from '@/config/features';
 import { COMMERCIAL_PLANS, PlanId } from '@/config/plans';
 
-// Initialize Stripe with safe fallback for static build or test mode
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder_key_for_build';
+/**
+ * Returns an authenticated Stripe SDK client instance.
+ * Fails closed if STRIPE_SECRET_KEY is missing.
+ */
+export function getStripeClient(): Stripe {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeSecretKey) {
+    throw new Error(
+      'STRIPE_CONFIGURATION_ERROR: STRIPE_SECRET_KEY is not configured in this environment. Payment services fail closed.'
+    );
+  }
 
-export const stripe = new Stripe(stripeSecretKey, {
-  typescript: true,
-  appInfo: {
-    name: 'NEXORA MOVE',
-    version: '3.0.0'
+  return new Stripe(stripeSecretKey, {
+    typescript: true,
+    appInfo: {
+      name: 'NEXORA MOVE',
+      version: '3.0.0'
+    }
+  });
+}
+
+/**
+ * Lazy proxy client to prevent build-time crashes during Next.js static route analysis
+ * while strictly failing closed upon any real method execution if key is missing.
+ */
+export const stripe: Stripe = new Proxy({} as Stripe, {
+  get(_target, prop: string | symbol) {
+    const client = getStripeClient();
+    const value = (client as unknown as Record<string | symbol, unknown>)[prop];
+    return typeof value === 'function' ? value.bind(client) : value;
   }
 });
+
+export const isStripeConfigured = (): boolean => {
+  return Boolean(process.env.STRIPE_SECRET_KEY);
+};
 
 export interface CreateCheckoutParams {
   planId: PlanId;
@@ -47,11 +73,7 @@ export async function createStripeCheckoutSession({
     throw new Error('Invalid or free plan selected for checkout');
   }
 
-  // Mandatory Safety Check: Ensure live payments remain disabled unless authorized
-  if (!COMMERCIAL_CONFIG.LIVE_PAYMENTS_ENABLED && process.env.NODE_ENV === 'production' && !process.env.STRIPE_TEST_MODE_ENABLED) {
-    // Stays in test mode
-  }
-
+  const client = getStripeClient();
   const isSubscription = plan.billingType === 'MONTHLY' || plan.billingType === 'ANNUAL';
 
   const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = {
@@ -75,7 +97,7 @@ export async function createStripeCheckoutSession({
     quantity: 1
   };
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await client.checkout.sessions.create({
     mode: isSubscription ? 'subscription' : 'payment',
     payment_method_types: ['card'],
     line_items: [lineItem],
@@ -106,7 +128,8 @@ export async function createStripePortalSession(
   stripeCustomerId: string,
   returnUrl: string
 ): Promise<{ url: string }> {
-  const portalSession = await stripe.billingPortal.sessions.create({
+  const client = getStripeClient();
+  const portalSession = await client.billingPortal.sessions.create({
     customer: stripeCustomerId,
     return_url: returnUrl
   });
@@ -122,5 +145,6 @@ export function verifyWebhookSignature(
   signature: string,
   secret: string
 ): Stripe.Event {
-  return stripe.webhooks.constructEvent(payload, signature, secret);
+  const client = getStripeClient();
+  return client.webhooks.constructEvent(payload, signature, secret);
 }
