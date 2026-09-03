@@ -18,6 +18,12 @@ interface AppContextType {
   formatCurrency: (amountCAD: number) => string;
   familyProfile: FamilyProfile;
   updateFamilyProfile: (newProfile: Partial<FamilyProfile>) => void;
+  activeCountry: 'CA';
+  activeProvince: 'AB' | 'ON' | 'BC';
+  setActiveProvince: (p: 'AB' | 'ON' | 'BC') => void;
+  activeCity: string;
+  setActiveCity: (c: string) => void;
+  availableCities: { id: string; name: string; arabicName: string }[];
   bookmarks: string[];
   toggleBookmark: (id: string) => void;
   isBookmarked: (id: string) => boolean;
@@ -87,6 +93,68 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     return {};
   });
+
+  const PROVINCE_CITIES: Record<'AB' | 'ON' | 'BC', { id: string; name: string; arabicName: string }[]> = {
+    AB: [
+      { id: 'calgary', name: 'Calgary', arabicName: 'كالغاري' },
+      { id: 'edmonton', name: 'Edmonton', arabicName: 'إدمونتون' }
+    ],
+    ON: [
+      { id: 'toronto', name: 'Toronto', arabicName: 'تورونتو' },
+      { id: 'ottawa', name: 'Ottawa', arabicName: 'أوتاوا' },
+      { id: 'mississauga', name: 'Mississauga', arabicName: 'ميسيساغا' },
+      { id: 'brampton', name: 'Brampton', arabicName: 'برامبتون' },
+      { id: 'hamilton', name: 'Hamilton', arabicName: 'هاميلتون' },
+      { id: 'kitchener', name: 'Kitchener-Waterloo', arabicName: 'كيتشنر ووترلو' }
+    ],
+    BC: [
+      { id: 'vancouver', name: 'Vancouver', arabicName: 'فانكوفر' },
+      { id: 'burnaby', name: 'Burnaby', arabicName: 'بيرنابي' },
+      { id: 'surrey', name: 'Surrey', arabicName: 'سري' },
+      { id: 'richmond', name: 'Richmond', arabicName: 'ريتشموند' },
+      { id: 'coquitlam', name: 'Coquitlam', arabicName: 'كوكيتلام' },
+      { id: 'victoria', name: 'Victoria', arabicName: 'فيكتوريا' }
+    ]
+  };
+
+  const [activeProvince, setActiveProvinceState] = useState<'AB' | 'ON' | 'BC'>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('move_to_canada_active_province') as 'AB' | 'ON' | 'BC' | null;
+        if (saved && (saved === 'AB' || saved === 'ON' || saved === 'BC')) return saved;
+      } catch {}
+    }
+    return 'AB';
+  });
+
+  const [activeCity, setActiveCityState] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('move_to_canada_active_city');
+        if (saved) return saved;
+      } catch {}
+    }
+    return 'calgary';
+  });
+
+  const setActiveProvince = (p: 'AB' | 'ON' | 'BC') => {
+    setActiveProvinceState(p);
+    const defaultCity = PROVINCE_CITIES[p][0].id;
+    setActiveCityState(defaultCity);
+    try {
+      localStorage.setItem('move_to_canada_active_province', p);
+      localStorage.setItem('move_to_canada_active_city', defaultCity);
+    } catch {}
+  };
+
+  const setActiveCity = (c: string) => {
+    setActiveCityState(c);
+    try {
+      localStorage.setItem('move_to_canada_active_city', c);
+    } catch {}
+  };
+
+  const availableCities = PROVINCE_CITIES[activeProvince] || PROVINCE_CITIES.AB;
 
   const [activeSourceModal, setActiveSourceModal] = useState<VerifiedSource | null>(null);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
@@ -184,6 +252,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         formatCurrency,
         familyProfile,
         updateFamilyProfile,
+        activeCountry: 'CA',
+        activeProvince,
+        setActiveProvince,
+        activeCity,
+        setActiveCity,
+        availableCities,
         bookmarks,
         toggleBookmark,
         isBookmarked,

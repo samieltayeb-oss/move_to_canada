@@ -110,11 +110,11 @@ export const CANADIAN_PROVINCES: Record<'AB' | 'ON' | 'BC', ProvinceConfig> = {
     name: 'Ontario',
     arabicName: 'أونتاريو',
     capitalCity: 'Toronto',
-    majorCities: ['Toronto', 'Ottawa', 'Mississauga', 'Hamilton'],
-    tagline: 'Canada’s economic engine and financial capital (Scheduled for Phase 2 expansion).',
-    arabicTagline: 'عاصمة كندا الاقتصادية والمالية الكبرى (مجدولة للتوسعة في المرحلة الثانية).',
+    majorCities: ['Toronto', 'Ottawa', 'Mississauga', 'Brampton', 'Hamilton', 'Kitchener-Waterloo'],
+    tagline: 'Canada’s economic engine and financial capital. Unrivalled job market and diverse cultural institutions.',
+    arabicTagline: 'عاصمة كندا الاقتصادية والمالية الكبرى. أسواق مالية متطورة، وفرص وظيفية واسعة، وأكبر جالية مسلمة في كندا.',
     tax: {
-      basicPersonalAmountCAD: 12399,
+      basicPersonalAmountCAD: 12989,
       lowestBracketRate: 0.0505,
       highestBracketRate: 0.1316,
       hasProvincialSalesTax: true,
@@ -125,74 +125,74 @@ export const CANADIAN_PROVINCES: Record<'AB' | 'ON' | 'BC', ProvinceConfig> = {
     healthcare: {
       planName: 'Ontario Health Insurance Plan (OHIP)',
       agencyName: 'Ontario Ministry of Health',
-      waitPeriodDays: 0, // Wait period historically waived since 2020 emergency order
+      waitPeriodDays: 0, // Zero-day wait permanently eliminated under Regulation 552
       registrationWindowMonths: 3,
       ambulanceSubsidized: true,
-      standardAmbulanceFeeCAD: 240,
-      supplementarySafetyNetPlan: 'Trillium Drug Program / Healthy Smiles Ontario'
+      standardAmbulanceFeeCAD: 45, // $45 medically necessary co-payment ($240 if not medically necessary)
+      supplementarySafetyNetPlan: 'OHIP+ (100% drug coverage for youth <25) / Trillium Drug Program'
     },
     licensing: {
       authorityName: 'DriveTest Ontario / ServiceOntario',
       licenceClassHierarchy: 'G1 -> G2 -> Full G',
       hasGdlSystem: true,
       saudiReciprocalExchange: false,
-      priorExperienceExemptionProgram: 'Foreign Licence Driving Experience Letter (1+ years)',
-      drivingAbstractRequired: 'Saudi Traffic Police (Moroor) authenticated driving record'
+      priorExperienceExemptionProgram: 'Foreign Licence Driving Experience Recognition (Up to 12 mo self-declaration, 12+ mo Moroor letter)',
+      drivingAbstractRequired: 'Official Saudi Traffic Police (Moroor) authenticated driving record with ATIO translation'
     },
     education: {
       ministryName: 'Ontario Ministry of Education',
-      majorPublicBoards: ['Toronto District School Board (TDSB)', 'Peel District School Board (PDSB)'],
+      majorPublicBoards: ['Toronto District School Board (TDSB)', 'Peel District School Board (PDSB)', 'Ottawa-Carleton (OCDSB)', 'Hamilton (HWDSB)', 'Waterloo (WRDSB)'],
       kindergartenEntryAge: 4, // Junior Kindergarten at age 4
       compulsorySchoolAge: 6,
-      ellReceptionProtocol: 'TDSB Welcome Centres for International Families',
+      ellReceptionProtocol: 'TDSB & Peel Welcome Centres for International Families',
       standardPublicTuitionCAD: 0
     },
-    isImplementedInV1: false,
+    isImplementedInV1: true,
     phaseRelease: 'PHASE_2'
   },
   BC: {
     code: 'BC',
     name: 'British Columbia',
-    arabicName: 'كولومبيا البريطانية',
+    arabicName: 'بريتيش كولومبيا',
     capitalCity: 'Victoria',
-    majorCities: ['Vancouver', 'Surrey', 'Burnaby', 'Victoria'],
-    tagline: 'Mild coastal climate, tech hub, and Pacific gateway (Scheduled for Phase 2 expansion).',
-    arabicTagline: 'المناخ الساحلي المعتدل، قطاع التكنولوجيا المتقدم، وبوابة المحيط الهادئ (مجدولة للتوسعة في المرحلة الثانية).',
+    majorCities: ['Vancouver', 'Burnaby', 'Surrey', 'Richmond', 'Coquitlam', 'Victoria'],
+    tagline: 'Mild coastal maritime climate, Pacific tech gateway, and Group 1 subsidized Islamic schools.',
+    arabicTagline: 'مناخ ساحلي معتدل على مدار العام، وبوابة التكنولوجيا على المحيط الهادئ، ومدارس إسلامية مدعومة من المقاطعة.',
     tax: {
-      basicPersonalAmountCAD: 12580,
-      lowestBracketRate: 0.0506,
+      basicPersonalAmountCAD: 13216,
+      lowestBracketRate: 0.0560, // 2026 Budget adjusted rate
       highestBracketRate: 0.2050,
       hasProvincialSalesTax: true,
       provincialSalesTaxRate: 0.07,
-      harmonizedSalesTax: false, // 5% GST + 7% PST
+      harmonizedSalesTax: false, // 5% GST + 7% PST (separate taxes)
       totalEffectiveSalesTaxRate: 0.12
     },
     healthcare: {
       planName: 'Medical Services Plan (MSP)',
       agencyName: 'Health Insurance BC',
-      waitPeriodDays: 60, // Traditional wait period applies to BC (remainder of month + 2 months)
+      waitPeriodDays: 75, // Mandatory waiting period: remainder of arrival month + 2 full consecutive calendar months
       registrationWindowMonths: 3,
       ambulanceSubsidized: true,
-      standardAmbulanceFeeCAD: 80,
-      supplementarySafetyNetPlan: 'Fair PharmaCare / BC Healthy Kids Program'
+      standardAmbulanceFeeCAD: 80, // $80 standard patient copay
+      supplementarySafetyNetPlan: 'Fair PharmaCare (income-tested prescription drug assistance)'
     },
     licensing: {
       authorityName: 'Insurance Corporation of British Columbia (ICBC)',
       licenceClassHierarchy: 'Class 7L -> Class 7N -> Class 5 Full',
       hasGdlSystem: true,
       saudiReciprocalExchange: false,
-      priorExperienceExemptionProgram: 'ICBC Driving Experience Credit for Non-Reciprocal Licences',
-      drivingAbstractRequired: 'Official Saudi Arabian Ministry of Interior driving history extract'
+      priorExperienceExemptionProgram: 'ICBC Non-Reciprocal Direct Class 5 Road Test Bypass (Requires 2+ years proven driving history)',
+      drivingAbstractRequired: 'Official Saudi Arabian Traffic Police driving history extract with approved translation'
     },
     education: {
       ministryName: 'BC Ministry of Education and Child Care',
-      majorPublicBoards: ['Vancouver School Board (VSB)', 'Surrey Schools (SD36)'],
+      majorPublicBoards: ['Surrey Schools (SD36)', 'Vancouver School Board (VSB SD39)', 'Burnaby (SD41)', 'Richmond (SD38)', 'Coquitlam (SD43)', 'Victoria (SD61)'],
       kindergartenEntryAge: 5,
       compulsorySchoolAge: 6,
-      ellReceptionProtocol: 'District Welcome and Reception Centres',
+      ellReceptionProtocol: 'District Language Assessment & Welcome Hubs',
       standardPublicTuitionCAD: 0
     },
-    isImplementedInV1: false,
+    isImplementedInV1: true,
     phaseRelease: 'PHASE_2'
   }
 };
@@ -206,5 +206,5 @@ export function getAllProvinces(): ProvinceConfig[] {
 }
 
 export function getActiveProvinces(): ProvinceConfig[] {
-  return Object.values(CANADIAN_PROVINCES).filter(p => p.isImplementedInV1);
+  return Object.values(CANADIAN_PROVINCES);
 }

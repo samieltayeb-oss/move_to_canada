@@ -6,6 +6,8 @@ import { SourceModal } from '@/components/SourceModal';
 import { useApp } from '@/context/AppContext';
 import { Globe2 } from 'lucide-react';
 
+import { CompareMyLife } from '@/components/CompareMyLife';
+
 export default function CityComparePage() {
   const { isRtl } = useApp();
 
@@ -17,15 +19,16 @@ export default function CityComparePage() {
           <span>Pan-Canadian Geographic Benchmarks</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-          {isRtl ? 'مؤشر القيمة ومقارنة المدن الكندية الكبرى' : 'Canadian City Relocation Value Index (9 Cities)'}
+          {isRtl ? 'مؤشر القيمة ومقارنة المدن الكندية الكبرى' : 'Canadian City Relocation Value Index (12 Cities)'}
         </h1>
         <p className="mt-2 text-sm sm:text-base text-slate-300 max-w-3xl font-light">
           {isRtl 
             ? 'مقارنة رياضية دقيقة عبر 12 مؤشراً (الإيجار، الدخل، الضرائب، الجالية المسلمة، والطقس) بين كالغاري وإدمونتون وتورونتو وفانكوفر'
-            : 'Multi-attribute linear normalization scoring across 9 major Canadian cities, Calgary vs Edmonton deep dive, and Calgary vs Riyadh lifestyle transition.'}
+            : 'Multi-attribute linear normalization scoring across 12 major Canadian cities, Calgary vs Edmonton deep dive, and side-by-side family scenario comparisons.'}
         </p>
       </div>
 
+      <CompareMyLife />
       <CityComparisonModule />
       <SourceModal />
     </div>
