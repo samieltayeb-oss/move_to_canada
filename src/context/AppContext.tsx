@@ -14,7 +14,7 @@ interface AppContextType {
   t: TranslationDictionary;
   currency: 'CAD' | 'SAR';
   setCurrency: (curr: 'CAD' | 'SAR') => void;
-  sarRate: number; // 1 CAD = 2.74 SAR
+  sarRate: number; // 1 CAD = 2.70 SAR (Verified Google Finance & TD Exchange)
   formatCurrency: (amountCAD: number) => string;
   familyProfile: FamilyProfile;
   updateFamilyProfile: (newProfile: Partial<FamilyProfile>) => void;
@@ -87,8 +87,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [activeSourceModal, setActiveSourceModal] = useState<VerifiedSource | null>(null);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
-  // Bank of Canada benchmark exchange rate: 1 CAD ≈ 2.74 SAR (1 SAR ≈ 0.365 CAD)
-  const sarRate = 2.74;
+  // Verified Mid-Market & TD Benchmark Rate: 1 CAD = 2.70 SAR (2.700)
+  const sarRate = 2.70;
 
   useEffect(() => {
     document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';

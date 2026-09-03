@@ -21,7 +21,7 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
   title: "Yassir's Calgary Move Command Center | Riyadh to Alberta",
-  description: "Comprehensive relocation intelligence and decision system for Yassir A. E. Abdulrhman and family (2 adults, 3 children under 15) moving from Riyadh, Saudi Arabia to Calgary, Alberta, Canada.",
+  description: "Comprehensive relocation intelligence and decision system for Yassir A. E. Abdulrhman and family (2 adults, 3 children: ages 16, 11, 5) moving from Riyadh, Saudi Arabia to Calgary, Alberta, Canada.",
   keywords: [
     "Calgary relocation",
     "Riyadh to Canada",

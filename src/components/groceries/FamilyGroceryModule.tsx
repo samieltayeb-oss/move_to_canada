@@ -29,9 +29,9 @@ export function FamilyGroceryModule() {
   // Baseline family ages
   const adult1Age = 38;
   const adult2Age = 36;
-  const child1Age = 11;
-  const child2Age = 8;
-  const child3Age = 4;
+  const child1Age = 16;
+  const child2Age = 11;
+  const child3Age = 5;
 
   // Costco interactive spend
   const [monthlyCostcoSpend, setMonthlyCostcoSpend] = useState(750);
@@ -215,22 +215,22 @@ export function FamilyGroceryModule() {
                     <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.woman_31_50.annualEstimateCAD)}</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 font-medium text-white">Child 1 (Age 11)</td>
+                    <td className="py-2.5 font-medium text-white">Child 1 (Age 16)</td>
+                    <td>{foodPriceReport2026Benchmarks.teen_14_18.categoryName}</td>
+                    <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.teen_14_18.monthlyEstimateCAD)}</td>
+                    <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.teen_14_18.annualEstimateCAD)}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 font-medium text-white">Child 2 (Age 11)</td>
                     <td>{foodPriceReport2026Benchmarks.boy_9_13.categoryName}</td>
                     <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.boy_9_13.monthlyEstimateCAD)}</td>
                     <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD)}</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 font-medium text-white">Child 2 (Age 8)</td>
+                    <td className="py-2.5 font-medium text-white">Child 3 (Age 5)</td>
                     <td>{foodPriceReport2026Benchmarks.child_4_8.categoryName}</td>
                     <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.child_4_8.monthlyEstimateCAD)}</td>
                     <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD)}</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2.5 font-medium text-white">Child 3 (Age 4)</td>
-                    <td>{foodPriceReport2026Benchmarks.child_0_4.categoryName}</td>
-                    <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.child_0_4.monthlyEstimateCAD)}</td>
-                    <td className="font-mono">{formatCurrency(foodPriceReport2026Benchmarks.child_0_4.annualEstimateCAD)}</td>
                   </tr>
                 </tbody>
               </table>

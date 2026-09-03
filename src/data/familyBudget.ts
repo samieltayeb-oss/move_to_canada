@@ -197,8 +197,8 @@ export function simulateJobOfferCashFlow(inputs: JobOfferSimulationInput): JobOf
   const totalGrossAnnual = inputs.baseSalaryCAD + inputs.bonusAnnualCAD;
   const grossMonthly = totalGrossAnnual / 12;
 
-  // Run 2026 progressive tax calculation for family of 5 (ages 11, 8, 4)
-  const taxResult = calculateCanadianTax(totalGrossAnnual, [11, 8, 4], true);
+  // Run 2026 progressive tax calculation for family of 5 (ages 16, 11, 5)
+  const taxResult = calculateCanadianTax(totalGrossAnnual, [16, 11, 5], true);
 
   const netMonthly = taxResult.netMonthlyTakeHomeCAD;
   const ccbMonthly = taxResult.canadaChildBenefitEstimatedAnnualCAD / 12;

@@ -15,7 +15,7 @@ export interface TaxCalculationResult {
 
 export function calculateCanadianTax(
   grossIncome: number,
-  childrenAges: number[] = [11, 8, 4],
+  childrenAges: number[] = [16, 11, 5],
   isPermanentResident: boolean = true
 ): TaxCalculationResult {
   // 2026 Federal Brackets

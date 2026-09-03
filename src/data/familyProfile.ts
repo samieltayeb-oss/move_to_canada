@@ -8,7 +8,7 @@ export const defaultFamilyProfile: FamilyProfile = {
   targetProvince: 'Alberta',
   numAdults: 2,
   numChildren: 3,
-  childrenAges: [11, 8, 4], // 3 children under 15
+  childrenAges: [16, 11, 5], // 3 children: 16 (Senior High), 11 (Grade 6), 5 (Kindergarten)
   immigrationStatus: 'Permanent Resident',
   expectedAnnualHouseholdIncomeCAD: 135000,
   initialSavingsCAD: 85000,

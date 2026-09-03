@@ -1,22 +1,36 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '@/context/AppContext';
 import { 
   recommendedFamilyVehicles, 
   saudiVehicleImportWarning, 
-  saudiLicenceConversionGuide 
+  saudiLicenceConversionGuide,
+  FamilyVehicle
 } from '@/data/vehicles';
 import { 
   Car, 
   ShieldAlert, 
   FileText, 
   AlertTriangle, 
-  Snowflake
+  Snowflake,
+  ExternalLink,
+  Fuel,
+  Users
 } from 'lucide-react';
 
 export function DrivingVehiclesModule() {
   const { t, isRtl } = useApp();
+  const [selectedBrand, setSelectedBrand] = useState<'ALL' | 'Toyota' | 'Honda' | 'Kia' | 'Hyundai' | 'Nissan'>('ALL');
+
+  const filteredVehicles = recommendedFamilyVehicles.filter(v => {
+    if (selectedBrand === 'ALL') return true;
+    return v.brand === selectedBrand;
+  });
+
+  const brands: ('ALL' | 'Toyota' | 'Honda' | 'Kia' | 'Hyundai' | 'Nissan')[] = [
+    'ALL', 'Toyota', 'Honda', 'Kia', 'Hyundai', 'Nissan'
+  ];
 
   return (
     <section id="driving-cars" className="py-12 border-b border-slate-800/80">
@@ -26,13 +40,13 @@ export function DrivingVehiclesModule() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-300 mb-2">
               <Car className="w-3.5 h-3.5 text-cyan-400" />
-              <span>MOBILITY, VEHICLES & LICENSING LEGALITIES</span>
+              <span>MOBILITY, VEHICLES &amp; LICENSING LEGALITIES</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               {t.drivingCars.drivingTitle}
             </h2>
             <p className="mt-1 text-sm text-slate-400">
-              Alberta non-reciprocal rules, GDL modernization, family vehicles, and shipping regulations
+              Alberta non-reciprocal licence rules, GDL modernization, 2015–2024 family vehicles, and shipping regulations
             </p>
           </div>
         </div>
@@ -100,8 +114,7 @@ export function DrivingVehiclesModule() {
                   <h4 className="font-bold text-white mb-2">
                     {isRtl ? step.arabicTitle : step.title}
                   </h4>
-
-                  <p className="text-slate-300 text-[11px] leading-relaxed">
+                  <p className="text-slate-300 leading-relaxed font-light">
                     {isRtl ? step.arabicDescription : step.description}
                   </p>
                 </div>
@@ -110,72 +123,123 @@ export function DrivingVehiclesModule() {
           </div>
         </div>
 
-        {/* Family Car Buying Command Center */}
+        {/* Family Car Buying Command Center — Toyota, Kia, Honda, Hyundai, Nissan (2015-2024) */}
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Car className="w-4 h-4 text-amber-400" />
-                <span>{t.drivingCars.carBuyingTitle} (Family of 5 AWD Candidates)</span>
-              </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Evaluated for winter black ice, cargo capacity, child car seats, and resale value
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <Car className="w-5 h-5 text-amber-400" />
+                  <span>{isRtl ? 'مركز شراء سيارات العائلة (2015 – 2024)' : 'Family Car Buying Command Center (2015–2024 Models)'}</span>
+                </h3>
+                <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-mono">
+                  Facebook Marketplace YYC
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-1">
+                {isRtl 
+                  ? 'أسعار فيسبوك ماركت بليس كالغاري لسيارات تويوتا، كيا، هوندا، هيونداي، ونيسان المناسبة لعائلة من 5 أفراد (أبناء 16، 11، 5 سنوات)'
+                  : 'Calgary Facebook Marketplace pricing for Toyota, Kia, Honda, Hyundai & Nissan (2015–2024) optimized for a family of 5 (kids 16, 11, 5).'}
               </p>
             </div>
 
-            <div className="p-2.5 rounded-xl bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 font-mono">
-              ★ 0% Alberta Sales Tax Saves ~$4,000 vs. Ontario on a $50k Vehicle
+            <div className="p-2.5 rounded-xl bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 font-mono shrink-0">
+              ★ 0% Alberta Sales Tax Saves ~$2,500–$4,000 vs. Ontario/BC
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {recommendedFamilyVehicles.map((car) => (
+          {/* Brand Filter Pills */}
+          <div className="flex flex-wrap items-center gap-2 mb-6">
+            <span className="text-xs font-mono text-slate-400 mr-1">{isRtl ? 'اختر العلامة:' : 'Filter Make:'}</span>
+            {brands.map((b) => (
+              <button
+                key={b}
+                onClick={() => setSelectedBrand(b)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  selectedBrand === b
+                    ? 'bg-amber-600 text-white shadow-md shadow-amber-950/50'
+                    : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700'
+                }`}
+              >
+                {b === 'ALL' ? (isRtl ? 'جميع السيارات (15)' : 'All 5 Makes (15 Models)') : b}
+              </button>
+            ))}
+          </div>
+
+          {/* Vehicle Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredVehicles.map((car: FamilyVehicle) => (
               <div
                 key={car.id}
-                className="glass-panel rounded-2xl p-6 border border-slate-800/80 hover:border-amber-500/40 transition-all flex flex-col justify-between"
+                className="glass-panel rounded-2xl p-5 border border-slate-800/80 hover:border-amber-500/40 transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-amber-300 border border-slate-800 font-semibold">
-                        {car.type} • {car.seatingCapacity} Passengers
-                      </span>
-                      <h4 className="text-base font-bold text-white mt-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-800/60 font-bold uppercase">
+                          {car.brand}
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800">
+                          {car.modelYears}
+                        </span>
+                      </div>
+                      <h4 className="text-sm sm:text-base font-bold text-white mt-1.5">
                         {isRtl ? car.arabicName : car.name}
                       </h4>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5 p-3 rounded-xl bg-slate-900/60 border border-slate-800 mb-4 font-mono text-xs">
-                    <div>
-                      <span className="text-slate-400 block text-[10px]">Used (2021–2023):</span>
-                      <span className="font-bold text-white">{car.usedPriceRangeCAD}</span>
+                  {/* Facebook Marketplace Price Matrix */}
+                  <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 mb-3 space-y-1.5 font-mono text-xs">
+                    <div className="flex justify-between items-center pb-1.5 border-b border-slate-800">
+                      <span className="text-[10px] text-slate-400">FB Marketplace Range:</span>
+                      <strong className="text-emerald-400 font-bold">{car.facebookMarketplaceCalgaryCAD}</strong>
                     </div>
-                    <div>
-                      <span className="text-slate-400 block text-[10px]">Brand New MSRP:</span>
-                      <span className="font-bold text-emerald-400">{car.newPriceRangeCAD}</span>
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-400">Older Gen (2015–2018):</span>
+                      <span className="text-slate-200">{car.facebookOlderGenCAD}</span>
                     </div>
-                    <div>
-                      <span className="text-slate-400 block text-[10px]">Fuel Economy:</span>
-                      <span className="text-slate-300">{car.fuelEconomyL100km}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block text-[10px]">Alberta Tax Savings:</span>
-                      <span className="text-amber-300">Save ${car.albertaTaxSavingsVsOntarioCAD} vs ON</span>
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-400">Newer Gen (2019–2024):</span>
+                      <span className="text-slate-200">{car.facebookNewerGenCAD}</span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  <div className="grid grid-cols-2 gap-2 text-[11px] mb-3 text-slate-300">
+                    <div className="flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                      <span>{car.seatingCapacity} Seats • {car.type}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Fuel className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <span className="truncate">{car.fuelEconomyL100km}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-300 leading-relaxed mb-4 font-light">
                     {isRtl ? car.arabicFamilyFitNotes : car.familyFitNotes}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                  <span className="flex items-center gap-1.5">
-                    <Snowflake className="w-3.5 h-3.5 text-sky-400" />
-                    <span>AWD Traction: {car.winterAwdRating}</span>
-                  </span>
-                  <span className="font-mono text-[11px] text-slate-500">AutoTrader CA 2026</span>
+                <div className="pt-3 border-t border-slate-800 space-y-2.5">
+                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <Snowflake className="w-3.5 h-3.5 text-sky-400" />
+                      <span>{car.winterAwdRating}</span>
+                    </span>
+                    <span className="text-emerald-400 font-mono">0% PST Saved: ${car.albertaTaxSavingsVsOntarioCAD}</span>
+                  </div>
+
+                  <a
+                    href={car.facebookMarketplaceSearchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors group"
+                  >
+                    <span>{isRtl ? 'تصفح العروض على فيسبوك ماركت بليس' : 'Browse on FB Marketplace Calgary'}</span>
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-amber-400" />
+                  </a>
                 </div>
               </div>
             ))}

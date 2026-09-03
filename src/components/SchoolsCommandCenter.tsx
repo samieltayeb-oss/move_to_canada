@@ -141,7 +141,7 @@ export function SchoolsCommandCenter() {
           </div>
         </div>
 
-        {/* Dynamic Child Progression Cards (3 Children Under 15) */}
+        {/* Dynamic Child Progression Cards (3 Children: Ages 16, 11, 5) */}
         <div className="mb-12">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-white flex items-center gap-2">

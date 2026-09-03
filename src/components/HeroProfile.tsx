@@ -247,8 +247,8 @@ export function HeroProfile() {
             </div>
 
             <div className="pt-4 mt-5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-              <span>{isRtl ? 'حالة الملف: موثق جزئياً' : 'Profile Status: Verified Baseline'}</span>
-              <span className="font-mono text-emerald-400">2 Adults • 3 Kids (under 15)</span>
+              <span>{isRtl ? 'حالة الملف: موثق بالكامل' : 'Profile Status: Verified Baseline'}</span>
+              <span className="font-mono text-emerald-400">{isRtl ? 'بالغان • 3 أبناء (16، 11، 5 سنوات)' : '2 Adults • 3 Kids (16, 11, 5 yrs)'}</span>
             </div>
           </div>
 

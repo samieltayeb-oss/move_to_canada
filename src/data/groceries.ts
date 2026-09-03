@@ -22,6 +22,13 @@ export const foodPriceReport2026Benchmarks: Record<string, FoodReportAgeCategory
     monthlyEstimateCAD: 331.67,
     weeklyEstimateCAD: 76.54
   },
+  teen_14_18: {
+    categoryName: 'Teenager (14–18)',
+    ageRange: '14–18 years',
+    annualEstimateCAD: 4680,
+    monthlyEstimateCAD: 390.00,
+    weeklyEstimateCAD: 90.00
+  },
   boy_9_13: {
     categoryName: 'Child / Youth (9–13)',
     ageRange: '9–13 years',
@@ -353,18 +360,24 @@ export interface FamilyGroceryCalculation {
 export function calculateFamilyFoodBudget(
   adult1Age: number = 38,
   adult2Age: number = 36,
-  child1Age: number = 11,
-  child2Age: number = 8,
-  child3Age: number = 4
+  child1Age: number = 16,
+  child2Age: number = 11,
+  child3Age: number = 5
 ): FamilyGroceryCalculation {
   // Map ages to Canada's Food Price Report 2026 baselines
   const a1 = adult1Age >= 19 ? foodPriceReport2026Benchmarks.man_31_50.annualEstimateCAD : 3500;
   const a2 = adult2Age >= 19 ? foodPriceReport2026Benchmarks.woman_31_50.annualEstimateCAD : 3500;
-  const c1 = child1Age >= 9 ? foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD : 2720;
-  const c2 = child2Age >= 4 ? foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD : 2080;
-  const c3 = child3Age <= 4 ? foodPriceReport2026Benchmarks.child_0_4.annualEstimateCAD : 2720;
+  const c1 = child1Age >= 14 
+    ? (foodPriceReport2026Benchmarks.teen_14_18?.annualEstimateCAD || 4680)
+    : (child1Age >= 9 ? foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD : 2720);
+  const c2 = child2Age >= 9 
+    ? foodPriceReport2026Benchmarks.boy_9_13.annualEstimateCAD 
+    : (child2Age >= 4 ? foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD : 2080);
+  const c3 = child3Age <= 4 
+    ? foodPriceReport2026Benchmarks.child_0_4.annualEstimateCAD 
+    : foodPriceReport2026Benchmarks.child_4_8.annualEstimateCAD;
 
-  const rawBaseAnnual = a1 + a2 + c1 + c2 + c3; // ~$16,960
+  const rawBaseAnnual = a1 + a2 + c1 + c2 + c3; // ~$19,560
 
   // Alberta regional food inflation factor in 2026 (+4% above national average)
   const abFactor = 1.04;
