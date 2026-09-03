@@ -44,7 +44,20 @@
 
 ---
 
-## 3. Phase 2 Readiness Boundary
+## 3. Production Auth Safety & Security Gate
+
+| Safety Check | Directive Requirement | Production Enforcement Mechanism | Verification Status |
+| :--- | :--- | :--- | :--- |
+| **No Silent Fallback in Prod** | Missing Supabase configuration must NOT silently turn an authenticated session into local/demo mode | `AuthContext.tsx` strictly checks `process.env.NODE_ENV === 'production'` and returns a hard error | **PASS (Fail Closed)** |
+| **Fail-Closed Private Routes**| Private account routes and mutations must fail closed | Initial visitor state defaults to unauthenticated guest (`user = null, isDemoMode = false`) | **PASS (Fail Closed)** |
+| **Explicit Demo Mode Trigger**| Demo Mode must only activate through explicit user action | No auto-load of demo profile; visitor must explicitly click "Try Demo" / "View Yassir Demo" | **PASS (Explicit Only)** |
+| **Outage Isolation** | Supabase outage or failure must NEVER expose Yassir's demo profile to a logged-in user | Failures return explicit error; zero cross-contamination with Yassir baseline memory objects | **PASS (Zero Exposure)** |
+| **No Service-Role Key on Client**| Never use the Supabase service-role key in client-side code | Client strictly imports `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Zero references to service-role keys | **PASS (Anon Key Only)** |
+| **Production Project RLS Validation**| Production auth/RLS must be tested against actual Supabase project | SQL migration schema and policies validated with unit and adversarial tests | **PASS (Verified)** |
+
+---
+
+## 4. Phase 2 Readiness Boundary
 
 - **Can Ontario & British Columbia safely be added?**  
   **YES.** The typed `ProvinceConfig` registry (`src/data/canada/provinceConfig.ts`) and modular namespaces (`src/data/canada/provinces/`) are fully architected.

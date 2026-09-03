@@ -103,10 +103,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (storedSession) {
           const parsed = JSON.parse(storedSession);
           if (parsed.user && !parsed.isDemo) return parsed.user;
+          if (parsed.isDemo) return YASSIR_DEMO_USER;
         }
       } catch {}
     }
-    return YASSIR_DEMO_USER;
+    return null; // Production Security: Default to unauthenticated guest (Fail closed)
   });
 
   const [isDemoMode, setIsDemoMode] = useState<boolean>(() => {
@@ -115,21 +116,83 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const storedSession = localStorage.getItem('nexora_active_session_v1');
         if (storedSession) {
           const parsed = JSON.parse(storedSession);
-          if (parsed.user && !parsed.isDemo) return false;
+          return Boolean(parsed.isDemo);
         }
       } catch {}
     }
-    return true;
+    return false; // Demo Mode must ONLY activate through explicit user action
   });
 
   const [isLoading] = useState<boolean>(false);
-  const [familyProfile, setFamilyProfile] = useState<FamilyProfile | null>(YASSIR_BASELINE_FAMILY_PROFILE);
-  const [careerProfile, setCareerProfile] = useState<VerifiedProfessionalProfile | null>(YASSIR_BASELINE_CAREER_PROFILE);
-  const [workExperience, setWorkExperience] = useState<UserCareerExperience[]>(YASSIR_BASELINE_WORK_EXPERIENCE);
-  const [scenarios, setScenarios] = useState<RelocationScenario[]>([YASSIR_DEFAULT_SCENARIO]);
-  const [activeScenario, setActiveScenario] = useState<RelocationScenario | null>(YASSIR_DEFAULT_SCENARIO);
+  const [familyProfile, setFamilyProfile] = useState<FamilyProfile | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedSession = localStorage.getItem('nexora_active_session_v1');
+        if (storedSession) {
+          const parsed = JSON.parse(storedSession);
+          if (parsed.isDemo) return YASSIR_BASELINE_FAMILY_PROFILE;
+          if (parsed.familyProfile) return parsed.familyProfile;
+        }
+      } catch {}
+    }
+    return null;
+  });
 
-  // Enter Demo Mode (Yassir's approved baseline)
+  const [careerProfile, setCareerProfile] = useState<VerifiedProfessionalProfile | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedSession = localStorage.getItem('nexora_active_session_v1');
+        if (storedSession) {
+          const parsed = JSON.parse(storedSession);
+          if (parsed.isDemo) return YASSIR_BASELINE_CAREER_PROFILE;
+        }
+      } catch {}
+    }
+    return null;
+  });
+
+  const [workExperience, setWorkExperience] = useState<UserCareerExperience[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedSession = localStorage.getItem('nexora_active_session_v1');
+        if (storedSession) {
+          const parsed = JSON.parse(storedSession);
+          if (parsed.isDemo) return YASSIR_BASELINE_WORK_EXPERIENCE;
+        }
+      } catch {}
+    }
+    return [];
+  });
+
+  const [scenarios, setScenarios] = useState<RelocationScenario[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedSession = localStorage.getItem('nexora_active_session_v1');
+        if (storedSession) {
+          const parsed = JSON.parse(storedSession);
+          if (parsed.isDemo) return [YASSIR_DEFAULT_SCENARIO];
+          if (parsed.scenarios) return parsed.scenarios;
+        }
+      } catch {}
+    }
+    return [];
+  });
+
+  const [activeScenario, setActiveScenario] = useState<RelocationScenario | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedSession = localStorage.getItem('nexora_active_session_v1');
+        if (storedSession) {
+          const parsed = JSON.parse(storedSession);
+          if (parsed.isDemo) return YASSIR_DEFAULT_SCENARIO;
+          if (parsed.activeScenario) return parsed.activeScenario;
+        }
+      } catch {}
+    }
+    return null;
+  });
+
+  // Enter Demo Mode (Yassir's approved baseline — strictly explicit action)
   const enterDemoMode = () => {
     setUser(YASSIR_DEMO_USER);
     setIsDemoMode(true);
@@ -213,7 +276,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // Simulated local auth for offline / dev preview
+      // PRODUCTION SECURITY: Fail Closed
+      // In production, unconfigured Supabase must NEVER silently create a local session or fall back to demo mode!
+      if (process.env.NODE_ENV === 'production') {
+        return { 
+          error: 'Production Security Gate: Supabase connection is not configured on this deployment. For data privacy, private accounts fail closed and never fall back to local or demo mode.' 
+        };
+      }
+
+      // Simulated local auth for offline / dev preview ONLY
       const localUserId = `user_${Date.now()}`;
       const newUser: AuthUser = {
         id: localUserId,
@@ -304,7 +375,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // Simulated local sign in
+      // PRODUCTION SECURITY: Fail Closed
+      if (process.env.NODE_ENV === 'production') {
+        return { 
+          error: 'Production Security Gate: Supabase connection is not configured on this deployment. Private sign-in fails closed.' 
+        };
+      }
+
+      // Simulated local sign in for dev preview ONLY
       const authUser: AuthUser = {
         id: `user_registered_${email.replace(/[^a-zA-Z0-9]/g, '_')}`,
         email,
