@@ -111,10 +111,9 @@ export function Footer() {
                 href="https://nexorayyc.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sky-400 hover:text-sky-300 font-semibold underline underline-offset-2 transition-colors inline-flex items-center gap-1"
+                className="text-sky-400 hover:text-sky-300 font-bold tracking-wider underline underline-offset-2 transition-colors"
               >
-                <span>Nexora</span>
-                <span className="font-mono text-slate-400 text-[10px]">(nexorayyc.io)</span>
+                NEXORA
               </a>
             </p>
           </div>

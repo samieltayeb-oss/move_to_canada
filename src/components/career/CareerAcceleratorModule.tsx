@@ -109,6 +109,165 @@ export function CareerAcceleratorModule() {
     setTimeout(() => setCopiedTextNotice(null), 3000);
   };
 
+  const handleExportResumePDF = () => {
+    const resumeEl = document.getElementById('canadian-ats-resume-paper');
+    if (!resumeEl) {
+      window.print();
+      return;
+    }
+
+    const printWindow = window.open('', '_blank', 'width=900,height=1100');
+    if (!printWindow) {
+      // Fallback for popup blockers: hidden iframe
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      document.body.appendChild(iframe);
+
+      const doc = iframe.contentWindow?.document;
+      if (!doc) return;
+
+      doc.open();
+      doc.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <title>Yassir_Abdulrhman_Canadian_ATS_Resume</title>
+          <style>
+            @page { size: letter; margin: 0.5in 0.6in; }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { 
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+              color: #0f172a;
+              background: #ffffff;
+              line-height: 1.45;
+              padding: 24px;
+              font-size: 10pt;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            .text-center { text-align: center; }
+            .pb-6 { padding-bottom: 1rem; }
+            .mb-6 { margin-bottom: 1rem; }
+            .mb-2 { margin-bottom: 0.35rem; }
+            .mt-1 { margin-top: 0.2rem; }
+            .mt-2 { margin-top: 0.35rem; }
+            .pt-1 { padding-top: 0.2rem; }
+            .border-b { border-bottom: 1.5px solid #cbd5e1; }
+            h1 { font-size: 20pt; font-weight: 800; text-transform: uppercase; color: #0f172a; }
+            h2 { font-size: 10pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; }
+            .text-xs { font-size: 9.5pt; }
+            .text-sm { font-size: 10.5pt; }
+            .text-slate-600 { color: #475569; }
+            .text-slate-700 { color: #334155; }
+            .text-slate-800 { color: #1e293b; }
+            .text-slate-900 { color: #0f172a; }
+            .text-sky-800 { color: #0369a1; }
+            .font-bold { font-weight: 700; }
+            .font-semibold { font-weight: 600; }
+            .font-mono { font-family: monospace; }
+            .leading-relaxed { line-height: 1.45; }
+            .space-y-4 > * + * { margin-top: 0.85rem; }
+            .space-y-2 > * + * { margin-top: 0.4rem; }
+            .flex { display: flex; }
+            .justify-between { justify-content: space-between; }
+            .items-baseline { align-items: baseline; }
+            .grid { display: grid; }
+            .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+            .gap-y-1\\.5 { row-gap: 0.3rem; }
+            ul.list-disc { list-style-type: disc; padding-left: 1.25rem; }
+            li { margin-bottom: 0.2rem; }
+          </style>
+        </head>
+        <body>
+          <div>${resumeEl.innerHTML}</div>
+        </body>
+        </html>
+      `);
+      doc.close();
+      iframe.contentWindow?.focus();
+      setTimeout(() => {
+        iframe.contentWindow?.print();
+        setTimeout(() => document.body.removeChild(iframe), 2000);
+      }, 400);
+      return;
+    }
+
+    printWindow.document.open();
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <title>Yassir_Abdulrhman_Canadian_ATS_Resume</title>
+        <style>
+          @page { size: letter; margin: 0.5in 0.6in; }
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #0f172a;
+            background: #ffffff;
+            line-height: 1.45;
+            padding: 24px;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .text-center { text-align: center; }
+          .pb-6 { padding-bottom: 1rem; }
+          .mb-6 { margin-bottom: 1rem; }
+          .mb-2 { margin-bottom: 0.35rem; }
+          .mt-1 { margin-top: 0.2rem; }
+          .mt-2 { margin-top: 0.35rem; }
+          .pt-1 { padding-top: 0.2rem; }
+          .border-b { border-bottom: 1.5px solid #cbd5e1; }
+          h1 { font-size: 20pt; font-weight: 800; text-transform: uppercase; color: #0f172a; }
+          h2 { font-size: 10pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; }
+          .text-xs { font-size: 9.5pt; }
+          .text-sm { font-size: 10.5pt; }
+          .text-slate-600 { color: #475569; }
+          .text-slate-700 { color: #334155; }
+          .text-slate-800 { color: #1e293b; }
+          .text-slate-900 { color: #0f172a; }
+          .text-sky-800 { color: #0369a1; }
+          .font-bold { font-weight: 700; }
+          .font-semibold { font-weight: 600; }
+          .font-mono { font-family: monospace; }
+          .leading-relaxed { line-height: 1.45; }
+          .space-y-4 > * + * { margin-top: 0.85rem; }
+          .space-y-2 > * + * { margin-top: 0.4rem; }
+          .flex { display: flex; }
+          .justify-between { justify-content: space-between; }
+          .items-baseline { align-items: baseline; }
+          .grid { display: grid; }
+          .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+          .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+          .gap-y-1\\.5 { row-gap: 0.3rem; }
+          ul.list-disc { list-style-type: disc; padding-left: 1.25rem; }
+          li { margin-bottom: 0.2rem; }
+        </style>
+      </head>
+      <body>
+        <div>${resumeEl.innerHTML}</div>
+        <script>
+          window.onload = function() {
+            setTimeout(function() {
+              window.print();
+            }, 300);
+          };
+        </script>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   // ATS Readiness Score: Fully Verified Rubric out of 100 (Pass threshold: >80, Elite: >92)
   const atsScore = 95;
 
@@ -581,11 +740,12 @@ EDUCATION & CREDENTIALS
                 <span>Copy 95/100 Verified ATS Plain Text</span>
               </button>
               <button
-                onClick={() => window.print()}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium shadow-md"
+                onClick={handleExportResumePDF}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-md transition-colors"
+                title="Export only the Canadian ATS Resume as a clean PDF"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Export PDF / Print</span>
+                <span>Export Resume PDF</span>
               </button>
             </div>
           </div>
@@ -661,7 +821,7 @@ EDUCATION & CREDENTIALS
           </div>
 
           {/* Interactive Resume Preview (Canadian White Paper Style) */}
-          <div className="bg-white text-slate-900 p-8 sm:p-12 rounded-2xl shadow-2xl font-serif max-w-4xl mx-auto border border-slate-300">
+          <div id="canadian-ats-resume-paper" className="bg-white text-slate-900 p-8 sm:p-12 rounded-2xl shadow-2xl font-serif max-w-4xl mx-auto border border-slate-300">
             {/* Header */}
             <div className="text-center pb-6 border-b border-slate-300 mb-6 font-sans">
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 uppercase">
