@@ -19,7 +19,7 @@ src/data/canada/
 │
 ├── provinces/
 │   ├── ab/                     # Alberta Implementation (Active V1)
-│   │   ├── taxes/              # 10% flat personal rate, 0% PST
+│   │   ├── taxes/              # Graduated brackets (8% up to $61.2k, 10% up to $154.2k, max 15%), 0% PST
 │   │   ├── benefits/           # ACFB, ACHB, $15/day childcare
 │   │   ├── healthcare/         # AHCIP 0-day wait rules
 │   │   ├── driving/            # GDL exemption for Saudi licence

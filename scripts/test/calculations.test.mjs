@@ -14,29 +14,32 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-// 1. Tax Calculation Tests
-test('Tax Engine: $125,000 CAD household income yields exact statutory net take-home', () => {
-  // Alberta flat 10% rate below $148,214; Federal brackets: 15% up to $55,867, 20.5% up to $111,733, 26% remainder
+// 1. Tax Calculation Tests (Official 2026 Graduated Federal & Alberta Brackets)
+test('Tax Engine: $125,000 CAD household income yields exact statutory 2026 graduated tax', () => {
+  // Alberta 2026 Graduated Brackets: 8% up to $61,200; 10% $61,200.01–$154,259; BPA: $22,769 @ 8%
+  // Federal 2026 Brackets: 14% up to $58,523; 20.5% up to $117,045; 26% up to $181,440; BPA: $16,452 @ 14%
   const taxableIncome = 125000;
   
   // Federal Tax calculation
-  const fedTier1 = 55867 * 0.15; // $8,380.05
-  const fedTier2 = (111733 - 55867) * 0.205; // $11,452.53
-  const fedTier3 = (taxableIncome - 111733) * 0.26; // $3,449.42
-  const fedBPA = 15705 * 0.15; // $2,355.75 credit
-  const expectedFedTax = Math.round(fedTier1 + fedTier2 + fedTier3 - fedBPA);
+  const fedTier1 = 58523 * 0.14; // $8,193.22
+  const fedTier2 = (117045 - 58523) * 0.205; // $11,997.01
+  const fedTier3 = (taxableIncome - 117045) * 0.26; // $2,068.30
+  const fedBPA = 16452 * 0.14; // $2,303.28 credit
+  const expectedFedTax = Math.round(fedTier1 + fedTier2 + fedTier3 - fedBPA); // $19,955
   
-  // Alberta Tax calculation (10% flat, Basic personal amount $21,885)
-  const abTaxGross = taxableIncome * 0.10; // $12,500
-  const abBPA = 21885 * 0.10; // $2,188.50 credit
-  const expectedABTax = Math.round(abTaxGross - abBPA);
+  // Alberta Tax calculation (Official 2026 graduated: 8% on first $61,200, 10% on remainder up to $154,259)
+  const abTier1 = 61200 * 0.08; // $4,896.00
+  const abTier2 = (taxableIncome - 61200) * 0.10; // $6,380.00
+  const abBPA = 22769 * 0.08; // $1,821.52 credit
+  const expectedABTax = Math.round(abTier1 + abTier2 - abBPA); // $9,454
   
-  const totalTax = expectedFedTax + expectedABTax;
-  const netTakeHome = taxableIncome - totalTax;
+  const totalTax = expectedFedTax + expectedABTax; // $29,409
+  const netAfterIncomeTax = taxableIncome - totalTax; // $95,591
 
-  assert.equal(expectedFedTax, 20926);
-  assert.equal(expectedABTax, 10312);
-  assert.equal(netTakeHome, 93762);
+  assert.equal(expectedFedTax, 19955);
+  assert.equal(expectedABTax, 9454);
+  assert.equal(totalTax, 29409);
+  assert.equal(netAfterIncomeTax, 95591);
 });
 
 // 2. CCB 2026-2027 Statutory Benchmarks & Formulas

@@ -69,8 +69,8 @@ export const CANADIAN_PROVINCES: Record<'AB' | 'ON' | 'BC', ProvinceConfig> = {
     tagline: 'Lowest taxes in Canada, no PST (only 5% GST), immediate healthcare coverage, proximity to the Rockies.',
     arabicTagline: 'أقل ضرائب في كندا، بدون ضريبة مبيعات محلية (فقط 5% GST)، تغطية صحية فورية، وقرب استثنائي من جبال روكي.',
     tax: {
-      basicPersonalAmountCAD: 21885, // Highest in Canada
-      lowestBracketRate: 0.10,       // 10% flat up to ~$148k
+      basicPersonalAmountCAD: 22769, // Alberta 2026 BPA (Highest in Canada)
+      lowestBracketRate: 0.08,       // 8% up to $61,200 (graduated brackets: 8%, 10%, 12%, 13%, 14%, 15%)
       highestBracketRate: 0.15,
       hasProvincialSalesTax: false,
       provincialSalesTaxRate: 0.00,
