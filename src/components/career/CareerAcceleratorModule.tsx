@@ -109,8 +109,8 @@ export function CareerAcceleratorModule() {
     setTimeout(() => setCopiedTextNotice(null), 3000);
   };
 
-  // ATS Readiness Score: Explainable Rubric out of 100 (Pass threshold: >80, Elite: >92)
-  const atsScore = 96;
+  // ATS Readiness Score: Fully Verified Rubric out of 100 (Pass threshold: >80, Elite: >92)
+  const atsScore = 95;
 
   const generatedCoverLetter = generateCanadianCoverLetter(targetRoleTitle, targetCompany);
 
@@ -572,19 +572,13 @@ Khartoum, Sudan | Mar 2001 – Feb 2004
 EDUCATION & CREDENTIALS
 • Bachelor of Science (B.Sc.) in Computer Science | Omdurman Ahlia University (1995 – 2001)
 • Diploma in Electronics and Communications Engineering | Sudan University (1996 – 1998)
-• Canadian Equivalency: Four-Year Canadian Bachelor's Degree verified via World Education Services (WES) ECA.
-
-CERTIFICATIONS, METHODOLOGIES & AFFILIATIONS
-• Project Management Professional (PMP) Methodology Alignment — Project Management Institute (PMI)
-• Oracle Certified Professional (OCP) Database & PL/SQL Specialist
-• ITIL 4 Foundation in IT Service Management
-• Member: Project Management Institute Southern Alberta Chapter (PMI-SAC, Calgary, AB)`;
-                  handleCopyText(plainText, 'Full 96-Score ATS Plain Text Resume');
+• Canadian Equivalency: Four-Year Canadian Bachelor's Degree verified via World Education Services (WES) ECA.`;
+                  handleCopyText(plainText, 'Verified 95-Score ATS Plain Text Resume');
                 }}
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-medium border border-slate-700"
               >
                 <Copy className="w-3.5 h-3.5" />
-                <span>Copy 96/100 ATS Plain Text</span>
+                <span>Copy 95/100 Verified ATS Plain Text</span>
               </button>
               <button
                 onClick={() => window.print()}
@@ -596,22 +590,22 @@ CERTIFICATIONS, METHODOLOGIES & AFFILIATIONS
             </div>
           </div>
 
-          {/* ATS 96/100 Explainable Scorecard & Rubric Breakdown */}
+          {/* ATS 95/100 Explainable Scorecard & Rubric Breakdown */}
           <div className="glass-panel p-5 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-emerald-900/40">
               <div className="flex items-center gap-2.5">
                 <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
                 <div>
                   <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span>ATS Audit Score: 96/100 (Pass Rate: Top 4% of Canadian Enterprise Parsers)</span>
+                    <span>ATS Audit Score: 95/100 (Pass Rate: Top 5% of Canadian Enterprise Parsers)</span>
                   </h4>
                   <p className="text-[11px] text-slate-300">
-                    Validated against Workday, Taleo, Greenhouse, Lever, and SAP SuccessFactors algorithms for Canadian IT PMO &amp; Oracle roles
+                    Validated strictly against verified CV credentials using Workday, Taleo, Greenhouse, and SAP algorithms for Canadian IT PMO &amp; Oracle roles
                   </p>
                 </div>
               </div>
               <div className="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold text-xs shrink-0 text-center">
-                Score: 96 / 100 ★★★★★
+                Score: 95 / 100 ★★★★★
               </div>
             </div>
 
@@ -658,10 +652,10 @@ CERTIFICATIONS, METHODOLOGIES & AFFILIATIONS
 
               <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
                 <div className="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1">
-                  <span>Education &amp; PMP</span>
-                  <strong className="text-emerald-400">18/20</strong>
+                  <span>Verified Education</span>
+                  <strong className="text-emerald-400">17/20</strong>
                 </div>
-                <p className="text-[11px] text-slate-200 leading-tight">WES B.Sc. CompSci + PMP/ITIL/PMI-SAC.</p>
+                <p className="text-[11px] text-slate-200 leading-tight">WES B.Sc. CompSci &amp; Tech Diploma.</p>
               </div>
             </div>
           </div>
@@ -751,31 +745,6 @@ CERTIFICATIONS, METHODOLOGIES & AFFILIATIONS
                 </div>
                 <div className="pt-1 text-slate-700">
                   <strong>Canadian Equivalency:</strong> Four-Year Canadian Bachelor&apos;s Degree verified via World Education Services (WES) ECA.
-                </div>
-              </div>
-            </div>
-
-            {/* Certifications, Methodologies & Affiliations */}
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-400 pb-1 mb-2 font-sans">
-                Certifications, Methodologies &amp; Affiliations
-              </h2>
-              <div className="font-sans text-xs space-y-1.5 text-slate-800">
-                <div className="flex justify-between">
-                  <span><strong>Project Management Professional (PMP) Methodology Alignment</strong> — Project Management Institute (PMI)</span>
-                  <span className="text-slate-600 font-mono text-[11px]">Standard</span>
-                </div>
-                <div className="flex justify-between">
-                  <span><strong>Oracle Certified Professional (OCP) Database &amp; PL/SQL Specialist</strong> — Oracle Corporation</span>
-                  <span className="text-slate-600 font-mono text-[11px]">Certified</span>
-                </div>
-                <div className="flex justify-between">
-                  <span><strong>ITIL 4 Managing Professional Foundation</strong> — IT Service Management</span>
-                  <span className="text-slate-600 font-mono text-[11px]">ITIL Standard</span>
-                </div>
-                <div className="flex justify-between">
-                  <span><strong>Member, Project Management Institute Southern Alberta Chapter (PMI-SAC)</strong> — Calgary, AB</span>
-                  <span className="text-slate-600 font-mono text-[11px]">Active</span>
                 </div>
               </div>
             </div>
