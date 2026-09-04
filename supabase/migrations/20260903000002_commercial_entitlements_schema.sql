@@ -10,7 +10,7 @@
 -- Survives serverless cold starts, multi-instance concurrency, and process reboots
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.payment_events (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     stripe_event_id TEXT NOT NULL,
     event_type TEXT NOT NULL,
     payment_environment TEXT NOT NULL DEFAULT 'TEST', -- 'TEST' or 'LIVE'
@@ -71,7 +71,7 @@ CREATE POLICY "No direct client deletes on user_entitlements"
 -- 3. PURCHASES (ONE-TIME TRANSACTIONS)
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.purchases (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     plan_id TEXT NOT NULL,
     amount_cad NUMERIC(10, 2) NOT NULL,
@@ -104,7 +104,7 @@ CREATE POLICY "No direct client updates on purchases"
 -- 4. SUBSCRIPTIONS (RECURRING PRO LIFECYCLE)
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.subscriptions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     stripe_customer_id TEXT NOT NULL,
     stripe_subscription_id TEXT NOT NULL UNIQUE,
@@ -137,7 +137,7 @@ CREATE POLICY "No direct client updates on subscriptions"
 -- 5. CONCIERGE REQUESTS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.concierge_requests (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     purchase_id UUID REFERENCES public.purchases(id) ON DELETE SET NULL,
     status TEXT NOT NULL DEFAULT 'NEW', -- 'NEW', 'SCHEDULED', 'IN_PROGRESS', 'DELIVERED', 'CLOSED'

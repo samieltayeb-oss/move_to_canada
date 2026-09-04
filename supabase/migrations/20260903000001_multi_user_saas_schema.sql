@@ -12,7 +12,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- 1. USER PROFILES
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.profiles (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 -- 2. HOUSEHOLDS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.households (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     num_adults INT NOT NULL DEFAULT 2,
     num_children INT NOT NULL DEFAULT 0,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS public.households (
 -- 3. FAMILY MEMBERS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.family_members (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     household_id UUID NOT NULL REFERENCES public.households(id) ON DELETE CASCADE,
     relationship TEXT NOT NULL, -- 'Primary', 'Spouse', 'Child'
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS public.family_members (
 -- 4. RELOCATION SCENARIOS (Allows multiple move comparisons per user)
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.relocation_scenarios (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     name TEXT NOT NULL, -- e.g., 'Calgary 4-Bed Suburban', 'Edmonton Prudent'
     target_province TEXT NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS public.relocation_scenarios (
 -- 5. USER PRIORITIES
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.user_priorities (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     scenario_id UUID REFERENCES public.relocation_scenarios(id) ON DELETE CASCADE,
     housing_weight INT NOT NULL DEFAULT 20,
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS public.user_priorities (
 -- 6. CAREER PROFILES
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.career_profiles (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     target_noc_code TEXT NOT NULL,
     target_job_title TEXT NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS public.career_profiles (
 -- 7. EMPLOYMENT HISTORY
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.employment_history (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     job_title TEXT NOT NULL,
     employer TEXT NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS public.employment_history (
 -- 8. EDUCATION
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.education (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     degree TEXT NOT NULL,
     institution TEXT NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS public.education (
 -- 9. USER SKILLS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.skills (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     skill_name TEXT NOT NULL,
     category TEXT NOT NULL DEFAULT 'Technical', -- 'Technical', 'Management', 'Language'
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS public.skills (
 -- 10. RESUME VERSIONS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.resume_versions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     version_name TEXT NOT NULL,
     target_role TEXT NOT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS public.resume_versions (
 -- 11. JOB TARGETS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.job_targets (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     company_name TEXT NOT NULL,
     target_title TEXT NOT NULL,
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS public.job_targets (
 -- 12. JOB APPLICATIONS (Career CRM)
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.job_applications (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     company_name TEXT NOT NULL,
     job_title TEXT NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS public.job_applications (
 -- 13. SAVED CITIES
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.saved_cities (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     city_name TEXT NOT NULL,
     province TEXT NOT NULL,
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS public.saved_cities (
 -- 14. SAVED NEIGHBOURHOODS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.saved_neighbourhoods (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     neighbourhood_id TEXT NOT NULL,
     city TEXT NOT NULL DEFAULT 'Calgary',
@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS public.saved_neighbourhoods (
 -- 15. SAVED BUSINESSES & LISTINGS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.saved_businesses (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     listing_or_business_id TEXT NOT NULL,
     category TEXT NOT NULL, -- 'Rental', 'Mosque', 'School', 'Bank', 'Halal'
@@ -254,7 +254,7 @@ CREATE TABLE IF NOT EXISTS public.saved_businesses (
 -- 16. SETTLEMENT TASKS (Action Plan checklist persistence)
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.settlement_tasks (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     task_key TEXT NOT NULL,
     phase TEXT NOT NULL, -- 'PRE_ARRIVAL', 'DAYS_1_3', 'DAYS_4_30', 'DAYS_31_90'
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS public.settlement_tasks (
 -- 17. BUDGET SCENARIOS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.budget_scenarios (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     scenario_tier TEXT NOT NULL, -- 'STARTING_CAREFULLY', 'COMFORTABLE', 'PREMIUM'
     housing_rent_cad NUMERIC(10, 2) NOT NULL,
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS public.budget_scenarios (
 -- 18. BENEFIT SCENARIOS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.benefit_scenarios (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     basis_selected TEXT NOT NULL DEFAULT 'WORLDWIDE_YEAR1',
     assessed_income_cad NUMERIC(12, 2) NOT NULL,
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS public.benefit_scenarios (
 -- 19. VEHICLE SCENARIOS
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.vehicle_scenarios (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     vehicle_model TEXT NOT NULL,
     purchase_type TEXT NOT NULL DEFAULT 'USED_CASH',
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS public.vehicle_scenarios (
 -- 20. USER PREFERENCES
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.user_preferences (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     theme TEXT NOT NULL DEFAULT 'dark',
     locale TEXT NOT NULL DEFAULT 'en',
