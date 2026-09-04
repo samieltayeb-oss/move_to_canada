@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { AppProvider } from "@/context/AppContext";
 import { DemoModeBanner } from "@/components/navigation/DemoModeBanner";
+import { NexoraGlobalBar } from "@/components/navigation/NexoraGlobalBar";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 
@@ -69,6 +70,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-sky-500 selection:text-white font-sans">
         <AuthProvider>
           <AppProvider>
+            <NexoraGlobalBar />
             <DemoModeBanner />
             <Navigation />
             <main className="flex-1">
