@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
-import { FeatureKey, hasFeatureAccess, getDefaultFreeEntitlement } from '@/lib/entitlements';
+import { FeatureKey, hasFeatureAccess, getDefaultFreeEntitlement, UserEntitlementRecord } from '@/lib/entitlements';
 import { COMMERCIAL_PLANS } from '@/config/plans';
 import { Lock, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -27,9 +27,31 @@ export function FeatureGate({
   const { locale } = useApp();
   const isAr = locale === 'ar';
 
-  // In demo mode or until user logs in, we evaluate access against free defaults
-  // Users who have purchased will have their verified entitlement loaded from context
-  const entitlement = getDefaultFreeEntitlement();
+  const [activePlan, setActivePlan] = React.useState<string>('FREE');
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedPlan = localStorage.getItem('nexora_move_active_plan');
+        if (savedPlan) {
+          setActivePlan(savedPlan);
+        }
+      } catch {}
+    }
+  }, []);
+
+  const entitlement: UserEntitlementRecord = {
+    userId: 'client_session',
+    planId: (activePlan as any) || 'FREE',
+    isMovePassPurchased: activePlan === 'MOVE_PASS' || activePlan === 'CONCIERGE',
+    isProSubscribed: activePlan === 'PRO_MONTHLY' || activePlan === 'CONCIERGE',
+    proExpiresAt: null,
+    isConciergeCustomer: activePlan === 'CONCIERGE',
+    isFoundingMember: false,
+    grantedByAdmin: false,
+    createdAt: new Date().toISOString()
+  };
+
   const isUnlocked = hasFeatureAccess(entitlement, feature);
 
   if (isUnlocked) {
