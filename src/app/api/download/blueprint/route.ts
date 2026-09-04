@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPurchaseBySession, getEntitlement } from '@/lib/commerce/store';
-import { stripe } from '@/lib/stripe';
 import { COMMERCIAL_PLANS } from '@/config/plans';
 
 export async function GET(req: NextRequest) {
@@ -15,40 +14,31 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // 1. Authoritative entitlement verification
-    let isAuthorized = false;
-    let planId = 'MOVE_PASS';
-    let customerEmail = 'customer@nexoramove.ca';
-
+    // 1. Authoritative entitlement verification from durable store
     const purchase = await getPurchaseBySession(sessionId);
-    if (purchase && purchase.status === 'PAID') {
-      isAuthorized = true;
-      planId = purchase.planId;
-      customerEmail = purchase.customerEmail;
-    } else {
-      // Direct Stripe fallback verification
-      try {
-        const session = await stripe.checkout.sessions.retrieve(sessionId);
-        if (session && session.payment_status === 'paid') {
-          isAuthorized = true;
-          planId = (session.metadata?.planId as string) || 'MOVE_PASS';
-          customerEmail = session.customer_email || session.customer_details?.email || customerEmail;
-        }
-      } catch (err) {
-        console.warn('[Download] Stripe validation error:', err);
-      }
-    }
-
-    if (!isAuthorized) {
+    if (!purchase || purchase.status !== 'PAID') {
       return NextResponse.json(
         {
           error: 'ACCESS_FORBIDDEN',
-          message: 'Payment verification required. Unverified sessions cannot download digital assets.'
+          message: 'Durable payment record not found or unpaid. Download authorization requires verified payment.'
         },
         { status: 403 }
       );
     }
 
+    const entitlement = await getEntitlement(purchase.userId || purchase.customerEmail || sessionId);
+    if (!entitlement) {
+      return NextResponse.json(
+        {
+          error: 'ACCESS_FORBIDDEN',
+          message: 'Active entitlement record not found. Payment reconciliation is pending.'
+        },
+        { status: 403 }
+      );
+    }
+
+    const planId = purchase.planId || entitlement.planId || 'MOVE_PASS';
+    const customerEmail = purchase.customerEmail || entitlement.customerEmail || 'customer@nexoramove.ca';
     const plan = COMMERCIAL_PLANS[planId as keyof typeof COMMERCIAL_PLANS] || COMMERCIAL_PLANS.MOVE_PASS;
 
     // 2. Generate Authoritative Relocation Dossier & Blueprint Digital Product

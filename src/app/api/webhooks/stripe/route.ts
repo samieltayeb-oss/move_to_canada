@@ -36,123 +36,151 @@ export async function POST(req: NextRequest) {
   // 1. DURABLE IDEMPOTENCY CHECK
   // Deduplicates repeated webhooks across serverless restarts and retries
   // ----------------------------------------------------------------------------
-  const alreadyProcessed = await isEventProcessed(event.id);
-  if (alreadyProcessed) {
-    console.log(`[Stripe Webhook] Deduplicated via durable event store: ${event.id}`);
-    return NextResponse.json({ received: true, deduplicated: true });
+  try {
+    const alreadyProcessed = await isEventProcessed(event.id);
+    if (alreadyProcessed) {
+      console.log(`[Stripe Webhook] Deduplicated via durable event store: ${event.id}`);
+      return NextResponse.json({ received: true, deduplicated: true });
+    }
+  } catch (idempErr) {
+    console.error('[Stripe Webhook] Idempotency check failed:', idempErr);
+    // Return 500 so Stripe automatically retries rather than silently failing
+    return NextResponse.json(
+      { error: 'Internal storage error checking event idempotency' }, 
+      { status: 500 }
+    );
   }
-
-  // Record event durably
-  await recordEvent({
-    stripeEventId: event.id,
-    eventType: event.type,
-    environment: event.livemode ? 'LIVE' : 'TEST',
-    processedAt: new Date().toISOString()
-  });
 
   // ----------------------------------------------------------------------------
   // 2. AUTHORITATIVE PURCHASE & ENTITLEMENT LIFECYCLE
   // ----------------------------------------------------------------------------
-  switch (event.type) {
-    case 'checkout.session.completed': {
-      const session = event.data.object as Stripe.Checkout.Session;
-      const planId = (session.metadata?.planId as PlanId) || 'MOVE_PASS';
-      const rawUserId = session.client_reference_id || session.metadata?.userId;
-      
-      const customerEmail = 
-        session.customer_email || 
-        session.customer_details?.email || 
-        (session.metadata?.userEmail) || 
-        'purchaser@nexoramove.ca';
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object as Stripe.Checkout.Session;
+        const planId = (session.metadata?.planId as PlanId) || 'MOVE_PASS';
+        const rawUserId = session.client_reference_id || session.metadata?.userId;
+        
+        const customerEmail = 
+          session.customer_email || 
+          session.customer_details?.email || 
+          (session.metadata?.userEmail) || 
+          'purchaser@nexoramove.ca';
 
-      // Robust Guest Identity Resolution (P0-C3 Audit Mandate)
-      const isGuest = !rawUserId || rawUserId === 'guest_user' || rawUserId === 'anonymous';
-      const effectiveUserId = isGuest
-        ? `guest_${Buffer.from(customerEmail.toLowerCase()).toString('hex').slice(0, 16)}`
-        : rawUserId;
+        // Robust Guest Identity Resolution
+        const isGuest = !rawUserId || rawUserId === 'guest_user' || rawUserId === 'anonymous';
+        const effectiveUserId = isGuest
+          ? `guest_${Buffer.from(customerEmail.toLowerCase()).toString('hex').slice(0, 16)}`
+          : rawUserId;
 
-      const amountCAD = (session.amount_total || 0) / 100;
-      const paymentEnv = session.livemode ? 'LIVE' : 'TEST';
-      const plan = COMMERCIAL_PLANS[planId] || COMMERCIAL_PLANS.MOVE_PASS;
+        const amountCAD = (session.amount_total || 0) / 100;
+        const paymentEnv = session.livemode ? 'LIVE' : 'TEST';
+        const plan = COMMERCIAL_PLANS[planId] || COMMERCIAL_PLANS.MOVE_PASS;
 
-      console.log(`[Stripe Webhook] Processing verified checkout:`, {
-        session: session.id,
-        user: effectiveUserId,
-        email: customerEmail,
-        isGuest,
-        plan: planId,
-        amount: `$${amountCAD} CAD`,
-        env: paymentEnv
-      });
+        console.log(`[Stripe Webhook] Processing verified checkout:`, {
+          session: session.id,
+          user: effectiveUserId,
+          email: customerEmail,
+          isGuest,
+          plan: planId,
+          amount: `$${amountCAD} CAD`,
+          env: paymentEnv
+        });
 
-      // A. Persist Purchase Record
-      const purchaseRecord: StoredPurchase = {
-        id: `pur_${Date.now()}_${session.id.slice(-8)}`,
-        userId: effectiveUserId,
-        customerEmail,
-        planId,
-        amountCAD,
-        currency: session.currency?.toUpperCase() || 'CAD',
-        paymentEnvironment: paymentEnv,
-        stripeSessionId: session.id,
-        stripePaymentIntentId: typeof session.payment_intent === 'string' ? session.payment_intent : null,
-        status: 'PAID',
-        createdAt: new Date().toISOString()
-      };
-      await savePurchase(purchaseRecord);
+        // A. Persist Purchase Record
+        const purchaseRecord: StoredPurchase = {
+          id: `pur_${Date.now()}_${session.id.slice(-8)}`,
+          userId: effectiveUserId,
+          customerEmail,
+          planId,
+          amountCAD,
+          currency: session.currency?.toUpperCase() || 'CAD',
+          paymentEnvironment: paymentEnv,
+          stripeSessionId: session.id,
+          stripePaymentIntentId: typeof session.payment_intent === 'string' ? session.payment_intent : null,
+          status: 'PAID',
+          createdAt: new Date().toISOString()
+        };
+        await savePurchase(purchaseRecord);
 
-      // B. Persist Entitlement (Active for both authenticated and guest users)
-      const isConcierge = planId === 'CONCIERGE';
-      const isMovePass = planId === 'MOVE_PASS' || isConcierge;
-      const isPro = planId === 'PRO_MONTHLY' || isConcierge;
+        // B. Persist Entitlement
+        const isConcierge = planId === 'CONCIERGE';
+        const isMovePass = planId === 'MOVE_PASS' || isConcierge;
+        const isPro = planId === 'PRO_MONTHLY' || isConcierge;
 
-      const proExpiresAt = isConcierge
-        ? new Date(Date.now() + 90 * 24 * 3600 * 1000).toISOString()
-        : (isPro ? new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString() : null);
+        const proExpiresAt = isConcierge
+          ? new Date(Date.now() + 90 * 24 * 3600 * 1000).toISOString()
+          : (isPro ? new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString() : null);
 
-      const entitlementRecord: StoredEntitlement = {
-        userId: effectiveUserId,
-        customerEmail,
-        planId,
-        isMovePassPurchased: isMovePass,
-        isProSubscribed: isPro,
-        proExpiresAt,
-        isConciergeCustomer: isConcierge,
-        updatedAt: new Date().toISOString()
-      };
-      await saveEntitlement(entitlementRecord);
+        const entitlementRecord: StoredEntitlement = {
+          userId: effectiveUserId,
+          customerEmail,
+          planId,
+          isMovePassPurchased: isMovePass,
+          isProSubscribed: isPro,
+          proExpiresAt,
+          isConciergeCustomer: isConcierge,
+          updatedAt: new Date().toISOString()
+        };
+        await saveEntitlement(entitlementRecord);
 
-      // C. Transactional Email Receipt & Secure Download Link Dispatch
-      const origin = process.env.NEXT_PUBLIC_APP_URL || 'https://movetocanada.vercel.app';
-      const downloadUrl = `${origin}/api/download/blueprint?session_id=${session.id}`;
+        // C. Record Event for Idempotency AFTER Successful Persistence
+        await recordEvent({
+          stripeEventId: event.id,
+          eventType: event.type,
+          environment: event.livemode ? 'LIVE' : 'TEST',
+          processedAt: new Date().toISOString()
+        });
 
-      await sendOrderConfirmationEmail({
-        customerEmail,
-        planName: plan.displayName,
-        amountCAD,
-        sessionId: session.id,
-        downloadUrl
-      });
+        // D. Transactional Email Receipt & Secure Download Link Dispatch
+        const origin = process.env.NEXT_PUBLIC_APP_URL || 'https://movetocanada.vercel.app';
+        const downloadUrl = `${origin}/api/download/blueprint?session_id=${session.id}`;
 
-      break;
+        await sendOrderConfirmationEmail({
+          customerEmail,
+          planName: plan.displayName,
+          amountCAD,
+          sessionId: session.id,
+          downloadUrl
+        });
+
+        break;
+      }
+
+      case 'customer.subscription.deleted': {
+        const subscription = event.data.object as Stripe.Subscription;
+        console.log(`[Stripe Webhook] Subscription canceled: ${subscription.id}`);
+        // Record event
+        await recordEvent({
+          stripeEventId: event.id,
+          eventType: event.type,
+          environment: event.livemode ? 'LIVE' : 'TEST',
+          processedAt: new Date().toISOString()
+        });
+        break;
+      }
+
+      default:
+        console.log(`[Stripe Webhook] Unhandled event type: ${event.type}`);
+        // Record event
+        await recordEvent({
+          stripeEventId: event.id,
+          eventType: event.type,
+          environment: event.livemode ? 'LIVE' : 'TEST',
+          processedAt: new Date().toISOString()
+        });
+        break;
     }
 
-    case 'customer.subscription.deleted': {
-      const subscription = event.data.object as Stripe.Subscription;
-      console.log(`[Stripe Webhook] Subscription canceled: ${subscription.id}`);
-      // Subscriptions gracefully marked canceled while preserving private user data
-      break;
-    }
-
-    case 'charge.refunded': {
-      const charge = event.data.object as Stripe.Charge;
-      console.log(`[Stripe Webhook] Charge refunded: ${charge.id}`);
-      break;
-    }
-
-    default:
-      console.log(`[Stripe Webhook] Unhandled event type: ${event.type}`);
+    return NextResponse.json({ received: true });
+  } catch (fulfillmentErr) {
+    console.error('[Stripe Webhook:P0.1] Fulfillment failed during processing:', fulfillmentErr);
+    // CRITICAL P0.1 RECOVERY LAW:
+    // If persistence fails, return HTTP 500 to trigger Stripe's automatic webhook retry.
+    // Event was NOT recorded as processed, ensuring clean retry reconciliation.
+    return NextResponse.json(
+      { error: 'Durable fulfillment persistence failed. Webhook will retry.' },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json({ received: true });
 }
